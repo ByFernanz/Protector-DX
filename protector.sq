@@ -1,0 +1,1354 @@
+@title El Protector DX
+@start precarga
+
+[[precarga]]:
+    squiffy.story.go('configuracion')
+<PRECARGAR ARCHIVOS MULTIMEDIA>
+
+[[logo1]]:
+    setTimeout(function(){squiffy.story.go('logo2')}, 3000)
+
+@clear
+<div id="incanus" style="position: absolute; top:0;bottom:0;left:0;right:0;margin:auto;height: 5em;width: 3em;">
+    INCANUS
+</div>
+
+[[logo2]]:
+    setTimeout(function(){squiffy.story.go('inicio')}, 3000)
+@clear
+<div id="textagames" style="position: absolute; top:0;bottom:0;left:0;right:0;margin:auto;height: 5em;width: 3em;">
+    TEXTAGAMES
+</div>
+
+[[pistas]]:
+@clear
+# Pistas
+- [[Cruzar el lago]](pistas_lago)  
+- [[Recorrer las cavernas]](pistas_cavernas)  
+- [[Despertar al Protector]](pistas_protector)
+---
+- [[Salir]](ultima_localizacion)
+
+[[pistas_lago]]:
+@clear
+## Cruzar el lago
+- [[¿Cómo cruzo el lago?]](pistas_lago_1)   
+- [[¿Cómo me muevo después de cruzar el lago?]](pistas_lago_2) 
+---
+- [[Volver]](pistas)  
+- [[Salir]](ultima_localizacion)
+
+[[pistas_lago_1]]:
+@clear
+### ¿Cómo cruzar el lago?
+
+(1/6) Necesitas algo para protegerte: algo que resista el fuego y la lava. 
+
+- [[Volver]](pistas_lago)
+
++++ {cont}
+
+(2/6) Busca en las Rocas...
+
+- [[Volver]](pistas_lago)
+
++++ {cont}
+
+(3/6) Encontrarás unas conchas resistentes al fuego...
+
+- [[Volver]](pistas_lago)
+
++++ {cont}
+
+(4/6) Debes ponértelas...
+
+- [[Volver]](pistas_lago)
+
++++ {cont}
+
+(5/6) Usando unos Juncos Cortos, también resistentes al fuego...
+
+- [[Volver]](pistas_lago)
+
++++ {cont}
+
+(6/6) Que encontrarás en el Cañaveral.
+
+- [[Volver]](pistas_lago)
+
+[[pistas_lago_2]]:
+@clear
+### ¿Cómo me muevo después de cruzar el Lago?
+
+(1/3) Las Conchas sólo sirven para cruzar el Lago...
+
+- [[Volver]](pistas_lago)
+
++++ {cont}
+
+(2/3) Y no permiten caminar en otro sitio...
+
+- [[Volver]](pistas_lago)
+
++++ {cont}
+
+(3/3) Así que sacátelas...
+
+- [[Volver]](pistas_lago)
+
+
+[[pistas_cavernas]]:
+@clear
+## Recorrer las cavernas
+- [[¿Cómo me ilumino en la caverna?]](pistas_cavernas_1)
+- [[¿Cómo llevo la flor de fuego?]](pistas_cavernas_2)
+- [[¿Cómo bajo el abismo?]](pistas_cavernas_3)
+---
+- [[Volver]](pistas)  
+- [[Salir]](ultima_localizacion)
+
+[[pistas_cavernas_1]]:
+@clear
+### ¿Cómo me ilumino en la caverna?
+(1/8) Necesitas hacerte una Antorcha de pasto...
+
+- [[Volver]](pistas_cavernas)
+
++++ {cont}
+
+(2/8) Que podrás encender con una Flor de Fuego...
+
+- [[Volver]](pistas_cavernas)
+
++++ {cont}
+
+(3/8) Que encontrarás en el Campo de Flores de Fuego.
+
+- [[Volver]](pistas_cavernas)
+
++++ {cont}
+
+(4/8) Para hacer la Antorcha, necesitas pasto grafeck...
+
+- [[Volver]](pistas_cavernas)
+
++++ {cont}
+
+(5/8) Busca en el pasto en las Llanuras...
+
+- [[Volver]](pistas_cavernas)
+
++++ {cont}
+
+(6/8) Encontrarás tallos largos y briznas cortas...
+
+- [[Volver]](pistas_cavernas)
+
++++ {cont}
+
+(7/8) Puedes hacer con ellos una antorcha...
+
+- [[Volver]](pistas_cavernas)
+
++++ {cont}
+
+(8/8) Atando los tallos largos con las briznas cortas.
+
+- [[Volver]](pistas_cavernas)
+
+[[pistas_cavernas_2]]:
+@clear
+### ¿Cómo llevo la flor de fuego?
+(1/5) Para sacar la Flor de Fuego más allá del Campo de Flores de Fuego...
+
+- [[Volver]](pistas_cavernas)
+
++++ {cont}
+
+(2/5) Necesitas usar algo que evite que deje caer chispas...
+
+- [[Volver]](pistas_cavernas)
+
++++ {cont}
+
+(3/5) Buscando en la Choza...
+
+- [[Volver]](pistas_cavernas)
+
++++ {cont}
+
+(4/5) Encontrarás tu Bolsa...
+
+- [[Volver]](pistas_cavernas)
+
++++ {cont}
+
+(5/5) Mete la Flor de Fuego en la Bolsa y llévala sin peligro.
+
+- [[Volver]](pistas_cavernas)
+
+[[pistas_cavernas_3]]:
+@clear
+### ¿Cómo bajo el abismo?
+(1/5) Para bajar el Abismo, necesitas una Soga de Juncos...
+
+- [[Volver]](pistas_cavernas)
+
++++ {cont}
+
+(2/5) Hecha con Juncos Largos...
+
+- [[Volver]](pistas_cavernas)
+
++++ {cont}
+
+(3/5) Que encontrarás en el Cañaveral.
+
+- [[Volver]](pistas_cavernas)
+
++++ {cont}
+
+(4/5) Ata los Juncos Largos entre sí...
+
+- [[Volver]](pistas_cavernas)
+
++++ {cont}
+
+(5/5) Y ata la Soga resultante al Saliente. Podrás bajar.
+
+- [[Volver]](pistas_cavernas)
+
+[[pistas_protector]]:
+@clear
+## Despertar a El Protector
+- [[¿Cómo encuentro a El Protector?]](pistas_protector_1)
+- [[¿Cómo rescato a El Protector?]](pistas_protector_2)
+- [[¿Cómo despierto a El Protector?]](pistas_protector_3)
+---
+- [[Volver]](pistas)  
+- [[Salir]](ultima_localizacion)
+
+[[pistas_protector_1]]:
+@clear
+### ¿Cómo encuentro a El Protector?
+(1/6) Bajando por el Abismo de las Cavernas...
+
+- [[Volver]](pistas_protector)
+
++++ {cont}
+
+(2/6) Llegarás al Templo de El Protector.
+
+- [[Volver]](pistas_protector)
+
++++ {cont}
+
+(3/6) Busca en la Elevación del Templo...
+
+- [[Volver]](pistas_protector)
+
++++ {cont}
+
+(4/6) Y encontrarás las Urnas de descanso de El Protector.
+
+- [[Volver]](pistas_protector)
+
++++ {cont}
+
+(5/6) Buscando en las Urnas...
+
+- [[Volver]](pistas_protector)
+
++++ {cont}
+
+(6/6) Encontarás la Urna donde duerme El Protector.
+
+- [[Volver]](pistas_protector)
+
+
+[[pistas_protector_2]]:
+@clear
+### ¿Cómo rescato a El Protector?
+(1/2) Examina con cuidado la la Urna donde duerme El Protector...
+
+- [[Volver]](pistas_protector)
+
++++ {cont}
+
+(2/2) Y luego toca a El Protector.
+
+- [[Volver]](pistas_protector)
+
+
+[[pistas_protector_3]]:
+@clear
+### ¿Cómo despierto a El Protector?
+(1/11) Debes ir al Norte de la Aldea...
+
+- [[Volver]](pistas_protector)
+
++++ {cont}
+
+(2/11) Entrar en El Crater...
+
+- [[Volver]](pistas_protector)
+
++++ {cont}
+
+(3/11) Y explorar el interior de las Ruinas...
+
+- [[Volver]](pistas_protector)
+
++++ {cont}
+
+(4/11) Busca la Caverna Ardiente...
+
+- [[Volver]](pistas_protector)
+
++++ {cont}
+
+(5/11) Y vuelve a hacerla arder.
+
+- [[Volver]](pistas_protector)
+
++++ {cont}
+
+(6/11) Fijate en el Monolito...
+
+- [[Volver]](pistas_protector)
+
++++ {cont}
+
+(7/11) Y observa en detalle la Protuberancia...
+
+- [[Volver]](pistas_protector)
+
++++ {cont}
+
+(8/11) Si buscas en los Tesoros Malditos...
+
+- [[Volver]](pistas_protector)
+
++++ {cont}
+
+(9/11) Encontrarás unas Barras Luminosas...
+
+- [[Volver]](pistas_protector)
+
++++ {cont}
+
+(10/11) Toma una Barra...
+
+- [[Volver]](pistas_protector)
+
++++ {cont}
+
+(11/11) Y métela en Agujero en la Protuberancia.
+
+- [[Volver]](pistas_protector)
+
+
+[[inicio]]:
+    //$("body").append('<script src="bg_start.js" id="bg_start"></script>')
+<manta abierta>
+@set not abierta
+@set movimientos = 0
+@set ctrlMov = 0
+@clear
+{big_space}
+# {i_mountain} El Protector
+#### Una Fábula Ecológica Breve
+Realizado por: *Sebastián Armas (Incanus)*  
+Versión deluxe: *Textagames*
+
+(C) Año 2022 {s}
+Release 1.0.0 {s}
+**NO RECOMENDABLE PARA MENORES DE 14 AÑOS**
+
+- [[Introducción]](intro)
+- [[Nueva Partida]](aldea)
+
+[[intro]]:
+    //$("canvas").remove()
+    //$("#bg_start").remove()
+@clear
+{big_space}
+
+Hace ya muchas estaciones que tu aldea es guardada fielmente...{s}
+...por El Protector.
++++ {cont}
+
+**El Protector ahuyenta a los Cazadores.{s}
+El Protector siempre está cerca.{s}
+El Protector vigila de noche.{s}
+El Protector vigila de día.{s}
+El Protector los cuida.**
++++ {cont}
+
+**El Protector es el mejor amigo de la aldea.{s}
+La vida era difícil antes de El Protector.**
++++ {cont}
+
+@clear
+{big_space}
+
+Antes de la llegada de El Protector, tu gente vivía atemorizada por los implacables Cazadores.
++++ {cont}
+
+Los Cazadores siempre acechaban en los Campos de las Flores de Fuego...{s}
+y a veces, cuando hacía frío, había que arriesgar la vida.{s}
+Los Cazadores siempre acechaban cerca del Lago Ardiente...{s}
+y ver su belleza equivalía a morir.{s}
+Los Cazadores siempre acechaban en las Llanuras...{s}
+y era peligroso conseguir alimento.{s}
++++ {cont}
+
+Pero llegó El Protector.
++++ {cont}
+
+Y El Protector alejó a los Cazadores más allá de los Páramos.
++++ {cont}
+
+@clear
+{big_space}
+
+**El Protector nunca exige nada...{s}
+pero, a veces, debe descansar.**
++++ {cont}
+
+**El Protector duerme por poco tiempo...{s}
+pero debe ser despertado.**
++++ {cont}
+
+Porque, si El Protector durmiera demasiado, los Cazadores podrían volver... y la aldea sería presa fácil para ellos.
++++ {cont}
+
+La primera vez que El Protector se echó a dormir nadie lo supo hasta que casi fue demasiado tarde, y apenas quedó alguien en la aldea para buscarlo, encontrarlo y despertarlo.
++++ {cont}
+
+La primera vez que El Protector se echó a dormir fue difícil despertarlo... pero la aldea lo logró, y aprendió como debía hacerlo... y cuándo.
++++ {cont}
+
+@clear
+{big_space}
+
+El Protector no ha sido visto{s}
+hace varios días... así que,{s}
+una vez más, se ha echado a{s}
+dormir.
++++ {cont}
+
+La aldea te ha elegido{s}
+y tendrás el gran Honor{s}
+de buscar a El Protector,{s}
+y sacarlo de su sueño.
++++ {cont}
+
+Debes hacerlo{s}
+cuanto antes,{s}
+pues, pronto,{s}
+llegarán los{s}
+Cazadores...
++++ {cont}
+
+Y necesitarán{s}
+a El Protector.
+
+[[{cont}]](aldea)
+
+
+[[aldea]]:
+    $("canvas").remove()
+    $("#bg_start").remove()
+@clear
+@set localizacion = aldea
+@set title = La Aldea
+
+@set random:aldea_ambientador = Una hermosa mujer pasa caminando frente a tí, ocupada en sus quehaceres diarios. La ves marcharse al interior de una choza.|Llegan algunos recolectores, cargados de fardos de pasto Grafeck. Pronto se dispersan por la aldea.|Contemplas la aldea a tu alrededor. Todo está como siempre.|Unos niños pasan corriendo. Envidias brevemente sus juegos y risas sin afán...|Te llega el suave sonido de un canto de arrullo infantil.|Algunos recolectores abandonan la aldea, en busca de pasto Grafeck.
+
+{barra_estado}
+
+## [{i_ciudad} La Aldea](verb_aldea)
+
+{if not Protector: 
+    {if not aldea_visitada:
+        La aldea está en medio de la Llanura, 
+        que la rodea por completo. Son tan solo 
+        unas cuantas chozas, pero para ustedes es 
+        el mejor sitio que conocen... y ahora está
+        en peligro, sin El Protector.{s}
+        Tus [amigos] te miran con alegría y te 
+        sonríen al pasar, pues ya saben que has de
+        salir pronto en busca de El Protector. 
+        Todos te miran expectantes.
+        {@aldea_visitada = true}
+    }
+    {else:
+        Estás en medio de la aldea, rodeado de chozas 
+        aquí y allá.{s}
+		Tus [amigos] te miran con curiosidad, pues no 
+		entienden por qué motivos no sales aun en busca 
+		de El Protector. Sin embargo, sólo esperan a que
+		te decidas a partir de una vez. Todos te miran 
+		expectantes.
+    }
+    {s}Hacia el Norte se encuentran la Llanura, y más
+    allá, los Páramos y los Campos de Flores de Fuego. 
+    Más lejos, es territorio tabú. En las demás 
+    direcciones, sólo se ve la Llanura.
+}
+{else:
+    {if not aldea_general:
+        La aldea está en medio de la Llanura, que la 
+        rodea por completo. Són tan solo unas cuantas 
+        chozas, pero para ustedes es el mejor sitio que 
+        conocen... y a salvo, ahora que traes a El
+        Protector.{s}
+		Tus [amigos] te reciben con alegría y gozo, pues 
+		saben, al verte, que traes contigo a El 
+		Protector y que la aldea volverá a estar a 
+		salvo de los Cazadores. Te animan a seguir
+		adelante, pues debes encontrar un lugar seguro 
+		para despertar, por fin, a El Protector. Todos 
+		te miran expectantes.
+		{@aldea_general = true}
+    }
+    {else:
+        Estás en medio de la aldea, rodeado de chozas 
+        aquí y allá.{s}
+		Tus [amigos] te miran con curiosidad, pues no 
+		entienden por qué te demoras en la aldea. El 
+		Protector no debe despertar aquí, ya que en su 
+		letargo inicial sería presa fácil de los 
+		Cazadores. Debes seguir hacia el Norte, hasta tu
+		destino. Todos te miran expectantes.
+    }
+    {s}Hacia el Norte se encuentran la Llanura, y más
+    allá, los Páramos y los Campos de Flores de Fuego. 
+    Más lejos, por fin, tu destino. En las demás 
+    direcciones, sólo se ve la Llanura.
+}
+{s}[Tu choza](ex_choza) se encuentra aquí cerca{if not abierta:, cerrada por una suave [manta] de pasto Grafeck}.
+
+{aldea_ambientador}
+
+ - [[Ir al norte]](norte)
+ - [[Ir al sur]](sur)
+ 
+[manta]:
+Una hermosa y suave manta, cosida a la entrada de tu choza, está tejida a partir de pasto Grafeck. {if abierta:En este momento, la manta esta recogida, permitiendo entrar o salir de la choza}{else:En este momento, la manta esta tendida, franqueando la entrada o salida de la choza}.
+- [Correr manta](correr_manta)
+- [Coger manta](coger_manta)
+
+[correr_manta]:
+    if(squiffy.get("abierta") == false){
+        squiffy.set("abierta", true)
+    } else {
+        squiffy.set("abierta", false)
+    }
+    setTimeout(function(){window.sq.ui.write("<hr/>");squiffy.story.passage("cr_manta_msg")},400);
+    squiffy.story.go('aldea')
+
+[cr_manta_msg]:
+{if not abierta:
+    Corres con suavidad la manta de pasto que cierra la entrada, impidiendo entrar o salir.}
+{else:
+    Descorres con suavidad la manta de pasto que cierra la entrada, permitiendo entrar o salir.}
+
+[coger_manta]:
+Está firmemente cosida a la entrada de la choza y no es posible sacarla.
+
+[ex_choza]:
+La choza, como todas las de la aldea, es de base redonda y va perdiendo diámetro según gana altura. Está hecha de tallos de pasto Grafeck, trenzados cuidadosamente. {if abierta:La entrada está abierta, con la manta de pasto Grafeck recogida}{else:La entrada está cerrada por una suave manta de pasto Grafeck}.
+- {if abierta:[[Entrar en la choza]](choza)}{else:[Entrar en la choza](choza_cerrada)}
+
+
+
+[choza_cerrada]:
+La entrada está cerrada por una suave manta de pasto Grafeck.
+
+[verb_aldea]:
+- [Examinar suelo](Suelo)
+- [Examinar cielo](Cielo)
+- [Escuchar]
+- [Oler]
+
+[Suelo]:
+El suelo de la aldea está gastado por el constante ir y venir, sobre 
+todo en las chozas. Su color es más bien amarillo, lo que demuestra 
+todo el tiempo que llevan viviendo en el mismo sitio.
+
+[Cielo]:
+El cielo está claro, de un hermoso color violeta, con algunas nubes 
+rojas flotando suavemente. Un bello día.
+
+[Escuchar]:
+Oyes el ajetreo diario de tus vecinos. Risas de niños, cantos, pasos...
+
+[Oler]:
+Los aromas de la aldea: sudor, pasto trenzado... paz.
+
+
+[amigos]:
+Tus vecinos de toda la vida, con quienes has jugado de niño o acompañado a recolectar el vital pasto Grafeck.
+
+- [Tocarles](amigos_tocar)
+- [Hablarles](amigos_hablar)
+
+[amigos_tocar]:
+Tus amigos devuelven tu caricia con una sonrisa y un 
+cariñoso golpe en los pies.
+
+[amigos_hablar]:
+
+
+
+[[choza]]:
+@clear
+{barra_estado}
+
+## [{i_choza} La Choza](verb_choza)
+
+[verb_choza]:
+- [Examinar techo](techo)
+        
+
+[techo]:
+La luz de afuera te llega a través del techo e ilumina toda la choza.
+
+[[llanura]]:
+
+[verb_llanura]:
+- [Examinar suelo](suelo)
+- [Examinar cielo](cielo)
+- [Escuchar](escuchar)
+- [Oler](oler)
+
+[escuchar]:
+Oyes el suave sonido del viento meciendo los pastos.  
+Te relaja.
+
+[oler]:
+Todo alrededor, el suave aroma de los [pastos](pastos), un poco agrio y deliciosamente ácido, te rodea, reconfortándote.
+
+[suelo]:
+El suelo es de tierra con muy pocas [piedras](dec.piedras). Su color 
+anaranjado te da tranquilidad, pues de trata de un suelo 
+fértil para que crezca los pastos.
+
+[cielo]:
+El cielo está claro, de un hermoso color violeta, con 
+algunas [nubes](dec.nubes) rojas flotando suavemente. Un bello día. 
+Incluso, puedes ver [Flotadores](dec.flotadores) vagando por el cielo.
+
+
+[pasto]:
+El hermoso pasto Grafeck se extiende en todas direcciones 
+de la llanura. Sus tallos, flexibles y suaves, se elevan
+hacia el cielo, meciéndose suavemente con el viento. Su
+superficie refleja la luz en suaves tonos celestes, azules 
+e índigo.
+
+[piedras]:
+A pesar de que el pasto Grafeck lo cubre todo hace ya tiempo, aquí y 
+allá pudes	ver algunas piedras sueltas. Son pequeñas, de extraños 
+colores: gris, negro, marrón...
+
+[pastos]:
+El hermoso pasto Grafeck se extiende en todas direcciones
+de la llanura. Sus tallos, flexibles y suaves, se elevan
+hacia el cielo, meciéndose suavemente con el viento. Su 
+superficie refleja la luz en suaves tonos celestes, 
+azules e índigo.
+            
+
+[[norte]]:
+
+[[sur]]:
+
+[[campo_flores]]:
+@clear
+@set localizacion = campo_flores
+@set title = El campo de flores de fuego
+## [El campo de flores de fuego](verb_campo_flores)
+
+[verb_flores]:
+
+- [Examinar suelo](suelo)
+- [Examinar cielo](cielo)
+- [Escuchar](escuchar)
+- [Oler](oler)
+
+[suelo]:
+El suelo es de una especie de arenilla blanca, muy seca y fina.
+
+[cielo]:
+El cielo está claro, de un hermoso color violeta. Curiosamente, no se 
+ven ninguna nube encima de este campo de flores.
+
+[escuchar]:
+Oyes el suave sonido del viento, pasando por entre las flores... una suave música.
+
+[oler]:
+Las flores despiden un aroma sulfuroso, dulzón, intenso y penetrante.
+
+[[crater]]:
+@clear
+@set localizacion = crater
+@set title = Cráter
+## [El Cráter](verb_crater)
+
+[verb_crater]:
+- [Examinar suelo](suelo)
+- [Examinar cielo](cielo)
+- [Escuchar](escuchar)
+- [Oler](oler)
+
+[suelo]:
+{if localizacion="RuinasCielo":
+    El suelo no sólo está seco y resquebrajado, sino que 
+    incluso parece estar pulido; liso como la superficie de
+    un charco, pero duro como la roca: en algunos sitios se
+    ven algunos hoyos esféricos, como burbujas secas.}
+{else:
+    El suelo está muy desgastado, reseco, resquebrajado y 
+    sin vida. Es de un color amarillo casi blanco... nada 
+    podría crecer aquí.} 
+
+[cielo]:
+El cielo está claro, de un color rosa desagradable. No se ve ninguna nube encima de este erial y la luz brilla con especial agudeza, cegándote por un momento.
+
+[escuchar]:
+Oyes una débil brisa, que apenas suena al rozar el polvo del suelo...
+
+[oler]:
+Nada huele a nada... La esterilidad del lugar lo ha dejado sin 
+siquiera olor...
+
+[[ruinas]]:
+@clear
+@set localizacion = ruinas
+@set title = Ruinas
+## [Ruinas](verb_ruinas)
+
+[verb_ruinas]:
+- [Examinar suelo](suelo)
+- [Examinar cielo](cielo)
+- [Escuchar](escuchar)
+- [Oler](oler)
+
+
+[suelo]:
+@set ruinas_suelo_texto = El suelo es de color blanco y está perfectamente liso y pulido; la luz que parece provenir del techo se refleja en él. Es frío al tacto.
+
+{if localizacion="TunelBlanco1": {ruinas_suelo_texto}}
+{if localizacion="TunelBlanco2": {ruinas_suelo_texto}}
+{if localizacion="TesorosMalditos":
+    El suelo es semejante al del pasillo... lo que logra 
+    verse, ya que los infames Tesoros lo cubren casi por 
+    completo, dificultando el desplazarse en el lugar.}
+{if localizacion="TumbasHielo":
+    El suelo es semejante al del pasillo, pero está 
+    cubierto por una escarcha finísima.}
+{if localizacion="CuevasLucesDanzantes":
+    El suelo es muy diferente al del pasillo... ya que no 
+    sabes si realmente está ahí. A pesar de sentir que 
+    caminas por una superficie sólida, al mirar hacia 
+    abajo te parece como si flotaras en medio de la noche.
+    A veces, tus pasos te mueven encima de alguna de las 
+    piscinas de luz que hay en el suelo... pero al pasar 
+    encima no sientes nada.}
+{if localizacion="CuevasLucesDanzantes":
+    El suelo es de color blanco y está perfectamente liso 
+    y pulido; la luz que parece provenir del monolito se 
+    refleja en él. Está tibio al tacto.}
+
+[cielo]:
+El suelo no sólo está seco y resquebrajado, sino que incluso parece 
+estar pulido; liso como la superficie de un charco, pero duro como la 
+roca: en algunos sitios se ven algunos hoyos esféricos, como burbujas 
+secas.
+
+[escuchar]:
+El silencio es total. Sólo escuchas tu respiración.
+
+[oler]:
+Nada huele a nada... Tu sentido del olfato se haya extrañamente 
+embotado.
+
+[[ribera]]:
+
+[verb_ribera]:
+- [Examinar suelo](suelo)
+- [Examinar cielo](cielo)
+- [Nadar](nadar)
+- [Escuchar](escuchar)
+- [Oler](oler)
+
+[nadar]:
+{if localizacion=cienaga:
+    El Cañaveral es muy denso como para poder atravesarlo 
+    y llegar al lago.  
+    Por suerte.  }
+Sabes que sería suicidio; la superficie del lago arde con 
+un calor fortísimo, que se siente apenas acercándose un 
+poco...
+
+[escuchar]:
+{if localizacion=cienaga:
+    El suave sonido del oleaje del Lago lamiendo la orilla
+    se mezcla con la canción del viento meciendo los 
+    juncos. La sinfonía te deja arrobado unos momentos...}
+{else:
+    Oyes el suave sonido del oleaje del Lago lamiendo la 
+    orilla. Una música cambiante, eterna, que te hechiza 
+    por un momento.}
+
+[oler]:
+El aroma sulfuroso del Lago te rodea, como una manta 
+cálida.
+
+[suelo]:
+{localizacion=playa:
+    El suelo es de arena de un hermoso color verde, muy 
+    fina, suave y levemente brillante.}
+{localizacion=roquerios:
+    El suelo es muy rocoso, mezclado con un poco de arena
+    también verde, más gruesa y opaca.}
+{localizacion=cienaga:
+    El suelo está caliente, aunque no quema. Es más 
+    compacto que el de la playa y su color es una mezcla 
+    difusa del verde de la arena, escasa, con el tono 
+    morado de los juncos.}
+
+[cielo]:
+El cielo está claro, de un hermoso color violeta, con algunas [nubes](dec.nubes) rojas flotando suavemente. Un bello día.
+
+
+[[dec_lago]]:
+
+[lago_ex]:
+Es un verdadero océano de lava ardiente y fluida.  
+Los relatos de los Ancianos de la Aldea cuentan que no 
+siempre existió el Lago, que alguna vez hubo aquí un 
+profundo valle con llanuras como la que rodea tu aldea.  
+Qué ocurrió para que el valle se transformara en este mar
+ígneo, los Ancianos no lo saben. Los relatos, sin 
+embargo, indican que la lava no es el único peligro en 
+este mar de fuego...  
+El lago es muy extenso al Este y Oste, aunque se estrecha
+un poco en esta ribera, por lo que puede ser posible 
+cruzarlo... debidamente protegido.
+
+[nadar]:
+Sabes que sería suicidio; la superficie del lago arde con
+un calor fortísimo, que se siente apenas acercándose un 
+poco...
+
+[lava]:
+La superficie del lago cambia constantemente, pero el 
+oleaje es más bien suave; de otra forma sería imposible 
+avanzar. El color de la lava es amarillo intenso con 
+algunas zonas de color anaranjado o rojo.
+        
+
+[escuchar]:
+Oyes el suave sonido viento, soplando sobre la superficie ardiente del Lago.
+
+[oler]:
+El aroma sulfuroso del Lago te rodea, como una manta cálida.
+        
+
+[[lago]]:
+
+[verb_lago]:
+- [Examinar lava](dec_lago.lava)
+- [Examinar cielo](cielo)
+- [Nadar](nadar)
+- [Escuchar](escuchar)
+- [Oler](oler)
+
+[nadar]:
+Sabes que sería suicidio; la superficie del lago arde con
+un calor que, afortunadamente, no se siente en las 
+conchas que llevas puestas... pero el calor es apenas 
+soportable.
+
+[escuchar]:
+Oyes el suave sonido viento, soplando sobre la superficie ardiente del Lago.
+
+[cielo]:
+El cielo está claro, de un color rosa desagradable. No se
+ve ninguna nube encima de este océano ígneo y la luz 
+brilla con especial agudeza, cegándote por un momento.
+      
+
+[[colina]]:
+
+[verb_colina]:
+- [Examinar suelo](suelo)
+- [Examinar cielo](cielo)
+- [Escuchar](escuchar)
+- [Oler](oler)
+
+[escuchar]:
+{if localizacion=piesColina:
+    El suave sonido del oleaje del Lago lamiendo la 
+    orilla se mezcla con la canción del viento soplando 
+    en el suelo pedregoso.}
+{if localizacion=entradaCaverna:
+    Te parece oir un lejano goteo de líquido... muy 
+    tenue...}
+{else:
+    El viento sopla suavemente, susurrando en las piedras
+    del suelo.}
+
+[oler]:
+Solo hueles el aire de la Colina, puro y limpio.
+
+[suelo]:
+{if localizacion=piesColina:
+    El suelo, de un color marrón claro, es pedregoso y 
+    carente de toda vegetación. La cercanía con el Lago 
+    ha resecado el aire y, a diferencia de la Playa, no 
+    ves nada vivo que se aferre al suelo.}
+{if localizacion=laderaColina:
+    El suelo en algunas partes liso y compacto. En otros 
+    sitios, hay rocas filosas expuestas, pero en general,
+    es la misma piedra suelta de los Pies de la Colina...
+    un suelo marrón, igualmente desnudo y árido.}
+{if localizacion=entradaCaverna:
+    El suelo es de roca sólida, de color púrpura,            levemente desgastada por el tiempo.}
+
+[cielo]:
+{if localizacion=entradaCaverna:
+    El techo de la Caverna es de roca sólida, de color 
+    púrpura, liso, sin relieve.}
+{else:
+    El cielo está claro, de un hermoso color violeta, con
+    algunas nubes rojas flotando suavemente. Un bello 
+    día.
+}
+
+[[caverna]]:
+
+[verb_caverna]:
+- [Examinar suelo](suelo)
+- [Examinar techo](techo)
+- [Escuchar](escuchar)
+- [Oler](oler)
+  
+[escuchar]:
+Te parece oir un lejano goteo de líquido... muy tenue...
+
+[oler]:
+Solo hueles el aire de la Caverna, un poco húmedo y enrarecido.
+
+[suelo]:
+El suelo es de roca sólida, de color púrpura, levemente desgastada por el tiempo.  
+En algunos sitios es un poco resbaladizo a causa de la humedad.
+
+[techo]:
+El techo de la Caverna es de roca sólida, de color púrpura, liso, sin relieve.
+
+[[dec_caverna]]:
+
+
+[humedad]:
+Es un capa fina de líquido, un tanto tibio. Apenas lo tocas se evapora suavemente.
+
+[roca]:
+La roca desnuda es lisa, color púrpura, con algunas irregularidades menores. Está cubierta por una ligera capa de humedad.
+
+[[templo]]:
+
+[verb_templo]:
+- [Examinar suelo](suelo)
+- [Tocar suelo](tocar)
+- [Examinar techo](techo)
+- [Escuchar](escuchar)
+- [Oler](oler)
+
+[escuchar]:
+{if protector!=true:
+    Escuchas gotas de líquido aquí y allá... y un ruido 
+    extraño y rítmico, proveniente, al parecer, de la 
+    elevación.}
+{else:
+    Escuchas un goteo de líquido... muy cercano...}
+
+[oler]:
+Solo hueles el aire de la Caverna, un poco húmedo y enrarecido.
+
+[tocar]:
+"Es extraño... sientes que algunas partes del suelo son sólidas y otras partes cerca, en cambio, muy flexibles.  
+La textura del suelo es más bien lisa... pero hay largas rugosidades extrañas esparcidas por todas partes.  
+Todo está cubierto de una espesa capa de humedad.  
+Todo lo que tocas te produce un sensación familiar, algo que no puedes recordar del todo...
+
+[suelo]:
+El suelo está cubierto por extrañas formas curvas, brillantes a la escasa luz. Todo parece estar cubierto de humedad.
+
+[techo]:
+No logras distinguir el techo de la Caverna en la penumbra sobre tí.
+
+[[limbo]]:
+Eh. ¿Cómo has llegado aquí?  
+Tío, los Betatesters...
+
+[[dec]]:
+<descripciones generales de decorados>
+
+<DECORADO AMPLIADO>
+[coger]:
+No crees que tenga mucho sentido cargar con eso...
+
+[empujar]:
+No parece que se pueda empujar...
+
+[oler]:
+No parece que huela a nada especial.
+
+[escuchar]:
+No produce ningún sonido.
+
+[tocar]:
+Nada ganas con ello.
+
+[default]:
+No ves ninguna razón para hacer éso.
+
+[flotadores]:
+Nadie, ni siquiera los Ancianos, sabe de dónde vienen. Son grandes 
+como nubes, redondos, translúcidos y etéreos como el aire. Se les 
+suele ver en el cielo, sobre todo en días más despejados, flotando y 
+moviéndose en forma casi imperceptible, a veces atravesando las nubes,
+otras veces rodeándolas y consumiéndolas lentamente...  
+Por alguna razón, solo les gusta vagar por encima de las llanuras... y
+sólo de día. Dónde están cuando nadie les ve es un misterio.
+
+[piedras]:
+A pesar de que el pasto Grafeck lo cubre todo hace ya 
+tiempo, aquí y allá pudes ver algunas piedras sueltas. 
+Son pequeñas, de extraños colores: gris, negro, marrón...
+    
+
+[[jugador]]:
+@clear
+
+{barra_estado}
+
+Eres uno más de La Gente, habitante de las Llanuras y miembro de la 
+aldea. Tus miembros son delgados y largos. Tu piel es de color 
+celeste, casi transparente, semejante al pasto Grafeck tierno. Es un 
+buen día y no hace frío, por lo que no llevas nada puesto.
+
+- [Tocarte]
+- [Olerte]
+- [Cortarte]
+- [Escucharte]
+- [Frotarte]
+- [[Volver]](ultima_localizacion)
+
+[Tocarte]:
+Tu piel es suave y tersa, envidia de los niños, más arrugados y rugosos.
+
+[Olerte]:
+{if not Protector:
+    Hueles a pasto fresco... un olor agrio con un dejo ácido.
+}
+{else:
+    Sientes en tu propia piel el olor característico de El Protector, 
+    mezclado con el tuyo: un olor agrio y un tanto ácido.  
+	Te reconforta.
+}
+
+[Cortarte]:
+{if not Protector:
+    No ves necesidad de mutilarte. Tus días de aparearte han quedado 
+    atrás.
+}
+{else:
+    No te atreves a hacerlo, llevando a El Protector.
+}
+
+[Escucharte]:
+{if not Protector:
+    Escuchas tus suaves latidos, apenas perceptibles.
+}
+{else:
+    Sientes los suaves latidos de El Protector, cada vez más 
+    vigorosos.  
+	Pronto despertará...
+}
+
+[Frotarte]:
+Frotándote con energía, te das un poco de calor.
+
+[[barra_estado]]:
+<div id="barra" style="border: 2px black solid; background: white; padding-left: 0.4em;">
+    <div style="display: inline-block; width: 19%;background: transparent;color: black;">
+        {i_mov}<strong>Mov: <span id="mov">1</span></strong>
+    </div>
+    <div style="text-align: right;display: inline-block; width: 79%;background: transparent;color: black;">
+        [[{i_jugador}]](jugador) {i_separador} [[{i_invent}]](inventario) {i_separador} [[{i_pistas}]](pistas) {i_separador} [[{i_refrescar}]](ultima_localizacion) {i_separador} [[{i_reiniciar}]](Reiniciar)
+    </div>
+</div>
+
+[[Reiniciar]]:
+@clear
+{barra_estado}
+
+¿Quieres reiniciar el juego? Todo tu avance se perderá.
+
+- [[Sí]](si)
+- [[No]](ultima_localizacion)
+
+[[si]]:
+    $('#squiffy').squiffy('restart')
+    //window.squiffy.story.restart()
+- [[No]](ultima_localizacion)
+
+[[configuracion]]:
+    //Utilidades
+    set("s","<br/>")
+    set("cont","<ul><li><span>Continuar</span></li></ul>")
+    set("big_space","<div style='height: 3em;'></div>")
+    set("i_norte", '<i class="fa-solid fa-circle-up"></i>&nbsp;&nbsp;')
+    set("i_sur", '<i class="fa-solid fa-circle-down"></i>&nbsp;&nbsp;')
+    set("i_ciudad", '<i class="fa-solid fa-dungeon"></i>&nbsp;')
+    set("i_mountain", '<i class="fa-solid fa-mountain-sun"></i>&nbsp;')
+    set("i_jugador", '&nbsp;<i class="fa-solid fa-user-large"></i>&nbsp;')
+    set("i_choza", '<i class="fa-solid fa-house-user"></i>&nbsp;')
+    set("i_invent", '&nbsp;<i class="fa-solid fa-toolbox"></i>&nbsp;')
+    set("i_pistas", '&nbsp;<i class="fa-solid fa-puzzle-piece"></i>&nbsp;')
+    set('i_separador', '&nbsp;<i class="fa-solid fa-ellipsis-vertical"></i>&nbsp;')
+    set('i_reiniciar', '&nbsp;<i class="fa-solid fa-power-off"></i>&nbsp;')
+    set('i_refrescar', '&nbsp;<i class="fa-solid fa-retweet"></i>&nbsp;')
+    set('i_mov', '&nbsp;<i class="fa-solid fa-shoe-prints"></i>&nbsp;')
+    //Inicia el Juego
+    squiffy.story.go('logo1')
+
+
+
+[[ultima_localizacion]]:
+    squiffy.story.go(squiffy.get("localizacion"))
+
+[[ambientador]]:
+    //solo usar como repositorio mientras se van creando
+    //las secciones
+
+@set random:llanura_ambientador = La brisa mueve suavemente los pastos.|El viento canta una dulce canción en tus oídos.|Contemplas la llanura a tu alrededor. Su paz te invade, refrescando tu ánimo.
+
+@set random:flores_ambientador = La brisa mueve suavemente las flores, levantando chispas iridiscentes... suspendidas un momento en el aire... y que caen, consumidas, nuevamente sobre las flores.|Una suave oleada de aire tibio sale de las flores y te acaricia, sensualmente.|Contemplas las flores, nimbadas de una suave luz.
+
+@set random:crater_ambientador = Una ráfaga de aire caliente se levanta del suelo.|El viento levanta polvo, obligándote a cubrir tu rostro. Sesa, y todo queda en calma.|El reflejo del suelo te da en los ojos, cegándote momentáneamente.
+
+@set random:ruinas_ambientador = El eco de un sonido lejano te sobresalta.|Sientes tu propia respiración como un ruido estruendoso.|Te estremeces, sin motivo aparente.
+
+@set random:ribera_ambientador = Te llega una suave brisa, entibiada por el Lago cercano.|El viento canta una dulce canción, moviendo suavemente los juncos.|El rumor de las olas del Lago llega a tus oidos.
+
+@set random:lago_ambientador = Contemplas la superficie del Lago. Su oleaje es hipnótico...|Una sombra oscura, enorme, cruza bajo tus pies. Desaparece.|Una ráfaga de aire caliente se levanta del Lago.
+
+@set random:colina_ambientador = Unas pequeñas piedritas caen al mover tus pies.|El viento levanta un poco de polvo.|Una sombra oscura se cierne sobre ti. Ruido de alas. Te quedas inmóvil. Se aleja... y respiras aliviado.
+
+@set random:caverna_ambientador = Escuchas ecos lejanos... como un goteo...|La humedad entrecorta tu respiración.|El calor sofocante te provoca un ligero mareo. Descansas un poco.
+
+@set random:templo_ambientador = Escuchas ecos lejanos... como un goteo...|La humedad entrecorta tu respiración.|El calor sofocante te provoca un ligero mareo. Descansas un poco.
+
+[[bg_start]]:
+    $("body").append('<script src="bg_start.js" id="bg_start"></script>')
+    
+[[rm_bg_start]]:
+    $("canvas").remove()
+    $("#bg_start").remove()
+
+[[]]:
+    //contabilizar movimiento
+    window.saveMov = function (){
+        if (squiffy.story.seen("aldea")){
+            let mov = squiffy.get("movimientos");
+            mov++;
+            setTimeout(function(){
+                if (document.getElementById("mov")){
+                    document.getElementById("mov").innerText=mov;
+                }}, 200);
+            squiffy.set("movimientos", mov);
+        }
+     };
+     if(squiffy.get("ctrlMov") == 0){
+        window.saveMov();
+        squiffy.set("ctrlMov", 1);
+     } else if ((squiffy.get("ctrlMov") == 1)){
+        squiffy.set("ctrlMov", 0);
+     }
+     
+     //
+    window.sq = squiffy;
+    window.sec= squiffy.story.sections;
+
+    //imprimir cualquier pasaje
+    squiffy.story.passage = function(passageName) {
+        if (passageName.includes(".")){
+            let group = passageName.split(".");
+            let sectionName = group[0];
+            let passageTitle = group[1];
+            let pass = squiffy.story.sections[sectionName].passages[passageTitle];
+            if (!pass) return;
+            //setSeen(passageTitle);
+            var masterSection = squiffy.story.sections[''];
+            if (masterSection) {
+                var masterPassage = masterSection.passages[''];
+                if (masterPassage) {
+                    squiffy.story.run(masterPassage);
+                    squiffy.ui.write(masterPassage.text);
+                }
+            }
+            var master = window.sq.story.section.passages[''];
+            if (master) {
+                squiffy.story.run(master);
+                squiffy.ui.write(master.text);
+            }
+            if (pass.clear) {
+                squiffy.ui.clearScreen();
+            }
+            if (pass.attributes) {
+                processAttributes(pass.attributes);
+            }
+            if (pass.js) {
+                pass.js();
+            }
+            squiffy.ui.write(pass.text);
+            squiffy.story.save();
+        } else {
+            var passage = squiffy.story.section.passages[passageName];
+            if (!passage) return;
+            //setSeen(passageName);
+            var masterSection = squiffy.story.sections[''];
+            if (masterSection) {
+                var masterPassage = masterSection.passages[''];
+                if (masterPassage) {
+                    squiffy.story.run(masterPassage);
+                    squiffy.ui.write(masterPassage.text);
+                }
+            }
+            var master = squiffy.story.section.passages[''];
+            if (master) {
+                squiffy.story.run(master);
+                squiffy.ui.write(master.text);
+            }
+            if (passage.clear) {
+                squiffy.ui.clearScreen();
+            }
+            if (passage.attributes) {
+                processAttributes(passage.attributes);
+            }
+            if (passage.js) {
+                passage.js();
+            }
+            squiffy.ui.write(passage.text);
+            squiffy.story.save();
+        }
+    };
+    
+    
+    //para establecer atributos
+    var setAttribute = function(expr) {
+        var lhs, rhs, op, value;
+        var setRegex = /^([\w]*)\s*=\s*(.*)$/;
+        var setMatch = setRegex.exec(expr);
+        if (setMatch) {
+            lhs = setMatch[1];
+            rhs = setMatch[2];
+            if (isNaN(rhs)) {
+				if(startsWith(rhs,"@")) rhs=squiffy.get(rhs.substring(1));
+                squiffy.set(lhs, rhs);
+            }
+            else {
+                squiffy.set(lhs, parseFloat(rhs));
+            }
+        }
+        else {
+			var incDecRegex = /^([\w]*)\s*([\+\-\*\/])=\s*(.*)$/;
+            var incDecMatch = incDecRegex.exec(expr);
+            if (incDecMatch) {
+                lhs = incDecMatch[1];
+                op = incDecMatch[2];
+				rhs = incDecMatch[3];
+				if(startsWith(rhs,"@")) rhs=squiffy.get(rhs.substring(1));
+				rhs = parseFloat(rhs);
+                value = squiffy.get(lhs);
+                if (value === null) value = 0;
+                if (op == '+') {
+                    value += rhs;
+                }
+                if (op == '-') {
+                    value -= rhs;
+                }
+				if (op == '*') {
+					value *= rhs;
+				}
+				if (op == '/') {
+					value /= rhs;
+				}
+                squiffy.set(lhs, value);
+            }
+            else {
+                value = true;
+                if (startsWith(expr, 'not ')) {
+                    expr = expr.substring(4);
+                    value = false;
+                }
+                squiffy.set(expr, value);
+            }
+        }
+    };
+    var processAttributes = function(attributes) {
+        attributes.forEach(function (attribute) {
+            if (startsWith(attribute, '@replace ')) {
+                replaceLabel(attribute.substring(9));
+            }
+            else {
+                setAttribute(attribute);
+            }
+        });
+    };
+    
+    //funcion para numero aleatorio
+    var generateRandomNumber = (min, max) =>  {
+        return Math.floor(Math.random() * (max - min) + min)
+    }
+    //genera numero
+    var control = generateRandomNumber(1,10)
+    
+    //para usar en el ambientador aleatorio
+    var regex = /^random:\s*(\w+)\s*=\s*(.+)/i
+    var matches, attr, options
+    if ( control > 4 && squiffy.story.section.attributes) {
+        squiffy.story.section.attributes.forEach (line => {
+            if (matches = regex.exec(line)) {
+                options = matches[2].split("|")
+                squiffy.set(matches[1], "<em>"+options[Math.floor(Math.random() * options.length)]+"</em>")
+            }
+        })
+    } else if ( control <= 4 && squiffy.story.section.attributes) {
+        squiffy.story.section.attributes.forEach (line => {
+            if (matches = regex.exec(line)) {
+                squiffy.set(matches[1], "")
+            }
+        })
+    }
+    
+    //Eliminar lista de acciones
+    $("ul").remove()
+    setTimeout(
+        function(){
+            $('ul+p').remove()
+            $('p a.squiffy-link').filter(function() {
+                var text = $(this).text().replace(/\s*/g, '')
+                return !text;
+                }).hide()
+            },50)
+   
+[]:
+    window.saveMov();

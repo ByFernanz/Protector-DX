@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="lib/jquery.min.js"></script>
+	<script src="lib/parchment.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="lib/parchment.min.css">
+	<style type="text/css">
+		#gameport {
+			width: auto;
+			overflow: visible;
+		}
+	</style>
+	<script>
+		parchment_options = {
+			default_story: [],
+			lib_path: 'lib/',
+			lock_options: 1,
+			lock_story: 0,
+			page_title: 0
+		};
+	</script>
+</head>
+<body>
+	<div id="about">
+		<h1>Parchment</h1>
+		<p>is an interpreter for Interactive Fiction. <a href="http://parchment.googlecode.com">Find out more.</a></p>
+		<noscript><p>Parchment requires Javascript. Please enable it in your browser.</p></noscript>
+	</div>
+	<div id="parchment"></div>
+</body>
+</html>

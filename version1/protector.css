@@ -1,0 +1,44 @@
+<style>
+html
+{
+	font-family: Papyrus,Verdana,Arial,Courier,Helvetica;
+	font-size:20px;
+}
+
+body,p,ul
+{
+	background-color:#C17253;
+	padding: 10px 40px 10px 40px;
+	font-family: Papyrus,Verdana,Arial,Courier,Helvetica;
+	font-size:20px;
+}
+
+td {
+	font-family: Papyrus,Verdana,Arial,Courier,Helvetica;
+	font-size:20px;
+}
+
+h2 {
+	font-family: Papyrus,Verdana,Arial,Courier,Helvetica;
+	font-size: 28px;
+	color: darkgreen;
+}
+
+h3 {
+	font-family: Papyrus,Verdana,Arial,Courier,Helvetica;
+	font-size: 24px;
+	color: darkgreen;
+}
+
+a {
+	font-family: Papyrus,Verdana,Arial,Courier,Helvetica;
+	text-decoration: none;
+	font-size:20px;
+	color: darkgreen;
+}
+
+a:hover {
+	font-family: Papyrus,Verdana,Arial,Courier,Helvetica;
+	text-decoration: underline;
+}
+</style>

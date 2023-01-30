@@ -1,0 +1,5 @@
+Para compilar, ejecutar mediante linea de comandos u otro desde [..]\Inform\bin\ :
+
+inform630.exe ..\games\Protector\Protector_113.inf ..\games\Protector\Protector_113.z5
+
+Se genera Protector_113.z5 en la misma ruta de Protector_113.inf

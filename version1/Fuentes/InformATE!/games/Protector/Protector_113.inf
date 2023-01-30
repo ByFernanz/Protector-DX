@@ -1,0 +1,4633 @@
+!% -~D
+!% -~S
+!% +include_path=..\lib\base,..\lib\contrib,..\games\Protector
+!Poner "% -~S" (sin las ") permite compilar para generar archivo Protector.z5 (máquina Z versión 5)
+!Poner "!% -~D" al principio del archivo (sin las ") permite compilar en modo Release (No Debug)
+
+! "El Protector"
+!
+! REALIZADO POR: Sebastián Armas
+!
+! Copyright (C) 2005
+
+! CONSTANTES
+
+Constant Historia "
+    ~El Protector~";
+Constant Titular "
+    ^Realizado por: Sebastián Armas^
+    (C) Año 2005^";
+Serial "010103";
+
+! Versión 01.01.03 (Release)
+! Incorpora correcciones según comentarios de Baltasar y Uto:
+! -> Corrección de gramatica para 'apartar'
+! -> Fallos orotográficos corregidos
+! -> Sacarse las Conchas: deben estar puestas
+! -> Además:
+! - Correguida ambiguedad de 'Barras' 
+! Puzzles implementados
+! Decorados implementados
+! Extras implementados: Ayuda, Vocabulario Básico, Pistas, Curiosidades 
+! (Agradecimientos, Vocabulario Adicional, Historia de El Protector)
+! Box de Comienzo, con Intro Opcional, Restaurar o Comienzo
+
+Release 1;
+
+! Queremos usar el comando 'Salidas'
+! Constant ADMITIR_COMANDO_SALIDAS;
+! No queremos usar los comandos 'Lugares' y 'Objetos'
+Constant NO_LUGARES;
+! No queremos usar puntuación
+Constant NO_PUNTUACION;
+! Tenemos Curiosidades
+Constant HAY_CURIOSIDADES;
+! Queremos que se muestren las deducciones del parser
+! Constant IMPRIMIR_DEDUCCIONES;
+
+Include "zipi.inf";            ! Módulo para Menues 
+
+! Menu de Ayuda, Pistas, Curiosidades y Otros
+
+ZIPI_Menu ZIPI_Menu0
+with
+  ZIPI_titulo "Menu de la Aventura",
+  ZIPI_item
+    ZIPI_Menu2
+    ZIPI_Menu7
+    ZIPI_Menu3
+    !ZIPI_Menu8
+;
+ZIPI_Menu ZIPI_Menu1
+with
+  ZIPI_titulo "Ayuda de la Aventura",
+  ZIPI_item
+    ZIPI_Menu2
+    ZIPI_Menu3
+    ZIPI_Menu7
+    ZIPI_Menu8
+;
+ZIPI_Menu ZIPI_Menu2
+with
+  ZIPI_titulo "Instrucciones",
+  ZIPI_item
+    ZIPI_Otro0
+    ZIPI_Otro1
+;
+ZIPI_Menu ZIPI_Menu3
+with
+  ZIPI_titulo "Pistas",
+  ZIPI_item
+    ZIPI_Menu4
+    ZIPI_Menu5
+    ZIPI_Menu6
+;
+ZIPI_Menu ZIPI_Menu4
+with
+  ZIPI_titulo "Cruzar el Lago",
+  ZIPI_item
+    ZIPI_Pista0
+    ZIPI_Pista1
+;
+ZIPI_Menu ZIPI_Menu5
+with
+  ZIPI_titulo "Recorrer las Cavernas",
+  ZIPI_item
+    ZIPI_Pista2
+    ZIPI_Pista3
+    ZIPI_Pista4
+;
+ZIPI_Menu ZIPI_Menu6
+with
+  ZIPI_titulo "Despertar al Protector",
+  ZIPI_item
+    ZIPI_Pista5
+    ZIPI_Pista6
+    ZIPI_Pista7
+;
+ZIPI_Menu ZIPI_Menu7
+with
+  ZIPI_titulo "Vocabulario Básico",
+  ZIPI_item
+    ZIPI_Otro2
+    ZIPI_Otro3
+    ZIPI_Otro4
+    ZIPI_Otro5
+    ZIPI_Otro6
+    ZIPI_Otro7
+    ZIPI_Otro8
+    ZIPI_Otro9
+    ZIPI_Otro10
+    ZIPI_Otro11
+    ZIPI_Otro12
+    ZIPI_Otro13
+    ZIPI_Otro14
+    ZIPI_Otro15
+;
+ZIPI_Menu ZIPI_Menu8
+with
+  ZIPI_titulo "Curiosidades y Otros",
+  ZIPI_item
+    ZIPI_Menu9
+    ZIPI_Otro23
+    ZIPI_Menu10
+    ZIPI_Otro27
+;
+ZIPI_Menu ZIPI_Menu9
+with
+  ZIPI_titulo "Curiosidades",
+  ZIPI_item
+    ZIPI_Otro16
+    ZIPI_Otro17
+    ZIPI_Otro18
+    ZIPI_Otro19
+    ZIPI_Otro20
+    ZIPI_Otro21
+    ZIPI_Otro22
+;
+ZIPI_Menu ZIPI_Menu10
+with
+  ZIPI_titulo "Vocabulario Avanzado",
+  ZIPI_item
+    ZIPI_Otro24
+    ZIPI_Otro25
+    ZIPI_Otro26
+;
+ZIPI_Pista ZIPI_Pista0
+with
+  ZIPI_titulo "¿Cómo cruzo el Lago?",
+  ZIPI_pistas
+    "Necesitas algo para protegerte: algo que resista el fuego y la lava."
+    "Busca en las Rocas..."
+    "Encontrarás unas Conchas resistentes al fuego..."
+    "Debes ponértelas..."
+    "Usando unos Juncos Cortos, también resistentes al fuego..."
+    "Que encontrarás en el Cañaveral."
+;
+ZIPI_Pista ZIPI_Pista1
+with
+  ZIPI_titulo "¿Cómo me muevo después de cruzar el Lago?",
+  ZIPI_pistas
+    "Las Conchas sólo sirven para cruzar el Lago..."
+    "Y no permiten caminar en otro sitio..."
+    "Así que sacátelas..."
+;
+ZIPI_Pista ZIPI_Pista2
+with
+  ZIPI_titulo "¿Cómo me ilumino en la caverna?",
+  ZIPI_pistas
+    "Necesitas hacerte una Antorcha de pasto..."
+    "Que podrás encender con una Flor de Fuego..."
+    "Que encontrarás en el Campo de Flores de Fuego."
+    "Para hacer la Antorcha, necesitas pasto grafeck..."
+    "Busca en el pasto en las Llanuras..."
+    "Encontrarás tallos largos y briznas cortas..."
+    "Puedes hacer con ellos una antorcha..."
+    "Atando los tallos largos con las briznas cortas."
+;
+ZIPI_Pista ZIPI_Pista3
+with
+  ZIPI_titulo "¿Cómo Llevo la Flor de Fuego?",
+  ZIPI_pistas
+    "Para sacar la Flor de Fuego más allá del Campo de Flores de Fuego..."
+    "Necesitas usar algo que evite que deje caer chispas..."
+    "Buscando en la Choza..."
+    "Encontrarás tu Bolsa..."
+    "Mete la Flor de Fuego en la Bolsa y llévala sin peligro."
+;
+ZIPI_Pista ZIPI_Pista4
+with
+  ZIPI_titulo "¿Cómo Bajo el Abismo?",
+  ZIPI_pistas
+    "Para bajar el Abismo, necesitas una Soga de Juncos..."
+    "Hecha con Juncos Largos..."
+    "Que encontrarás en el Cañaveral."
+    "Ata los Juncos Largos entre sí..."
+    "Y ata la Soga resultante al Saliente. Podrás Bajar."
+;
+ZIPI_Pista ZIPI_Pista5
+with
+  ZIPI_titulo "¿Cómo encuentro a El Protector?",
+  ZIPI_pistas
+    "Bajando por el Abismo de las Cavernas..."
+    "Llegarás al Templo de El Protector."
+    "Busca en la Elevación del Templo..."
+    "Y encontrarás las Urnas de descanso de El Protector."
+    "Buscando en las Urnas..."
+    "Encontarás la Urna donde duerme El Protector."
+;
+ZIPI_Pista ZIPI_Pista6
+with
+  ZIPI_titulo "¿Cómo rescato a El Protector?",
+  ZIPI_pistas
+    "Examina con cuidado la la Urna donde duerme El Protector..."
+    "Y luego toca a El Protector."
+;
+ZIPI_Pista ZIPI_Pista7
+with
+  ZIPI_titulo "¿Cómo despierto a El Protector?",
+  ZIPI_pistas
+    "Debes ir al Norte de la Aldea..."
+    "Entrar en El Crater..."
+    "Y explorar el interior de las Ruinas..."
+    "Busca la Caverna Ardiente..."
+    "Y vuelve a hacerla arder."
+    "Fijate en el Monolito..."
+    "Y observa en detalle la Protuberancia..."
+    "Si buscas en los Tesoros Malditos..."
+    "Encontrarás unas Barras Luminosas..."
+    "Toma una Barra..."
+    "Y métela en Agujero en la Protuberancia."
+;
+ZIPI_Otro ZIPI_Otro0
+with
+  ZIPI_titulo "Comandos Principales",
+  ZIPI_ejecutar [;
+       print "Las órdenes siguientes son básicas y pueden encontrarse ";
+       print "en casi cualquier aventura conversacional. El jugador ";
+       print "puede tratar siempre de hacer otras acciones.^^";
+       print "^^";
+       print "n, Norte              - Desplazarse al norte.^";
+       print "s, Sur                - Desplazarse al sur.^";
+       print "e, Este               - Desplazarse al este.^";
+       print "o, Oeste              - Desplazarse al oeste.^";
+       print "Arriba, Subir, a      - Subir.^";
+       print "Abajo, Bajar, b       - Bajar.^";
+       print "Ayuda                 - Esta ayuda.^";
+       print "ex x, examinar x      - Da una descripción de x.^";
+       print "busca en x, mira en x - Revisar un objeto para ver si contiene algo más...^";
+       print "coge x, deja x        - El objeto x pasa a ser o deja de ser llevado.^";
+       print "i, inventario         - Da una lista de los objetos llevados.^";
+       print "Pistas                - Pistas para resolver el juego (evite la tentación...).^";
+  ];
+ZIPI_Otro ZIPI_Otro1
+with
+  ZIPI_titulo "Comandos Complejos",
+  ZIPI_ejecutar [;
+       print "Las órdenes, en general, se pueden dar según:^";
+       print "<Verbo> o bien^";
+       print "<Verbo> <Objeto> o  bien^";
+       print "<Verbo> <Sujeto> <Objeto>^";
+  ];
+ZIPI_Otro ZIPI_Otro2
+with
+  ZIPI_titulo "ecosistema.",
+  ZIPI_ejecutar [;
+       print "1. m. Comunidad de los seres vivos cuyos procesos vitales se relacionan entre sí y se desarrollan en función de los factores físicos de un mismo ambiente.";
+  ];
+ZIPI_Otro ZIPI_Otro3
+with
+  ZIPI_titulo "llanura.",
+  ZIPI_ejecutar [;
+       print "1. f. Campo o terreno igual y dilatado, sin altos ni bajos.^";
+       print "2. f. Igualdad de la superficie de algo.";
+  ];
+ZIPI_Otro ZIPI_Otro4
+with
+  ZIPI_titulo "aldea.",
+  ZIPI_ejecutar [;
+       print "1. f. Pueblo de corto vecindario.";
+  ];
+ZIPI_Otro ZIPI_Otro5
+with
+  ZIPI_titulo "lago.",
+  ZIPI_ejecutar [;
+       print "1. m. Gran masa permanente de líquido depositada en depresiones del terreno.";
+  ];
+ZIPI_Otro ZIPI_Otro6
+with
+  ZIPI_titulo "playa.",
+  ZIPI_ejecutar [;
+       print "1. f. Ribera del mar, lago o de un río grande, formada de arenales en superficie casi plana.^";
+       print "2. f. Porción de mar contigua a esta ribera.";
+  ];
+ZIPI_Otro ZIPI_Otro7
+with
+  ZIPI_titulo "colina.",
+  ZIPI_ejecutar [;
+       print "1. f. Elevación natural de terreno, menor que una montaña.";
+  ];
+ZIPI_Otro ZIPI_Otro8
+with
+  ZIPI_titulo "caverna.",
+  ZIPI_ejecutar [;
+       print "1. f. Concavidad profunda, subterránea o entre rocas.";
+  ];
+ZIPI_Otro ZIPI_Otro9
+with
+  ZIPI_titulo "cráter.",
+  ZIPI_ejecutar [;
+       print "1. m. Depresión topográfica más o menos circular formada por explosión volcánica y por la cual sale humo, ceniza, lava, fango u otras materias, cuando el volcán está en actividad.^";
+       print "2. m. Depresión semejante formada por caída de meteoritos u otro objeto masivo en la superficie de un planeta o satélite.";
+  ];
+ZIPI_Otro ZIPI_Otro10
+with
+  ZIPI_titulo "depredador, ra.",
+  ZIPI_ejecutar [;
+       print "1. adj. Que depreda. U. t. c. s.";
+  ];
+ZIPI_Otro ZIPI_Otro11
+with
+  ZIPI_titulo "depredar.",
+  ZIPI_ejecutar [;
+       print "1. tr. Robar, saquear con violencia y destrozo.^";
+       print "2. tr. Dicho de un animal: Cazar a otros de distinta especie para su subsistencia.";
+  ];
+ZIPI_Otro ZIPI_Otro12
+with
+  ZIPI_titulo "cazador, ra.",
+  ZIPI_ejecutar [;
+       print "1. adj. Dicho de una persona: Que caza por oficio o por diversión. U. t. c. s.^";
+       print "2. adj. Dicho de un animal: Que por instinto persigue y caza otros animales. Perro, gato cazador.";
+  ];
+ZIPI_Otro ZIPI_Otro13
+with
+  ZIPI_titulo "presa.",
+  ZIPI_ejecutar [;
+       print "1. f. Acción de prender o tomar algo.^";
+       print "2. f. Cosa apresada o robada.^";
+       print "3. f. Animal que es o puede ser cazado o pescado.";
+  ];
+ZIPI_Otro ZIPI_Otro14
+with
+  ZIPI_titulo "sobrevivir.",
+  ZIPI_ejecutar [;
+       print "1. intr. Dicho de una persona: Vivir después de la muerte de otra o después de un determinado suceso.^";
+       print "2. intr. Vivir con escasos medios o en condiciones adversas.";
+  ];
+ZIPI_Otro ZIPI_Otro15
+with
+  ZIPI_titulo "simbiosis.",
+  ZIPI_ejecutar [;
+       print "1. f. Biol. Asociación de individuos animales o vegetales de diferentes especies, sobre todo si los simbiontes sacan provecho de la vida en común.";
+  ];
+ZIPI_Otro ZIPI_Otro16
+with
+  ZIPI_titulo "¿Cómo soy?",
+  ZIPI_ejecutar [;
+       print "Mírate.^";
+       print "Tócate.^";
+       print "Huélete.^";
+       print "Córtate.";
+  ];
+ZIPI_Otro ZIPI_Otro17
+with
+  ZIPI_titulo "¿Qué puedo comer?",
+  ZIPI_ejecutar [;
+       print "Todo el pasto que cojas... y lo que hagas con él, también.^";
+       print "Pruebalo.^";
+       print "Los juncos, en cambio...";
+  ];
+ZIPI_Otro ZIPI_Otro18
+with
+  ZIPI_titulo "¿Quién me da Fuego?",
+  ZIPI_ejecutar [;
+       print "Hay muchas advertencias en contra, pero...^";
+       print "Puedes sacar la Flor de Fuego de la Bolsa en la Llanura...^";
+       print "Puedes entrar a la Llanura con la Flor de Fuego en la mano...^";
+       print "Puedes entrar a la Llanura con la Antorcha encendida en la mano...^";
+       print "...y tendras más fuego aún.";
+  ];
+ZIPI_Otro ZIPI_Otro19
+with
+  ZIPI_titulo "¿Cómo es realmente El Templo de El Protector?",
+  ZIPI_ejecutar [;
+       print "Mira los alrededores con atención...^";
+       print "Examina.^";
+       print "Toca.^";
+       print "Huele.^";
+  ];
+ZIPI_Otro ZIPI_Otro20
+with
+  ZIPI_titulo "¿Dónde están los Cazadores?",
+  ZIPI_ejecutar [;
+       print "En el borde de los páramos, si esperas unos cuantos turnos, llegarán...^";
+       print "Una vez que rescates a El Protector, los Cazadores acechan en ";
+       print "la playa y en el campo de flores de fuego...^";
+       print "Puedes huir a tiempo... o quedarte y ver qué pasa...";
+  ];
+ZIPI_Otro ZIPI_Otro21
+with
+  ZIPI_titulo "¿Qué son realmente las Ruinas?",
+  ZIPI_ejecutar [;
+       print "Mira los alrededores con atención...^";
+       print "Explora con cuidado las habitaciones...^";
+       print "Observa todo cuidadosamente...^";
+       print "y podrás hacerte una idea clara.^";
+  ];
+ZIPI_Otro ZIPI_Otro22
+with
+  ZIPI_titulo "¿Puedo llevarme de las Ruinas una barra de los Tesoros?",
+  ZIPI_ejecutar [;
+       print "Puedes tratar de hacerlo...^";
+       print "...pero recuerda las leyendas: los Tesoroso están malditos.";
+  ];
+ZIPI_Otro ZIPI_Otro23
+with
+  ZIPI_titulo "Agradecimientos",
+  ZIPI_ejecutar [;
+       print "A mis betatesters: Dhan y Jenesis, con una paciencia digna de alabanza.^^";
+       print "A toda la comunidad IF española: el foro del CAAD y tantísimos sitios web ";
+       print "con ejemplos y documentos invaluables.^^";
+       print "A Alessandro Schillaci y Luis Fernandez, creadores de JIF (en español), ";
+       print "un pedazo de herramienta para el desarrollo en InformATE!^^";
+       print "A Baltasarq, por Código Concedido y comentarios enviados.^^";
+       print "A Dwalin, por comentarios enviados.^^";
+       print "A Uto, por comentarios enviados.";
+  ];
+ZIPI_Otro ZIPI_Otro24
+with
+  ZIPI_titulo "parásito, ta.",
+  ZIPI_ejecutar [;
+       print "1. adj. Biol. Dicho de un organismo animal o vegetal^";
+       print "Que vive a costa de otro de distinta especie, alimentándose de él y ";
+       print "depauperándolo sin llegar a matarlo.^";
+  ];
+ZIPI_Otro ZIPI_Otro25
+with
+  ZIPI_titulo "desastre.",
+  ZIPI_ejecutar [;
+       print "1. m. Desgracia grande, suceso infeliz y lamentable.";
+  ];
+ZIPI_Otro ZIPI_Otro26
+with
+  ZIPI_titulo "ruina.",
+  ZIPI_ejecutar [;
+       print "1. f. Acción de caer o destruirse algo.^";
+       print "2. f. Pérdida grande de los bienes de fortuna.^";
+       print "(...)^";
+       print "5. f. pl. Restos de uno o más edificios o vehículos arruinados.";
+  ];
+ZIPI_Otro ZIPI_Otro27
+with
+  ZIPI_titulo "Historia de El Protector",
+  ZIPI_ejecutar [;
+       print "¿Cuándo estamos confundiendo el parasitismo con una simbiosis ";
+       print "en el límite de la sobrevivencia?^";
+       print "¿Cuál es la diferencia entre vivir y sobrevivir?^";
+       print "¿Dónde están las fronteras reales entre estos conceptos?^^";
+       print "Escribí este relato interactivo con la intención de explorar ";
+       print "esos terrenos fronterizos, y se me ocurrió que un ambiente ";
+       print "sencillo, con cazadores y presas, me permitiría simplificar el ";
+       print "problema, para ver con claridad, en un ambiente de este tipo, ";
+       print "qué acciones son las que separan^^";
+       print "a la vida de la muerte,^";
+       print "al instinto de sobrevivencia del amor...^";
+       print "...y mostrar así los sacrificios a los que puede llevarnos^";
+       print "dejar de vivir^";
+       print "para ayudar a otros a sobrevivir.^^";
+       print "Es fácil retroceder un poco y ver esto como un documental de ";
+       print "vida salvaje en un ecosistema ficticio... pero para mí, la ";
+       print "Búsqueda de El Protector, y sobre todo las Consecuencias, hacen ";
+       print "de esta pequeña fábula ecológica algo especial. En este relato, ";
+       print "el Protagonista está conciente de lo que está frente a él... y ";
+       print "acomete la Misión para preservar a los suyos... a Cualquier Costo.^^";
+       print "Tal vez mi paternidad reciente me haya hecho reflexionar más de ";
+       print "la cuenta en lo que uno estaría dispuesto a hacer...^";
+       print "para cuidar a su familia...^";
+       print "para proteger a su comunidad...^";
+       print "para preservar a su especie.^^";
+       print "Como nota final, quiero aclarar que, para mí, El Protector es ";
+       print "apenas un instrumento... una herramienta si se quiere.^";
+       print "El verdadero Valor está en decidirse a tomarla, usarla... y ";
+       print "dejarse usar, también, por esta Herramienta.^";
+       print "Y aceptar las Consecuencias.^^";
+       print "Santiago de Chile, 20 de Julio, 2005 ";
+  ];
+  
+! Comentarios
+[curiosidades;
+    ZIPI_RunMenuT(ZIPI_Menu8);
+];
+
+! VARIABLES GLOBALES
+
+Global localizacion_anterior;
+
+
+! INCLUDES Y REPLACES
+
+Include "EParser";
+Include "Acciones";
+Include "Mensajes";
+Include "Gramatica";
+Include "Cortos";                ! Módulo para texto animado
+Include "Decorado";            ! Módulo para descripcion de decorados
+
+
+! Meta clase DecoradoAmpliado
+
+Class DecoradoAmpliado
+    class Decorado
+    with
+        antes [;
+             Examinar: rfalse;
+             Coger: "No crees que tenga mucho sentido cargar con eso...";
+             Empujar: "No parece que se pueda empujar...";
+             Oler: "No parece que huela a nada especial.";
+             Escuchar: "No produce ningún sonido.";
+             Tocar: "Nada ganas con ello.";
+             BuscarEn: <<Examinar self>>;
+             default: "No ves ninguna razón para hacer éso.";
+             ];
+
+! El jugador
+
+Object miJugador 
+with 
+  descripcion
+      "Eres uno más de La Gente, habitante de las Llanuras y miembro de la aldea. Tus miembros son 
+      delgados y largos. Tu piel es de color celeste, casi transparente, semejante al pasto Grafeck tierno. 
+      Es un buen día y no hace frío, por lo que no llevas nada puesto",
+  antes [;
+      Tocar :
+          "Tu piel es suave y tersa, envidia de los niños, más arrugados y rugosos." ;
+      Oler :
+          if (Protector hasnt general)
+              "Hueles a pasto fresco... un olor agrio con un dejo ácido.";
+          else
+            "Sientes en tu propia piel el olor característico de El Protector, mezclado con el tuyo: un olor 
+            agrio y un tanto ácido.^
+            Te reconforta.";              
+      Cortar :
+          if (Protector hasnt general)
+              "No ves necesidad de mutilarte. Tus días de aparearte han quedado atrás.";
+          else
+              "No te atreves a hacerlo, llevando a El Protector";
+      Escuchar :
+          if (Protector hasnt general)
+              "Escuchas tus suaves latidos, apenas perceptibles.";
+          else
+              "Sientes los suaves latidos de El Protector, cada vez más vigorosos.^
+            Pronto despertará...";
+     Frotar :
+         "Frotándote con energía, te das un poco de calor";
+  ]
+; 
+
+! LOCALIDADES
+! Usamos clases de localidades para usar Daemons
+! que generen efectos de ambientación y para
+! algunos decorados de ambientación básicos
+
+Class ObjLocalidad
+with
+    descripcion [;<<Mirar>>;],
+!    antes [;
+!    Examinar : <<Mirar>>;
+!    Mirar: <<Mirar>>;
+!    ],
+has escenario;
+
+Class Localidad_Aldea
+with
+    antes [;
+        Escuchar :
+            if (uno==0)
+            "Oyes el ajetreo diario de tus vecinos. Risas de niños, cantos, pasos...";
+        Oler :
+            if (uno==0)
+            "Los aromas de la aldea: sudor, pasto trenzado... paz.";
+        Examinar:
+            if (uno == obj_abajo)
+                "El suelo de la aldea está gastado por el constante ir y venir, sobre todo en las 
+                chozas. Su color es más bien amarillo, lo que demuestra todo el tiempo que llevan 
+                viviendo en el mismo sitio.";
+            if ((uno == obj_arriba)&& (jugador notin choza))
+                "El cielo está claro, de un hermoso color violeta, con algunas nubes rojas 
+                flotando suavemente. Un bello día.";
+            if ((uno == obj_arriba) && (jugador in choza))
+                "La luz de afuera te llega a través del techo e ilumina toda la choza.";            
+    ],
+has luz;
+
+
+Class Localidad_Llanura
+with
+    antes [;
+        Escuchar :
+            if (uno==0)
+            "Oyes el suave sonido del viento meciendo los pastos.^
+            Te relaja.";
+        Oler :
+            if (uno==0)
+            "Todo alrededor, el suave aroma de los pastos, un poco agrio y deliciosamente ácido, 
+            te rodea, reconfortándote.";
+        Examinar:
+            if (uno == obj_abajo)
+                "El suelo es de tierra con muy pocas piedras. Su color anaranjado te da tranquilidad, 
+                pues de trata de un suelo fértil para que crezca los pastos.";
+            if (uno == obj_arriba)
+                "El cielo está claro, de un hermoso color violeta, con algunas nubes rojas flotando 
+                suavemente. Un bello día. Incluso, puedes ver Flotadores vagando por el cielo.";
+    ],
+has luz;
+
+    ! Decoracion de Llanura
+    
+    DecoradoAmpliado Decorado_Llanura Localidad_Llanura
+    with
+        esta_en
+        [;
+            if (localizacion ofclass Localidad_Llanura)
+                return true;
+            else
+                return false;
+        ],
+        describir
+            'nube' DescripcionNubes G_FEMENINO
+            'nubes' DescripcionNubes G_FEMENINO + G_PLURAL
+            'piedra' DescripcionPiedrasLlanuras G_FEMENINO
+            'piedras' DescripcionPiedrasLlanuras G_FEMENINO + G_PLURAL
+            'pastos' "El hermoso pasto Grafeck se extiende en todas direcciones de la llanura. Sus tallos, 
+            flexibles y suaves, se elevan hacia el cielo, meciéndose suavemente con el viento. 
+            Su superficie refleja la luz en suaves tonos celestes, azules e índigo." G_MASCULINO + G_PLURAL
+            'flotador' DescripcionFlotadores G_MASCULINO
+            'flotadores' DescripcionFlotadores G_MASCULINO + G_PLURAL
+    ;
+        
+    [DescripcionPiedrasLlanuras;
+    return
+    "A pesar de que el pasto Grafeck lo cubre todo hace ya tiempo, aquí y allá pudes    ver algunas piedras 
+    sueltas. Son pequeñas, de extraños colores: gris, negro, marrón...";
+    ];
+
+    [DescripcionFlotadores;
+    return
+    "Nadie, ni siquiera los Ancianos, sabe de dónde vienen. Son grandes como nubes, redondos, 
+    translúcidos y etéreos como el aire. Se les suele ver en el cielo, sobre todo en días 
+    más despejados, flotando y moviéndose en forma casi imperceptible, a veces atravesando las nubes, 
+    otras veces rodeándolas y consumiéndolas lentamente...^
+    Por alguna razón, solo les gusta vagar por encima de las llanuras... y sólo de día. 
+    Dónde están cuando nadie les ve es un misterio." ;
+    ];
+    
+Class Localidad_Flores     
+with
+    antes [;
+        Escuchar :
+            if (uno==0)
+            "Oyes el suave sonido del viento, pasando por entre las flores... una suave música.";
+        Oler :
+            if (uno==0) 
+            "Las flores despiden un aroma sulfuroso, dulzón, intenso y penetrante.";
+        Examinar:
+            if (uno == obj_abajo)
+                "El suelo es de una especie de arenilla blanca, muy seca y fina.";
+            if (uno == obj_arriba)
+                "El cielo está claro, de un hermoso color violeta. Curiosamente, no se ven ninguna 
+                nube encima de este campo de flores.";
+    ],
+has luz;
+
+
+Class Localidad_Crater
+with
+    antes [;
+        Escuchar :
+            if (uno==0)
+            "Oyes una débil brisa, que apenas suena al rozar el polvo del suelo...";
+        Oler :
+            if (uno==0) 
+            "Nada huele a nada... La esterilidad del lugar lo ha dejado sin siquiera olor...";
+        Examinar:
+            if (uno == obj_abajo) {
+                if (localizacion == RuinasCielo)
+                "El suelo no sólo está seco y resquebrajado, sino que incluso parece estar pulido; 
+                liso como la superficie de un charco, pero duro como la roca: en algunos sitios se 
+                ven algunos hoyos esféricos, como     burbujas secas.";
+                else
+                "El suelo está muy desgastado, reseco, resquebrajado y sin vida. Es de un color 
+                amarillo casi blanco... nada podría crecer aquí.";
+            } else if (uno == obj_arriba)
+                "El cielo está claro, de un color rosa desagradable. No se ve ninguna nube encima 
+                de este erial y la luz brilla con especial agudeza, cegándote por un momento.";
+
+    ],
+has luz;
+
+
+Class Localidad_Ruinas
+with
+    antes [;
+        Escuchar :
+            if (uno==0)
+            "El silencio es total. Sólo escuchas tu respiración.";
+        Oler :
+            "Nada huele a nada... Tu sentido del olfato se haya extrañamente embotado.";
+        Examinar, Tocar:
+            if (uno == obj_abajo) {
+                if ( (localizacion == TunelBlanco1) || (localizacion == TunelBlanco2))
+                "El suelo es de color blanco y está perfectamente liso y pulido; la luz que 
+                parece provenir del techo se refleja en él. Es frío al tacto.";
+                else if (localizacion == TesorosMalditos)
+                "El suelo es semejante al del pasillo... lo que logra verse, ya que los infames 
+                Tesoros lo cubren casi por completo, dificultando el desplazarse en el lugar.";
+                else if (localizacion == TumbasHielo)
+                "El suelo es semejante al del pasillo, pero está cubierto por una escarcha finísima.";
+                else if (localizacion == CuevaLucesDanzantes)
+                "El suelo es muy diferente al del pasillo... ya que no sabes si realmente está ahí. 
+                A pesar de sentir que caminas por una superficie sólida, al mirar hacia abajo te 
+                parece como si flotaras en medio de la noche. A veces, tus pasos te mueven encima 
+                de alguna de las piscinas de luz que hay en el suelo... pero al pasar encima no 
+                sientes nada.";
+                else if (localizacion==CavernaArdiente)
+                "El suelo es de color blanco y está perfectamente liso y pulido; la luz que 
+                parece provenir del monolito se refleja en él. Está tibio al tacto.";
+                } else if (uno == obj_arriba) {
+                if ( (localizacion == TunelBlanco1) || (localizacion == TunelBlanco2))
+                "El techo es de color blanco. Es tan liso y pulido como el suelo. Emana una suave 
+                luz que no agrede la vista.";
+                else
+                "El techo está tan alto que no logras distinguir nada.";
+            }
+    ],
+has luz;
+
+
+Class Localidad_Ribera
+with
+    antes [;
+        Nadar :
+            if (localizacion==Cienaga) { print
+                "El Cañaveral es muy denso como para poder atravesarlo y llegar al lago.^
+                Por suerte.^";
+            };
+            "Sabes que sería suicidio; la superficie del lago arde con un calor fortísimo, 
+            que se siente apenas acercándose un poco...";    
+        Escuchar :
+            if (uno==0) {
+                if (localizacion==Cienaga){
+                "El suave sonido del oleaje del Lago lamiendo la orilla se mezcla con la canción 
+                del viento meciendo los juncos. La sinfonía te deja arrobado unos momentos...";
+                } else
+                "Oyes el suave sonido del oleaje del Lago lamiendo la orilla. Una música cambiante, 
+                eterna, que te hechiza por un momento.";
+            }
+        Oler :
+            if (uno==0)
+            "El aroma sulfuroso del Lago te rodea, como una manta cálida.";
+        Examinar:
+            if (uno == obj_abajo) {
+                if (localizacion == Playa){
+                "El suelo es de arena de un hermoso color verde, muy fina, suave y levemente brillante.";
+                } else if (localizacion == Roquerios){
+                "El suelo es muy rocoso, mezclado con un poco de arena también verde, más gruesa y opaca.";
+                } else if (localizacion == Cienaga    ){
+                "El suelo está caliente, aunque no quema. Es más compacto que el de la playa y su color 
+                es una mezcla difusa del verde de la arena, escasa, con el tono morado de los juncos.";
+                }
+            } else if (uno == obj_arriba)
+                "El cielo está claro, de un hermoso color violeta, con algunas nubes rojas flotando 
+                suavemente. Un bello día.";
+    ],
+has luz;
+
+    ! Decoracion de Ribera
+    
+    DecoradoAmpliado Decorado_Ribera Localidad_Ribera
+    with    
+        antes [;
+            Oler : "El aroma sulfuroso del Lago te rodea, como una manta cálida.";
+        ],
+        esta_en
+        [;
+            if (localizacion ofclass Localidad_Ribera)
+                return true;
+            else
+                return false;
+        ],
+        describir 
+            'nube' DescripcionNubes G_FEMENINO
+            'nubes' DescripcionNubes G_FEMENINO + G_PLURAL
+    ;
+    
+    Class LagoDecorado
+        with
+        nombre 'lago',
+        adjetivos 'ardiente',
+        descripcion
+        "Es un verdadero océano de lava ardiente y fluida.^
+        Los relatos de los Ancianos de la Aldea cuentan que no siempre existió el Lago, 
+        que alguna vez hubo aquí un profundo valle con llanuras como la que rodea tu aldea.^
+        Qué ocurrió para que el valle se transformara en este mar ígneo, los Ancianos no 
+        lo saben. Los relatos, sin embargo, indican que la lava no es el único peligro en 
+        este mar de fuego...^
+        El lago es muy extenso al Este y Oste, aunque se estrecha un poco en esta ribera, 
+        por lo que puede ser posible cruzarlo... debidamente protegido.",
+        antes [;
+        Sacar, Coger, Empujar, BuscarEn, Comer, Tocar, Nadar :
+            "Sabes que sería suicidio; la superficie del lago arde con un calor fortísimo, 
+            que se siente apenas acercándose un poco...";
+        Escuchar :
+            "Oyes el suave sonido viento, soplando sobre la superficie ardiente del Lago.";
+        Oler :
+            "El aroma sulfuroso del Lago te rodea, como una manta cálida.";
+        ],    
+    has masculino oculto;    
+
+            
+Class Localidad_Lago
+with
+    antes [;
+        Nadar :
+            "Sabes que sería suicidio; la superficie del lago arde con un calor que, afortunadamente, 
+            no se siente en las conchas que llevas puestas... pero el calor es apenas soportable.";
+        Escuchar :
+            if (uno==0)
+                "Oyes el suave sonido viento, soplando sobre la superficie ardiente del Lago.";
+        Oler :
+            "El aroma sulfuroso del Lago te rodea, penetrante, cálido, embotando completamente tu 
+            sentido del olfato.";
+        Examinar:
+            if (uno == obj_abajo) { DescripcionSueloLago(); };
+            if (uno == obj_arriba)
+            "El cielo está claro, de un color rosa desagradable. No se ve ninguna nube encima 
+            de este océano ígneo y la luz brilla con especial agudeza, cegándote por un momento.";
+    ],
+has luz;
+
+    ! Decoracion de Lago
+    
+    DecoradoAmpliado Decorado_Lago Localidad_Lago
+    with    
+        antes [;
+            Sacar, Coger, Tocar, Empujar, BuscarEn, Comer:
+                <<Nadar>>;
+        ],
+        esta_en
+        [;
+            if (localizacion ofclass Localidad_Lago)
+                return true;
+            else
+                return false;
+        ],
+        describir
+            'lava' DescripcionSueloLago G_FEMENINO
+            'superficie' DescripcionSueloLago G_FEMENINO
+    ;
+    
+    [DescripcionSueloLago;
+    return
+    "La superficie del lago cambia constantemente, pero el oleaje es más bien suave; de otra 
+    forma sería imposible avanzar. El color de la lava es amarillo intenso con algunas zonas 
+    de color anaranjado o rojo.";
+    ];
+
+
+Class Localidad_Colina
+with
+    antes [;
+        Trepar :
+            if (uno==0)
+                <<Subir>>;
+        Escuchar :
+            if (uno==0) {
+                if (localizacion==PiesColina){
+                "El suave sonido del oleaje del Lago lamiendo la orilla se mezcla con la canción 
+                del viento soplando en el suelo pedregoso.";
+                } if (localizacion == EntradaCaverna){
+                "Te parece oir un lejano goteo de líquido... muy tenue...";
+                } else
+                "El viento sopla suavemente, susurrando en las piedras del suelo.";
+            };
+        Oler :
+            if (uno==0)
+            "Solo hueles el aire de la Colina, puro y limpio.";
+        Examinar:
+            if (uno == obj_abajo) {
+                if (localizacion == PiesColina){
+                "El suelo, de un color marrón claro, es pedregoso y carente de toda vegetación. 
+                La cercanía con el Lago ha resecado el aire y, a diferencia de la Playa, no ves 
+                nada vivo que se aferre al suelo.";
+                } else if (localizacion == LaderaColina){
+                "El suelo en algunas partes liso y compacto. En otros sitios, hay rocas filosas 
+                expuestas, pero en general, es la misma piedra suelta de los Pies de la Colina... 
+                un suelo marrón, igualmente desnudo y árido.";
+                } else if (localizacion == EntradaCaverna){
+                "El suelo es de roca sólida, de color púrpura, levemente desgastada por el tiempo.";
+                }
+            } else if (uno == obj_arriba) {
+                 if (localizacion == EntradaCaverna){
+                "El techo de la Caverna es de roca sólida, de color púrpura, liso, sin relieve.";
+                } else
+                "El cielo está claro, de un hermoso color violeta, con algunas nubes rojas flotando 
+                suavemente. Un bello día.";
+            };
+    ],
+has luz;
+
+
+Class Localidad_Caverna
+with
+    antes [;
+        Escuchar :
+            "Te parece oir un lejano goteo de líquido... muy tenue...";
+        Oler :
+            if (uno==0)
+            "Solo hueles el aire de la Caverna, un poco húmedo y enrarecido.";
+        Examinar:
+            if (uno == obj_abajo) {
+                "El suelo es de roca sólida, de color púrpura, levemente desgastada por el tiempo.^
+                En algunos sitios es un poco resbaladizo a causa de la humedad.";
+            } else if (uno == obj_arriba) {
+                "El techo de la Caverna es de roca sólida, de color púrpura, liso, sin relieve.";
+            };
+    ],
+has ~luz;
+
+    ! Decoracion de la Caverna
+    
+    DecoradoAmpliado Decorado_Caverna Localidad_Caverna
+    with
+    antes [;
+            Sacar, Coger, Tocar, Empujar, BuscarEn:
+            <<Examinar self>>;
+        ],
+    esta_en
+    [;
+        if (localizacion ofclass Localidad_Caverna)
+            return true;
+        else
+            return false;
+    ],     
+    describir 
+        'roca' DescripcionRocaCaverna G_FEMENINO
+        'lago' DescripcionLago G_MASCULINO
+        'pared' DescripcionRocaCaverna G_FEMENINO
+        'paredes' DescripcionRocaCaverna G_FEMENINO + G_PLURAL
+        'humedad' "Es un capa fina de líquido, un tanto tibio. Apenas lo tocas se evapora 
+        suavemente." G_FEMENINO
+    ;
+    
+    [DescripcionRocaCaverna;
+    return
+    "La roca desnuda es lisa, color púrpura, con algunas irregularidades menores. 
+    Está cubierta por una ligera capa de humedad.";
+    ];
+
+
+Class Localidad_Templo
+with
+    antes [;
+        Escuchar :
+            if (protector hasnt general)
+                "Escuchas gotas de líquido aquí y allá... y un ruido extraño y rítmico, 
+                proveniente, al parecer, de la elevación.";
+            else
+                "Escuchas un goteo de líquido... muy cercano...";
+        Oler :
+            if (uno==0)
+            "Solo hueles el aire de la Caverna, un poco húmedo y enrarecido.";
+        BuscarEn, Tocar :
+            if (uno == obj_abajo) {
+                "Es extraño... sientes que algunas partes del suelo son sólidas y otras partes 
+                cerca, en cambio, muy flexibles.^
+                La textura del suelo es más bien lisa... pero hay largas rugosidades extrañas 
+                esparcidas por todas partes.^
+                Todo está cubierto de una espesa capa de humedad.^ 
+                Todo lo que tocas te produce un sensación familiar, algo que no puedes recordar 
+                del todo...";
+            }
+        Examinar:
+            if (uno == obj_abajo) {
+                "El suelo está cubierto por extrañas formas curvas, brillantes a la escasa luz. 
+                Todo parece estar cubierto de humedad.";
+            } else if (uno == obj_arriba) {
+                "No logras distinguir el techo de la Caverna en la penumbra sobre tí.";
+            };
+    ],
+has ~luz;
+
+! Definicion de Localidades
+
+Localidad_Aldea Limbo "El Limbo"
+ with 
+     descripcion
+         "Eh. ¿Cómo has llegado aquí?^
+         Tío, los Betatesters...";
+
+! Localidades: La Aldea
+
+Localidad_Aldea Aldea "La Aldea"
+with
+    !nombre 'aldea',
+    descripcion [;
+    if (Protector hasnt general) { 
+        if (self hasnt visitado) print
+            "La aldea está en medio de la Llanura, que la rodea por completo. 
+            Son tan solo unas cuantas chozas, pero para ustedes es el mejor 
+            sitio que conocen... y ahora está en peligro, sin El Protector.^
+            Tus amigos te miran con alegría y te sonríen al pasar, pues ya 
+            saben que has de salir pronto en busca de El Protector. 
+            Todos te miran expectantes.^";
+        else print
+            "Estás en medio de la aldea, rodeado de chozas aquí y allá.^
+            Tus amigos te miran con curiosidad, pues no entienden por qué 
+            motivos no sales aun en busca de El Protector. Sin embargo, sólo 
+            esperan a que te decidas a partir de una vez. 
+            Todos te miran expectantes.^";
+        print
+        "Hacia el Norte se encuentran la Llanura, y más allá, los Páramos 
+        y los Campos de Flores de Fuego. Más lejos, es territorio tabú. 
+        En las demás direcciones, sólo se ve la Llanura.";
+    } else { 
+        if (self hasnt general) { print
+            "La aldea está en medio de la Llanura, que la rodea por completo. 
+            Són tan solo unas cuantas chozas, pero para ustedes es el mejor 
+            sitio que conocen... y a salvo, ahora que traes a El Protector.^
+            Tus amigos te reciben con alegría y gozo, pues saben, al verte, 
+            que traes contigo a El Protector y que la aldea volverá a estar a 
+            salvo de los Cazadores. Te animan a seguir adelante, pues debes 
+            encontrar un lugar seguro para despertar, por fin, a El Protector. 
+            Todos te miran expectantes.^";
+            give self general;
+        } else print
+            "Estás en medio de la aldea, rodeado de chozas aquí y allá.^
+            Tus amigos te miran con curiosidad, pues no entienden por qué 
+            te demoras en la aldea. El Protector no debe despertar aquí, ya 
+            que en su letargo inicial sería presa fácil de los Cazadores. 
+            Debes seguir hacia el Norte, hasta tu destino. 
+            Todos te miran expectantes.^";
+        print
+        "Hacia el Norte se encuentran la Llanura, y más allá, los Páramos 
+        y los Campos de Flores de Fuego. Más lejos, por fin, tu destino. 
+        En las demás direcciones, sólo se ve la Llanura.";        
+    }
+    ],
+    adentro [;
+        if (Choza hasnt abierto)    
+                "La entrada está cerrada por una suave manta de pasto Grafeck." ; 
+        else {
+            JugadorA(Choza);
+            move Manta to Choza;
+            rtrue;
+        }
+    ],
+    al_n LlanuraN,
+    al_s LlanuraS,
+    al_e LlanuraS,
+    al_o LlanuraS;
+
+    ! Objetos de la Aldea    
+
+    Object ChozaDecorado "choza" Aldea
+    with
+        nombre 'choza',
+        inicial "Tu choza se encuentra aquí cerca.",
+        descripcion [; print
+        "La choza, como todas las de la aldea, es de base redonda y va perdiendo diametro según 
+        gana altura. Está hecha de tallos de pasto Grafeck, trenzados cuidadosamente.";
+        if (Choza has abierto)
+            " La entrada está abierta, con la manta de pasto Grafeck recogida.";
+        else
+            " La entrada está cerrada por una suave manta de pasto Grafeck.";
+        ],        
+        antes [;
+            Abrir: <<Abrir ObjChoza>>;
+            Cerrar: <<Cerrar ObjChoza>>;
+            Entrar, Meterse:
+                if (Choza hasnt abierto)    
+                        "La entrada está cerrada por una suave manta de pasto Grafeck." ; 
+                else {
+                    JugadorA(Choza);
+                    move Manta to Choza;
+                    rtrue;
+                };
+        ],
+    has femenino abrible entrable estatico;
+    
+    Object Manta "manta" Aldea
+    with
+        nombre 'manta',
+        adjetivos 'cosida', 
+        descripcion [; print
+        "Una hermosa y suave manta, cosida a la entrada de tu choza, está tejida a 
+        partir de pasto Grafeck. ";
+        if (Choza has abierta)
+            "En este momento, la manta esta recogida, permitiendo entrar o salir de la choza.";
+        else
+            "En este momento, la manta esta tendida, franqueando la entrada o salida de la choza.";
+        ],
+        antes [;
+            Coger : "Está firmemente cosida a la entrada de la choza y no es posible sacarla.";
+            Empujar, Tirar:
+                if (Choza has abierta)
+                    <<Cerrar ObjChoza>>;
+                else
+                    <<Abrir ObjChoza>>;
+        ],
+    has femenino escenario oculto;
+
+    Object Amigos "amigos" Aldea
+    with
+        nombre_mp 'amigos',
+        nombre_m 'amigo',
+        descripcion
+            "Tus vecinos de toda la vida, con quienes has jugado de niño o acompañado a recolectar 
+            el vital pasto Grafeck.",
+        antes [;
+            Tocar :
+                "Tus amigos devuelven tu caricia con una sonrisa y un cariñoso golpe en los pies.";
+            Hablar :
+                if (Protector hasnt general){
+                    if (self hasnt general){
+                        give self general;
+                        "Te sonrien, comentando lo hermoso del día. Sientes en sus voces cómo todos 
+                        confían en tí. Muchos te dan suaves golpes con los pies, en señal de aprecio.";
+                    } else
+                        "Algunos se extrañan de que estés aquí todavía, y apuntan con sus brazos en 
+                        dirección al Sur. Otros se te quedan mirando.";
+                } else if (Protector has general){
+                    if (self has general){
+                        give self ~general;
+                        "Te sonrien, y escuchan con interés tu relato. Puedes ver en sus rostros claras 
+                        señales de alivio. Todos te dan fuertes golpes con los pies, en señal de aprecio.";
+                    } else
+                        "Algunos se extrañan de que estés aquí todavía, y apuntan con sus brazos en 
+                        dirección al Norte. Otros se te quedan mirando, un tanto inquietos.";
+                };                
+        ],
+    has masculino nombreplural animado oculto;
+
+    ! Decoracion de la Aldea
+    
+    ObjLocalidad ObjAldea "Aldea" Aldea
+    with
+        nombre 'aldea',
+    has femenino;
+
+    DecoradoAmpliado Decorado_Aldea Aldea
+    with
+        describir 
+            'nube' DescripcionNubes G_FEMENINO
+            'nubes' DescripcionNubes G_FEMENINO + G_PLURAL
+            'chozas' "Todas las chozas de la aldea son como la tuya, de forma ligeramente cónica, aunque 
+            de distintos colores, según como han sido tejidas o de acuerdo al tiempo que llevan construidas. 
+            Están distribuidas en forma azarosa, aunque hay buena distancia entre cada una." 
+            G_FEMENINO + G_PLURAL
+            'pasto' DescripcionPastoChozas G_MASCULINO
+            'grafeck' DescripcionPastoChozas G_MASCULINO
+        ;
+                
+    [DescripcionPastoChozas;
+    return
+    "El maravilloso pasto Grafeck, trenzado con primor y cuidado, se usa para hacer sogas, mantas, 
+    ropa... las propias chozas.";
+    ];
+        
+    [DescripcionNubes;
+    return
+    "De colores rojo y escarlata, flotan lentamente por el cielo, tomando una y otra vez formas curiosas.";
+    ];
+
+Localidad_Aldea Choza "La Choza"
+with    
+    descripcion [;     print
+        "El interior de la choza está en una agradable semipenumbra. La temperatura está fresca, 
+        merced del maravilloso pasto Grafeck que te rodea. Apenas hay una cama donde tenderse, y 
+        algunas de tus escasas pertenencias aquí y allá.";
+        if (self has abierto)
+            " La entrada está abierta, con la manta de pasto Grafeck recogida.";
+        else
+            " La entrada está cerrada por una suave manta de pasto Grafeck.";
+        ],
+    antes [;
+        Entrar, Meterse :
+            if (self hasnt abierto)    
+                "La entrada está cerrada por una suave manta de pasto Grafeck." ; 
+        Salirse, Salir:
+            if (self hasnt abierto)
+                "La entrada está cerrada por una suave manta de pasto Grafeck." ;
+            else
+                move Manta to Aldea;
+    ],
+    despues [;
+        Entrar, Meterse :
+            move Manta to Choza;
+    ],
+    afuera Aldea,
+has ~abierto; !abrible 
+    
+    ! Decoracion de la Choza
+    
+    ObjLocalidad ObjChoza "Choza" Choza
+    with
+        nombre 'choza',
+        antes [;
+            Abrir:
+                if (Choza hasnt abierto) {
+                    give Choza abierto;
+                    "Descorres con suavidad la manta de pasto que cierra la entrada, permitiendo 
+                    entrar o salir.";
+                } else
+                    "La manta ya está recogida y puedes entrar o salir si lo deseas.";
+            Cerrar:
+                if (Choza has abierto) {
+                    give Choza ~abierto;
+                    "Corres con suavidad la manta de pasto que cierra la entrada, impidiendo 
+                    entrar o salir.";
+                } else
+                    "La manta ya está corrida y la choza está cerrada.";
+            Salir, Salirse :
+                if (Choza hasnt abierto)
+                    "La entrada está cerrada por una suave manta de pasto Grafeck." ;
+                else {
+                    move Manta to Aldea;
+                    JugadorA(Aldea);
+                    rtrue;
+                }
+            Entrar, Meterse :
+                "Ya estás dentro de la choza.";
+            BuscarEn, Examinar :
+                if (Bolsa in Limbo){
+                    print "Buscando entre tus cosas, encuentras tu bolsa de cuero.";
+                    move Bolsa to Choza;
+                    rtrue;
+                } else <<Mirar>>;            
+        ],
+    has femenino entrable abrible;
+    
+    DecoradoAmpliado Decorado_PertChoza Choza
+    with
+        describir 
+            'pertenencia' DescripcionPertenencias G_FEMENINO
+            'pertenencias' DescripcionPertenencias G_FEMENINO + G_PLURAL
+            'herramienta' DescripcionHerramientas G_FEMENINO
+            'herramientas' DescripcionHerramientas G_FEMENINO + G_PLURAL
+            'cama' "Tu lugar de descanso. Una suave superficie, hecha de pasto Grafeck, como casi 
+            todo lo demás en tu choza." G_FEMENINO,
+        despues [;
+            BuscarEn, Examinar : if (Bolsa in Limbo) <<BuscarEn ObjChoza>>;
+        ]
+    ;
+        
+    [DescripcionPertenencias;
+    return
+    "Pequeñas herramientas que has usado, ya sea para comer o para recoletar el pasto Grafeck.";
+    ];
+    
+    [DescripcionHerramientas;
+    return
+    "Están hechos de pasto Grafeck... y de los huesos de los Cazadores muertos por EL Protector.";
+    ];
+                
+    DecoradoAmpliado Decorado_Choza Choza
+    with
+        describir
+            'hueso' DescripcionHuesos G_MASCULINO
+            'huesos' DescripcionHuesos G_MASCULINO + G_PLURAL
+            'pared' DescripcionParedesChoza G_FEMENINO
+            'paredes' DescripcionParedesChoza G_FEMENINO + G_PLURAL
+            'pasto grafeck' DescripcionPastoGrafeck G_MASCULINO
+            'grafeck' DescripcionPastoGrafeck G_MASCULINO
+    ;
+
+    [DescripcionHuesos;
+    return
+    "Los huesos de los Cazadores. Duros y porosos, la mayoría son del color verde de tus propios huesos. 
+    Otros, extrañísimos, de un color amarillo pálido, casi blancos. Muy raros...";
+    ];
+
+    [DescripcionParedesChoza;
+    return
+    "Como casi todo en la Aldea, las paredes de tu choza están hechas de pasto Grafeck, cuidadosamente 
+    trenzado.";
+    ];
+        
+    [DescripcionPastoGrafeck;
+    return
+    "El maravilloso pasto Grafeck, trenzado con primor y cuidado, se usa para hacer sogas, mantas, 
+    ropa... tu cama, las herramientas.^
+    En ocasiones, cuando ha sido necesario salir de la aldea en la noche, algunos hacen antorchas 
+    con él.";
+    ];
+
+    ! Objetos de la Choza
+    
+    Object Bolsa "bolsa de cuero" Limbo
+    with
+        nombre 'bolsa',
+        adjetivos 'cuero',
+        inicial
+        "En el suelo está tu bolsa de cuero.",
+        descripcion
+        "Es una de tus escasas pertenencias, heredada de tus ancestros. Es muy pequeña, 
+        y apenas sirve para llevar alguna cosa. Fue hecha de la piel de algún Cazador... 
+        muerto por El Protector.",
+        capacidad 1,
+        reaccionar_antes [;
+            Meter, Meterse:
+                if ((uno ~= FlorFuego) && (otro == self))
+                    "Eso es demasiado grande para caber en una bolsa tan pequeña.";
+        ],
+        antes [;
+            Tocar :
+                if (    (otro == FlorFuego) && (FlorFuego in jugador))
+                    <<Quemar self FlorFuego>>;
+                else if ((otro == Antorcha) && (Antorcha has encendido) && (Antorcha in jugador))
+                    <<Quemar self Antorcha>>;
+                else if (otro ofclass LagoDecorado) {
+                    "A pesar de estar hecha de la piel de un animal, la bolsa solo se entibia 
+                    levemente. Ni siquiera humea...";
+                }
+            Encender, Quemar, Frotar : 
+                if ( ( (otro == FlorFuego) && (FlorFuego in jugador) ) ||
+                ( (otro == Antorcha) && (Antorcha has encendido) && (Antorcha in jugador) ) ||
+                (otro ofclass LagoDecorado) ){
+                    "A pesar de estar hecha de la piel de un animal, la bolsa solo se entibia 
+                    levemente. Ni siquiera humea...";
+                } else 
+                "Necesitas algo que dé chispas o con fuego para encenderla.";
+            Dejar :             
+                if (localizacion ofclass Localidad_Lago) {
+                    move self to localizacion;
+                    "La bolsa flota en la superficie del lago; a pesar de estar hecha de la 
+                    piel de un animal, la bolsa ni siquiera humea...";
+                } else rfalse;
+            Lanzar :
+                if ( ( (localizacion ofclass Localidad_Ribera) || 
+                (localizacion ofclass Localidad_Lago) ||
+                (localizacion == PiesColina) ) && (otro ofclass LagoDecorado) )    {
+                    if (localizacion~=Cienaga) {
+                        move self to localizacion;
+                        print "La bolsa flota en la superficie del lago";
+                        if ((localizacion ofclass Localidad_Ribera) || 
+                        (localizacion == PiesColina)) print
+                            " y el oleaje pronto la deja a tus pies, en la orilla";
+                        print 
+                        "; a pesar de estar hecha de la piel de un animal, la bolsa ni siquiera humea...";
+                        rtrue;
+                    } else <<Dejar self>>;
+                } else <<Dejar self>>;
+        ],    
+    has femenino recipiente abrible;
+    
+! Localidades: Las Llanuras
+
+    ! Objetos de Las Llanuras
+    
+    Class PastoDecorado
+        with
+        nombre 'pastizal' 'pasto' 'grafeck',
+        descripcion [; print
+        "Los tallos, flexibles y suaves, se elevan hacia el cielo, meciéndose suavemente con 
+        el viento. Su superficie refleja la luz en suaves tonos celestes, azules e índigo.";
+        ],
+        antes [;
+            ! Se encuentra primero el pasto corto,
+            ! luego el pasto largo... en cualquier
+            ! lugar de las llanuras
+            Cortar, Coger, Tirar :
+                if (    (PastoCorto in Limbo) && (PastoCorto hasnt general) ) {
+                    move PastoCorto to jugador;
+                    give PastoCorto general;
+                    "Sacas de entre el pasto unas briznas cortas sueltas.";
+                } else
+                if ( (PastoLargo in Limbo) &&    (PastoLargo hasnt general) ) {
+                    move PastoLargo to jugador;
+                    give PastoLargo general;
+                    "Sacas de entre el pasto unos tallos largos sueltos.";
+                } else "Demasiado pasto para un solo recolector.";
+            Comer:
+                move self to localizacion;
+                if (Protector hasnt general)
+                    "Demasiado pasto para un solo recolector.";
+                else
+                    "No puedes demorarte en ello.";
+        ],
+        despues [;
+            BuscarEn, Examinar:
+                if (    (PastoCorto in Limbo) && (PastoCorto hasnt general) ) {
+                    move PastoCorto to localizacion;
+                    give PastoCorto general;
+                    " Encuentras entre el pasto unas briznas cortas sueltas.";
+                } else
+                if ( (PastoLargo in Limbo) &&    (PastoLargo hasnt general) ) {
+                    move PastoLargo to localizacion;
+                    give PastoLargo general;
+                    " Encuentras entre el pasto unos tallos largos sueltos.";
+                } else rtrue; !"No encuentras nada mas entre el pasto.";    
+        ],
+    has masculino oculto escenario;
+
+    Object Antorcha "antorcha de pasto" Limbo
+    with
+        nombre 'antorcha',
+        adjetivos 'pasto',
+        descripcion [; print 
+            "Es una tosca antorcha hecha de pasto Grafeck.";
+            if (self hasnt encendido) { 
+                " A pesar de su sencillez, sabes que es fácil de inflamar y que una vez encendida 
+                da muy buena lumbre.";
+            } else {
+                " La antorcha flamea suavemente, consumiéndose de a poco en llamas azuladas. Al arder, 
+                suelta pequeñas chispas celestes que se apagan poco después de llegar al suelo.";
+            };
+        ],
+        reaccionar_antes [;
+            Ir: localizacion_anterior = localizacion;
+        ],
+        antes [;
+            Comer :
+                if (Protector hasnt general){
+                    if (self has encendida){
+                        "No te apetece quemarte la boca: será mejor apagarla primero.";
+                    } else {
+                        move self to Limbo;
+                        give PastoCorto ~general;
+                        give PastoLargo ~general;
+                        "Comes la antorcha con apetito. Quedas bastante satisfecho.";
+                    }
+                } else
+                "No sientes apetito alguno. Curioso.";
+            Oler :
+                "Sientes el suave aroma de los pastos, un poco agrio y deliciosamente ácido.^
+                Te reconforta.";
+            Cortar, Tirar :
+                    move self to Limbo;
+                    move PastoCorto to Jugador;
+                    give PastoLargo ~general;
+                    move PastoLargo to Limbo;
+                    "Al cortar la antorcha, las hebras largas de pasto se desmadejan completamente. 
+                    Te quedas sólo con un montón de briznas cortas de pasto.";
+            Dejar :             
+                if (localizacion ofclass Localidad_Lago) {
+                    move self to localizacion;
+                        move self to Limbo;
+                        give PastoCorto ~general;
+                        give PastoLargo ~general;
+                        "Al tocar el Lago, la antorcha se enciende instantáneamente, y se 
+                        consume en el acto, dejando en tus manos unos inútiles fragmentos 
+                        chamuscados, que pronto se deshacen en una ceniza que rápidamente 
+                        se lleva el viento...";
+                } else rfalse;
+            Lanzar :
+                if ( ( (localizacion ofclass Localidad_Ribera) || 
+                (localizacion ofclass Localidad_Lago) ||
+                (localizacion == PiesColina) ) && (otro ofclass LagoDecorado) )    {
+                    if (localizacion~=Cienaga) {
+                        move self to Limbo;
+                        give PastoCorto ~general;
+                        give PastoLargo ~general;
+                        "Al tocar el Lago, la antorcha se enciende instantáneamente, y se 
+                        consume en el acto, dejando en tus manos unos inútiles fragmentos 
+                        chamuscados, que pronto se deshacen en una ceniza que rápidamente 
+                        se lleva el viento...";
+                    } else <<Dejar self>>;
+                } else <<Dejar self>>;
+            Encender, Quemar, Tocar, Frotar : 
+                if (self hasnt encendido) {
+                    if (    (otro == FlorFuego) && (FlorFuego in jugador)
+                        ) {
+                        give self encendido;
+                        give self luz; print
+                        "Rociando la antorcha con el polen de la flor, la enciendes rápidamente, 
+                        obteniendo suficiente luz para avanzar por lo oscuro.";
+                        if (localizacion ofclass Localidad_Aldea) {
+                            give self ~general; print
+                            " Afortunadamente, todo lo que está hecho de pasto Grafeck en la Aldea ha 
+                            sido tratado para evitar que se incendie al descuido. En otro sitio rodeado 
+                            de pasto hacer esto sería muy peligroso.";
+                        };
+                        rtrue;
+                    } else if (otro ofclass LagoDecorado) {
+                        move self to Limbo;
+                        give PastoCorto ~general;
+                        give PastoLargo ~general;
+                        "Al tocar el Lago, la antorcha se enciende instantáneamente, y se 
+                        consume en el acto, dejando en tus manos unos inútiles fragmentos 
+                        chamuscados, que pronto se deshacen en una ceniza que rápidamente 
+                        se lleva el viento...";
+                    } else 
+                    "Necesitas algo que dé chispas para encenderla.";
+                } else
+                "La antorcha ya está ardiendo. No es necesario volver a encenderla.";
+            Apagar : 
+                if (self has encendido) {
+                    if (localizacion ofclass Localidad_Lago) {
+                            move self to Limbo;
+                            give PastoCorto ~general;
+                            give PastoLargo ~general;
+                            "Al tocar el Lago, la antorcha se enciende instantáneamente, y se 
+                            consume en el acto, dejando en tus manos unos inútiles fragmentos 
+                            chamuscados, que pronto se deshacen en una ceniza que rápidamente 
+                            se lleva el viento...";
+                        } else {
+                        give self ~encendido;
+                        give self ~luz;
+                        "Frotas la antorcha contra el suelo, hasta extinguirla por completo.";
+                        }
+                } else
+                "La antorcha ya está apagada. No es necesario volver a apagarla.";
+        ],
+!        despues [;
+!            Encender, Quemar, Tocar, Frotar : 
+!                if ((self has encendido) && (localizacion ofclass Localidad_Aldea)){
+!                    give self ~general;
+!                    " Afortunadamente, todo lo que está hecho de pasto Grafeck en la Aldea ha sido tratado 
+!                    para evitar que se incendie al descuido. En otro sitio rodeado de pasto hacer esto sería 
+!                    muy peligroso.";
+!                };
+!        ],
+        reaccionar_despues [;
+            Ir : 
+                if (    (self has encendido) && (self in jugador) && 
+                (localizacion ofclass Localidad_Llanura) ){
+                    ! Unica Advertencia
+                    if (self hasnt general) {
+                        give self general;
+                        print "Titubeas. Si llevas la antorcha encendida en esa dirección, podrías 
+                        causar un incendio.";
+                        ! Devolver al jugador al lugar previo
+                        jugadorA(localizacion_anterior,1);
+                        rtrue;
+                    } else {
+                    ! Se inicia un incendio
+                    IncendioAntorcha.proyeccion();
+                    banderafin = 1;
+                    rtrue;
+                    };    
+                };
+        ],
+    has femenino ~encendido comestible;
+
+    Object PastoLargo "tallos largos de pasto" Limbo
+    with
+        nombre_mp 'tallos',
+        nombre_m 'tallo',
+        adjetivos 'largos' 'largo' 'pasto' 'azul',
+        inicial "Hay unos tallos largos de pasto color azul, sueltos entre el pasto Grafeck.",
+        descripcion
+        "Son tallos de pasto Grafeck bastante largos, de un intenso color azul.",
+        antes [;    
+            Comer :
+                if (Protector hasnt general){
+                    give self ~general;
+                    move self to Limbo;
+                    "Comes los tallos con apetito. Quedas bastante satisfecho.";
+                } else
+                "No sientes apetito alguno. Curioso.";
+            Oler :
+                "Sientes el suave aroma de los pastos, un poco agrio y deliciosamente ácido.^
+                Te reconforta.";
+            Tocar :
+                if (    (otro == FlorFuego) && (FlorFuego in jugador))
+                    <<Quemar self FlorFuego>>;
+                else if ((otro == Antorcha) && (Antorcha has encendido) && (Antorcha in jugador))
+                    <<Quemar self Antorcha>>;
+                else if (otro ofclass LagoDecorado) {
+                    give self ~general;
+                    move self to Limbo;
+                    "Al tocar el Lago, los tallos se queman instantáneamente, y se 
+                    consumen en el acto, dejando en tus manos una ceniza que rápidamente 
+                    se lleva el viento...";
+                }
+            Cortar, Tirar :
+                if (PastoCorto in jugador){
+                    give self ~general;
+                    move self to Limbo;
+                    "Rompiendo el pasto largo en pequeños trozos, cuentas ahora con más briznas de 
+                    pasto.";
+                } else if (PastoCorto in Limbo){
+                    give self ~general;
+                    move self to Limbo;
+                    give PastoCorto general;
+                    move PastoCorto to Jugador;
+                    "Rompiendo el pasto largo en pequeños trozos, cuentas ahora con unas briznas 
+                    más cortas de pasto. Al cortarlo, ha perdido algo de color.";
+                } else "Sabes que hay briznas de pasto por aquí cerca. Mejor es ir a por ellas y 
+                conservar lo que ya tienes.";
+            Atar :
+                if (    ((otro == PastoCorto) || (otro==0)) && (PastoCorto in jugador) ){
+                    move PastoLargo to Limbo;
+                    move PastoCorto to Limbo;
+                    move Antorcha to Jugador;
+                    "Usando las briznas cortas, atas cuidadosamente los tallos largos en un apretado 
+                    manojo. Consigues así una antorcha para iluminarte cuando te falte luz."; 
+                    } else
+                    "Te haran falta hierbas más cortas para atar los tallos.";
+            Encender, Quemar, Frotar : 
+                if (    (otro == FlorFuego) && (FlorFuego in jugador) ) {
+                    give self ~general;
+                    move self to Limbo; print
+                    "Rociando los tallos con el polen de la flor, los enciendes rápidamente, 
+                    y se consumen en breves instantes. Apenas quedan cenizas.^
+                    Haría falta tenerlos en un hato apretado para que no ardieran tan pronto.";
+                    if (localizacion ofclass Localidad_Aldea) print
+                        " Afortunadamente, todo lo que está hecho de pasto Grafeck en la Aldea ha 
+                        sido tratado para evitar que se incendie al descuido. En otro sitio rodeado 
+                        de pasto hacer esto sería muy peligroso.";
+                    rtrue;
+                } else if (otro ofclass LagoDecorado) {
+                    give self ~general;
+                    move self to Limbo;
+                    "Al tocar el Lago, los tallos se queman instantáneamente, y se 
+                    consumen en el acto, dejando en tus manos una ceniza que rápidamente 
+                    se lleva el viento...";
+                } else 
+                "Necesitas algo que dé chispas para encenderlos.";
+            Dejar :             
+                if (localizacion ofclass Localidad_Lago) {
+                    give self ~general;
+                    move self to Limbo;
+                    "Al tocar el Lago, los tallos se queman instantáneamente, y se 
+                    consumen en el acto, dejando en tus manos una ceniza que rápidamente 
+                    se lleva el viento...";
+                } else rfalse;
+            Lanzar :
+                if ( ( (localizacion ofclass Localidad_Ribera) || 
+                (localizacion ofclass Localidad_Lago) ||
+                (localizacion == PiesColina) ) && (otro ofclass LagoDecorado) )    {
+                    if (localizacion~=Cienaga) {
+                    give self ~general;
+                    move self to Limbo;
+                    "Al tocar el Lago, los tallos se queman instantáneamente, y se 
+                    consumen en el acto, dejando en tus manos una ceniza que rápidamente 
+                    se lleva el viento...";
+                    } else <<Dejar self>>;
+                } else <<Dejar self>>;
+        ],
+    has masculino nombreplural comestible;
+
+    Object PastoCorto "briznas cortas de pasto" Limbo
+    with
+        nombre_fp 'briznas',
+        nombre_f 'brizna',
+        adjetivos 'pasto' 'cortas' 'corta' 'celeste',
+        inicial "Hay unas briznas cortas de pasto color celeste, sueltos entre el pasto Grafeck.",
+        descripcion
+        "Son briznas de pasto Grafeck cortas, de un intenso color celeste.",
+        antes [;
+            Comer :
+                if (Protector hasnt general){
+                    give self ~general;
+                    move self to Limbo;
+                    "Comes las briznas con apetito. Te dejan con gusto a poco.";
+                } else
+                "No sientes apetito alguno. Curioso.";
+            Oler :
+                "Sientes el suave aroma de los pastos, un poco agrio y deliciosamente ácido.^
+                Te reconforta.";        
+            Tocar :
+                if (    (otro == FlorFuego) && (FlorFuego in jugador))
+                    <<Quemar self FlorFuego>>;
+                else if ((otro == Antorcha) && (Antorcha has encendido) && (Antorcha in jugador))
+                    <<Quemar self Antorcha>>;
+                else if (otro ofclass LagoDecorado) {
+                    give self ~general;
+                    move self to Limbo;
+                    "Al tocar el Lago, las briznas se queman instantáneamente, y se 
+                    consumen en el acto, dejando en tus manos una ceniza que rápidamente 
+                    se lleva el viento...";;
+                }
+            Cortar, Tirar :
+                give self ~general;
+                move self to Limbo;
+                "Haces trizas las briznas de pasto. Reducidas a jirones inútiles, se te escapan...";
+            Encender, Quemar, Frotar : 
+                if (    (otro == FlorFuego) && (FlorFuego in jugador) ) {
+                    give self ~general;
+                    move self to Limbo; print
+                    "Rociando las briznas con el polen de la flor, las enciendes rápidamente, 
+                    y se consumen en breves instantes. Apenas quedan cenizas.";
+                    if (localizacion ofclass Localidad_Aldea) print
+                        " Afortunadamente, todo lo que está hecho de pasto Grafeck en la Aldea ha 
+                        sido tratado para evitar que se incendie al descuido. En otro sitio rodeado 
+                        de pasto hacer esto sería muy peligroso.";
+                    rtrue;                    
+                } else if (otro ofclass LagoDecorado) {
+                    give self ~general;
+                    move self to Limbo;
+                    "Al tocar el Lago, las briznas se queman instantáneamente, y se 
+                    consumen en el acto, dejando en tus manos una ceniza que rápidamente 
+                    se lleva el viento...";
+                } else 
+                "Necesitas algo que dé chispas para encenderlas.";
+            Dejar :             
+                if (localizacion ofclass Localidad_Lago) {
+                    give self ~general;
+                    move self to Limbo;
+                    "Al tocar el Lago, las briznas se queman instantáneamente, y se 
+                    consumen en el acto, dejando en tus manos una ceniza que rápidamente 
+                    se lleva el viento...";
+                } else rfalse;
+            Lanzar :
+                if ( ( (localizacion ofclass Localidad_Ribera) || 
+                (localizacion ofclass Localidad_Lago) ||
+                (localizacion == PiesColina) ) && (otro ofclass LagoDecorado) )    {
+                    if (localizacion~=Cienaga) {
+                    give self ~general;
+                    move self to Limbo;
+                    "Al tocar el Lago, las briznas se queman instantáneamente, y se 
+                    consumen en el acto, dejando en tus manos una ceniza que rápidamente 
+                    se lleva el viento...";
+                    } else <<Dejar self>>;
+                } else <<Dejar self>>;
+        ],
+    has femenino nombreplural comestible;
+    
+Localidad_Llanura LlanuraN "La Llanura"
+
+with
+    descripcion [; print
+    "Estás en la vasta Llanura que rodea a la Aldea. ";
+    if (self hasnt visitado) print
+        "Todo alrededor te rodea el Pastizal. Rectos se elevan los suculentos tallos 
+        de pasto Grafeck, caros a la aldea como alimento, abrigo, combustible, ropa. 
+        El viento mece suavemente todo...^
+        Te detienes un momento a escuchar su música, suave y melancólica... 
+        y suspiras pues esta belleza y Paz se haya amenazada sin El Protector. 
+        Tu misión no concluye aún.^";
+    else {
+        if (Protector hasnt general) print
+            " Te rodea la quietud y tranquilidad del Pastizal, que invitan al descanso. 
+            Sin embargo, tu misión no concluye aún; no puedes demorarte aquí.^";
+        else print
+            "Aun se respira aquí la paz y quietud del Pastizal, que invitan al descanso.^
+            Sin embargo, sientes urgencia por seguir adelante; no puedes quedarte, 
+            como antes, a escuchar su música suave y melancólica: El Protector ha 
+            de despertar pronto y debes encontrar refugio, más al Norte.^";
+    }
+    print
+    "Hacia el Oeste comienzan los Paramos, mientras que al Este están las 
+    Flores de Fuego.";
+    if (Protector hasnt general) print
+        " Hacia el Norte es territorio tabú. Hacia el Sur, está la Aldea.";
+    else print
+        " Hacia el Norte, tu destino. Al Sur, tu Aldea, a la que no debes volver; 
+        no es lugar seguro para cuando despierte El Protector.";
+    ],
+    al_s Aldea,
+    al_n BordeCrater,
+    al_o BordeParamos,
+    al_e CampoFloresFuego;
+
+    ! Objetos Llanura Norte
+
+    ObjLocalidad ObjLlanuraN "Llanura" LlanuraN
+    with
+        nombre 'llanura',
+    has femenino;
+        
+    PastoDecorado PastoN "Pasto Grafeck" LlanuraN;
+    
+Localidad_Llanura BordeParamos "El Borde de los Páramos"
+with
+    descripcion [;
+    if (self hasnt visitado) print 
+        "Has llegado a la frontera de la Llanura con los Páramos. Antes de que 
+        El Protector llegara, la frontera estaba más cerca de la Aldea, y no 
+        era raro que los Cazadores montaran guardia, esperando al incauto...^";
+    else print 
+    "Está en la frontera de la Llanura con los Páramos.^";
+    if (Protector hasnt general) print
+        "Pese a que no hace mucho que El Protector se echó a dormir, puedes 
+        sentir ya el olor de los Cazadores; han estado aquí, seguro, lo que 
+        no osarían hacer de estar despierto El Protector. Precaución...^";
+    else print
+        "Las huellas en el suelo son claras: los Cazadores han vuelto a andar 
+        por aquí. Su olor es más fuerte que antes. No debes demorarte aquí: 
+        su olfato es mucho mejor que el tuyo, y como traes a El Protector, 
+        no tardarán en sentirse atraidos por tí... y por El Protector. 
+        No es lugar seguro para cuando despierte El Protector.^";
+    if (Protector hasnt general) print
+        "Hacia el Norte es territorio tabú. Hacia el Sur y el Este, las Llanuras.";
+    else print
+        "Hacia el Norte está tu destino. Hacia el Sur y el Este, las Llanuras... 
+        ya comienzas a extrañarlas, pues sabes que no has de volver a verlas.";
+    ],
+    cada_turno [; ArrancarDaemon(self); ],
+     cantidad 5,
+     daemon
+     [;
+            if (localizacion~=BordeParamos) {
+                self.cantidad=5;
+                PararDaemon(self);     
+                rtrue;
+            }
+            if (self.cantidad > 0)
+                self.cantidad--;
+            switch(self.cantidad) {
+                3: "^^La brisa te trae un fuerte olor.";
+                2: "^^Te parece oir un ruido desde Los Páramos.^
+                Te das vuelta... pero no se ve nada.";
+                1: "^^¡El olor es fortísimo!^
+                ¡¡El sonido que oiste viene^
+                de tres sitios a la vez!!";
+                0: CazadorMata(); rtrue;
+            };
+     ],            
+    al_n BordeCrater,
+    al_s LlanuraS,
+    al_e LlanuraN,
+    al_o "No puedes entrar en los Páramos; los Cazadores acabarían contigo rápidamente.";
+
+
+    ! Muerte por Cazadores al Acecho
+    [CazadorMata;
+    if (localizacion == Playa)
+        MuerteCazadorPlaya.proyeccion();
+    else
+    if (localizacion == BordeParamos)
+        MuerteCazadorBordeParamos.proyeccion();
+    else
+    if (localizacion == CampoFloresFuego)
+        MuerteCazadorCampoFloresFuego.proyeccion();
+    banderafin = 1;
+    rtrue;
+    ];
+    
+    ! Decoracion del Borde de los Paramos
+
+    ObjLocalidad ObjBordeParamos "Paramos" BordeParamos
+    with
+        nombre 'borde' 'paramos',
+    has masculino;
+        
+    DecoradoAmpliado Decorado_OlorB BordeParamos
+    with
+        antes [;
+            Oler:
+            "Un olor a almizcle, cálido y suave... y te produce un escalofrío.^
+            Los Cazadores están volviendo.";
+        ],
+        describir
+            'olor' G_MASCULINO
+    ;
+
+    DecoradoAmpliado Decorado_HuellasB Limbo
+    with
+        antes [;
+            Oler:
+            "Un olor a almizcle, cálido e intenso, surge de las huellas... y te estremece de terror.^
+            Son muy recientes.";
+        ],
+        describir
+            'huella' DescripcionHuellasParamos G_FEMENINO
+            'huellas' DescripcionHuellasParamos G_FEMENINO + G_PLURAL
+            'olor' G_MASCULINO
+    ;
+    
+    [DescripcionHuellasParamos;
+    return
+    "Las huellas son pequeñas muescas en el suelo, dispuestas en forma de cuña. La marca más grande 
+    está justo al medio.";
+    ];
+    
+Localidad_Flores CampoFloresFuego "El Campo de Flores de Fuego"
+with
+    descripcion [; 
+    if (self hasnt visitado) print
+        "Este es único sitio en que han visto que crecen las Flores de Fuego. 
+        Antes de que El Protector llegara, aquí se aventuraban sólo los 
+        valientes, ya que aquí solían acechar los Cazadores, hambrientos...^";
+    else print 
+        "Estás al borde del Campo de las Flores de Fuego, donde nacen las llamas de vida y 
+        de muerte.^";
+    if (Protector hasnt general) print
+        "Pese a que no hace mucho que El Protector se echó a dormir y aunque 
+        no te parece sentir el olor de los Cazadores, no sientes que sea un 
+        sitio seguro. Te quedarás sólo lo imprescindible. Precaución...^";
+    else print
+        "Pese a que no hace mucho que El Protector se echó a dormir, puedes 
+        sentir ya el olor de los Cazadores; han estado aquí, seguro, lo que 
+        no osarían hacer de estar despierto El Protector. No debes demorarte: 
+        su olfato es mucho mejor que el tuyo, y como traes a El Protector, 
+        no tardarán en sentirse atraidos por tí... y por El Protector. 
+        No es lugar seguro para cuando despierte El Protector.^";
+    if (Protector hasnt general) print
+        "Hacia el Norte es territorio tabú. Hacia el Sur y el Oeste, se extienden las Llanuras. 
+        El campo sigue al Este hasta perderse de vista...";
+    else print
+        "Hacia el Norte está tu destino. Hacia el Sur y el Oeste, las Llanuras...ya comienzas a 
+        extrañarlas, pues sabes que no has de volver a verlas. El campo sigue al Este hasta perderse 
+        de vista...";
+    ],
+    cada_turno [; ArrancarDaemon(self); ],
+     cantidad 5,
+     daemon
+     [;
+            if ( (Protector hasnt general) || (localizacion~=CampoFloresFuego) ) {
+                self.cantidad=5;
+                PararDaemon(self);     
+                rtrue;
+            }
+            if (self.cantidad > 0)
+                self.cantidad--;
+            switch(self.cantidad) {
+                3: "^^La brisa te trae un fuerte olor.";
+                2: "^^Te parece oir un ruido desde detrás de las Flores.^
+                Alzas la vista... pero no se ve nada.";
+                1: "^^¡El olor es fortísimo! ¡¡Algo se aproxima frente a tí!!";
+                0: CazadorMata(); rtrue;
+            };
+     ],        
+    al_n BordeCrater,
+    al_s LlanuraS,
+    al_e CampoFloresFuego,
+    al_o LlanuraN;
+
+    ! Objetos del Campo de Flores de Fuego
+    
+    Object FlorFuego "flor de fuego pequeña" CampoFloresFuego
+    with
+        nombre_f 'flor',
+        nombre_fp 'estrías' 'chispas',
+        nombre_mp 'petalos' 'pistilos',
+        nombre_m 'capullo' 'polen',
+        adjetivos 'fuego' 'pequena',
+        descripcion
+        "Es un hermoso capullo, con pétalos de color violeta con estrías anaranjadas. Sus 
+        pistilos son de un índigo brillante. Emana un fuerte calor y te parece que, al moverse, 
+        suelta pequeñas chispas luminosas de polen.",
+        reaccionar_antes [;
+            Sacar : 
+                if (    (otro == Bolsa) && (localizacion ofclass Localidad_Llanura)){
+                    ! Unica Advertencia
+                    if (FlorFuego hasnt general) {
+                        give FlorFuego general;
+                        "Titubeas. Si sacas la flor en este lugar, podrías causar un incendio.";
+                    } else {
+                    ! Se inicia un incendio
+                    IncendioFlor.proyeccion();
+                    banderafin = 1;
+                    rtrue;
+                    };
+                };
+            Ir: localizacion_anterior = localizacion;
+        ],
+        antes [;
+            Tocar :
+                "Es sumamente lisa y suave. Sientes un ligero calor.";
+            Oler : 
+                "La flor despide un aroma sulfuroso, dulzón, intenso y penetrante.";
+            Dejar : 
+                if (localizacion ofclass Localidad_Lago){
+                    move self to CampoFloresFuego;
+                    "La flor se sumerje en el Lago sin dejar rastro.";
+                } else rfalse;                
+            Lanzar :
+                if ( ( (localizacion ofclass Localidad_Ribera) || 
+                (localizacion ofclass Localidad_Lago) ||
+                (localizacion == PiesColina) ) && (otro ofclass LagoDecorado) ) {
+                    if (localizacion~=Cienaga) {
+                        move self to CampoFloresFuego;
+                        "La flor se sumerje en el Lago sin dejar rastro.";
+                    } else <<Dejar self>>;
+                } else <<Dejar self>>;
+                
+        ],                
+        despues [;
+            Coger :
+                print
+                "Al tomarla, la flor suelta unas pequeñas chispas incandecentes. Si cayeran 
+                sobre pasto Grafeck, tendrías fuego rápidamente.";
+                if (localizacion ofclass Localidad_Aldea) {
+                    give self ~general;
+                    " Afortunadamente, todo lo que está hecho de pasto Grafeck en la Aldea ha sido 
+                    tratado para evitar que se incendie al descuido. En otro sitio rodeado de pasto 
+                    hacer esto sería muy peligroso.";
+                };
+                rtrue;        
+        ],
+        reaccionar_despues [;
+            Ir : 
+                if (    (self notin Bolsa) && (self in jugador) && 
+                (localizacion ofclass Localidad_Llanura) ){
+                    ! Unica Advertencia
+                    if (self hasnt general) {
+                        give self general;
+                        print "Titubeas. Si llevas la flor en la mano en esa dirección, podrías causar 
+                        un incendio.";
+                        ! Devolver al jugador al lugar previo
+                        jugadorA(localizacion_anterior,1);
+                        rtrue;
+                    } else {
+                    ! Se inicia un incendio
+                    IncendioFlor.proyeccion();
+                    banderafin = 1;
+                    rtrue;
+                    };
+                };
+        ],    
+    has femenino oculto;
+    
+    ! Decoracion del Campo de Flores de Fuego
+
+    ObjLocalidad ObjCampoFloresFuego "Campo" CampoFloresFuego
+    with
+        nombre 'campo',
+    has masculino;
+    
+    DecoradoAmpliado Decorado_Flores CampoFloresFuego
+    with
+        antes [;
+            Tocar :
+                "Al acercarte sientes un fortísimo calor. Retrocedes.";
+            Coger : 
+                if ((FlorFuego notin Jugador)&&(FlorFuego in CampoFloresFuego)
+                &&(FlorFuego has oculto)) { print
+                    "A los pies del macizo distingues una flor pequeña que puedes tomar sin peligro. ";
+                    give self ~oculto;
+                    <<Coger FlorFuego>>;
+                } else "Las flores son demasiado grandes para poder hacerlo sin quemarte.";
+            BuscarEn: 
+                if ((FlorFuego notin Jugador)&&(FlorFuego in CampoFloresFuego)
+                &&(FlorFuego has oculto)) { print
+                    "A los pies del macizo distingues una flor pequeña que puedes tomar sin peligro. ";
+                    give FlorFuego ~oculto;
+                    rtrue;
+                } else rtrue; !"No encuentras nada más entre las flores.";
+        ],
+        despues [;
+            Examinar : 
+                if ((FlorFuego notin Jugador)&&(FlorFuego in CampoFloresFuego)
+                &&(FlorFuego has oculto)) { print
+                    "Una flor pequeña en particular está más alejada del resto y la puedes tomar 
+                    sin peligro. ";
+                    give FlorFuego ~oculto;
+                    rtrue;
+                } else rtrue; !"No encuentras nada más entre las flores.";
+        
+        ],
+        describir
+            'flores' DescripcionFlores G_FEMENINO + G_PLURAL
+            'capullos' DescripcionFlores G_MASCULINO + G_PLURAL
+    ;
+
+    
+    [DescripcionFlores;
+    return
+    "Es un macizo enorme, con capullos alargados que salen prácticamente del suelo, sin 
+    ningún tallo visible. Los capullos tienen pétalos de color violeta con estrías anaranjadas. 
+    Sus pistilos son de un índigo brillante. Te parece ver unas pequeñas llamas verdes asomando 
+    de las flores más grandes.^
+    A los pies de las flores, apretadas, ves flores más pequeñas, idénticas a los 
+    ejemplares más grandes. Alguna que otra flor pequeña crece ligeramente separada del resto, a 
+    prudente distancia de los capullos grandes y de sus llamas.";
+    ];
+    
+        
+    DecoradoAmpliado Decorado_CampoFloresFuego CampoFloresFuego
+    with
+        describir 
+            'arenilla' "Esta hecha de pequeños gránulos blancos, muy finos y suaves" G_FEMENINO
+            'granulos' "Son redondos, secos y ligeramente brillantes." G_MASCULINO + G_PLURAL
+            'llamas' "Cálidas, verdes, entibian el aire al rededor de las flores." G_FEMENINO + G_PLURAL
+    ;
+    
+    DecoradoAmpliado Decorado_OlorC Limbo
+    with
+        antes [;
+            Oler:
+            "Un olor a almizcle, cálido e intenso... y te estremece de terror.^
+            Los Cazadores están muy cerca.";
+        ],
+        describir
+            'olor' G_MASCULINO
+    ;
+            
+Localidad_Llanura LlanuraS "La Llanura"
+with
+    descripcion [; print
+    "Estás en la vasta Llanura que rodea a la Aldea. ";
+    if (self hasnt visitado) print
+        "Todo alrededor te rodea el Pastizal. Rectos se elevan los suculentos tallos 
+        de pasto Grafeck, caros a la aldea como alimento, abrigo, combustible, ropa. 
+        El viento mece suavemente todo...^
+        Te detienes un momento a escuchar su música, suave y melancólica... 
+        y suspiras pues esta belleza y Paz se haya amenazada sin El Protector. 
+        Tu misión no concluye aún.^";
+    else {
+        if (Protector hasnt general) print
+            "Te rodea la quietud y tranquilidad del Pastizal, Sin embargo, 
+            tu misión no concluye aún; no puedes demorarte aquí.^";
+        else print
+            "Sin embargo, sientes urgencia por seguir adelante; no puedes quedarte, 
+            como antes, a escuchar su música suave y melancólica: El Protector ha 
+            de despertar pronto y debes encontrar refugio, más al Norte.^";
+    }
+    if (Protector hasnt general) print
+        "Hacia el Norte está la Aldea. Hacia el Sur, divisas las Playas que bordean el Lago Ardiente. 
+        Hacia el Este y el Oeste, se extienden las Llanuras.";
+    else print
+        "Hacia el Norte está tu Aldea: anhelas verla, aunque sea una última vez. Hacia el Sur, 
+        quedan atrás las Playas que bordean el Lago Ardiente: su recuerdo a quedado grabado a fuego 
+        en tu mente. Hacia el Este y el Oeste, se extienden las Llanuras... ya comienzas a 
+        extrañarlas, pues sabes que no has de volver a verlas.";
+    ],
+    al_n Aldea,
+    al_s Playa,
+    al_e LlanuraS,
+    al_o LlanuraS;
+
+    ! Objetos Llanura Sur
+
+    ObjLocalidad ObjLlanuraS "Llanura" LlanuraS
+    with
+        nombre 'llanura',
+    has femenino;
+    
+    PastoDecorado PastoS "Pasto Grafeck" LlanuraS;
+    
+! Localidades: El Crater y las Ruinas
+
+Localidad_Crater BordeCrater "El Borde del Cráter"
+with
+    descripcion [; 
+    if (self hasnt visitado) print
+        "Has llegado al borde del crater. Sus escarpados lindes no alcanzan a cubrir la desolación 
+        que está contenida dentro de sus límites.^
+        Incluso ahora, después de tanto tiempo, la magra vegetación no logra colonizar este extenso 
+        erial y ni siquiera se acerca aún al borde; parece, incluso, retroceder cada vez más con el 
+        paso de las estaciones.^
+        Puedes ver el aire vibrando con el calor sobre el suelo del cráter, mientras que el sol se 
+        refleja sobre su resquebrajada superficie, deslumbrándote y haciendo difícil distinguir 
+        detalle alguno. ";
+    else print
+        "Estás en el borde del cráter, un lugar reseco y sin vida. ";
+    if (Protector hasnt general) print
+        "Sabes que no puedes continuar, pues nadie que haya entrado al cráter ha vuelto. Sólo quienes 
+        han de despertar a El Protector pueden arriesgarse a seguir adelante.^";
+    else print
+        "A pesar de saber que te arriesgas a un peligro mortal, no te queda más que seguir adelante. 
+        Sólo adentrándote en el cráter encontrarás un lugar seguro para despertar a El Protector.^";
+    if (Protector hasnt general) print
+        "Hacia el Norte está la zona más candente del cráter: entrar para nunca volver. Hacia el Sur, se 
+        extienden las Llanuras. ";
+    else print
+        "Hacia el Norte está la zona más candente del cráter: entrar para nunca volver. Hacia el Sur, se 
+        extienden las Llanuras... su recuerdo se te está empezando a borrar lentamente. ";
+    print
+        "El borde del cráter se extiende, interminable, hacia el Este y Oeste, perdiéndose en la distancia.";
+    ],
+    al_s LlanuraN,
+    al_n [;
+            if (Protector hasnt general)
+                "Aun no puedes penetrar en el territorio prohibido.^
+                Debes llevar contigo a El Protector para seguir adelante.";
+            else JugadorA(RuinasCielo);
+            rtrue;
+        ],
+    al_e BordeCrater,
+    al_o BordeCrater;
+
+    ! Decoracion del Borde del Crater
+    
+    ObjLocalidad ObjBordeCrater "Crater" BordeCrater
+    with
+        nombre 'borde' 'crater',
+    has masculino;
+        
+    DecoradoAmpliado Decorado_Vegetacion BordeCrater
+    with
+        antes [;
+            Tocar: "Al tacto, la vegetación es áspera y rugosa... desagradable.";
+            Coger: "Cuando tratas de coger un poco, se resquebraja y se hace polvo.";
+            Oler : "El olor de la vegetación es dulzón y leve... un olor a muerte...";
+        ],
+        describir
+            'vegetacion' "La vegetacion, escasa y pobre, recuerda un pariente enano y enfermo de lo que 
+            en otras partes de la llanura se puede ver. Su presencia es magra, y no logra colonizar 
+            este extenso erial y ni siquiera se acerca aún al borde; parece, incluso, retroceder cada vez 
+            más con el paso de las estaciones." G_FEMENINO
+    ;
+        
+Localidad_Crater RuinasCielo "Las Ruinas del Cielo"
+with
+    descripcion [;
+    if (self hasnt visitado) { print
+        "Has avanzado lo suficiente dentro del cráter y has llegado finalmente a Las Ruinas del Cielo.^
+        Si en general el sentimiento de desolación es generalizado en todo el cráter, aquí el fuerte 
+        calor, la sequedad del aire, el silencio apenas roto por una débil brisa y la ausencia de 
+        todo signo de vida hacen que la sensación de muerte sea aún mayor. Aquí, el suelo no sólo 
+        está seco y resquebrajado, sino que incluso parece estar pulido; liso como la superficie 
+        de un charco, pero duro como la roca: en algunos sitios se ven algunos hoyos esféricos, como 
+        burbujas secas.^";
+    } else print
+        "Intentando demorar lo inevitable, vuelves a contemplar una vez más estos despojos caidos 
+        de lo alto.^";
+    print
+    "Todo alrededor están las ruinas, como grandes trozos de roca fundida y congelada en extrañas 
+    formas, clavados en el suelo aquí y allá, en fragmentos más o menos grandes.^
+    La parte principal de las Ruinas está hundida en el suelo, hacia el Norte. En las demás 
+    direcciones, sólo se ve el suelo reseco y, a la distancia, el borde del cráter.";
+    ],
+    al_n TunelBlanco1,
+    abajo TunelBlanco1,
+    al_s BordeCrater,
+    al_e BordeCrater,
+    al_o BordeCrater;
+
+    ! Decoracion de Ruinas del Cielo
+    
+    DecoradoAmpliado Decorado_RuinasCielo RuinasCielo
+    with
+        describir 
+            'hoyo' DescripcionHoyos G_MASCULINO
+            'hoyos' DescripcionHoyos G_MASCULINO + G_PLURAL
+    ;
+    
+    [DescripcionHoyos;
+    return
+    "Son agujeros en el suelo, de bordes redondos, lisos y regulares, como si en efecto alguna 
+    vez se hubiera posado aquí una burbuja que luego reventó. El interior de los agujeros es 
+    perfectamente liso.";
+    ];
+    
+    DecoradoAmpliado Decorado_RuinasCielo2 RuinasCielo
+    with
+        describir 
+            'ruina' DescripcionFragmentos G_FEMENINO
+            'ruinas' DescripcionFragmentos G_FEMENINO + G_PLURAL
+            'trozo' DescripcionFragmentos G_MASCULINO
+            'trozos' DescripcionFragmentos G_MASCULINO + G_PLURAL
+            'roca fundida' DescripcionFragmentos G_FEMENINO
+            'forma' DescripcionFragmentos G_FEMENINO
+            'formas' DescripcionFragmentos G_FEMENINO + G_PLURAL        
+            'fragmento' DescripcionFragmentos G_MASCULINO        
+            'fragmentos' DescripcionFragmentos G_MASCULINO + G_PLURAL
+    ;
+    
+    [DescripcionFragmentos;
+    return
+    "Los fragmentos de las ruinas te recuerdan trozos de roca fundida. 
+    Examinándolos de cerca, parecen estar incrustados en el suelo, el que se transparenta 
+    en su contacto y permite ver formas difusas bajo la superficie reseca del suelo.^
+    Hay fragmentos grandes, de formas caprichosas, como gigantescas olas de líquido congelado, 
+    mientras que otros tienen formas regulares, como grandes rocas con sus lados cortados. 
+    Otros, más pequeños, parecen afilados dientes, saliendo del suelo en angulos extraños.^
+    El viento y el polvo han desgastado las superficies de estos despojos y no se distingue 
+    en ellos detalle alguno.^
+    En todo caso, la mayor parte de los fragmentos grandes se concentran allí donde las ruinas 
+    descienden bajo tierra, mientras que los fragmentos pequeños están más lejos del centro.";
+    ];
+    
+! Localidades: El Interior de las Ruinas
+
+Localidad_Ruinas TunelBlanco1 "El Túnel Blanco"
+with
+    descripcion [;
+    if (self hasnt visitado) print
+        "Has cruzado el umbral de las Ruinas.^";
+    print 
+        "Estás en el interior de un túnel blanco, que desciende lentamente hacia las entrañas de las 
+        Ruinas.^";
+    if (self hasnt visitado){ print
+        "A pesar de que afuera hacía un calor agobiante, al poco andar por el túnel la temperatura 
+        ha bajado muchísimo y el aire está fresco, como una mañana después de llover. Afuera, se 
+        sentía el ruido del viento y poco más: aquí dentro, hay un silencio absoluto. Pese a que 
+        sabes que sólo los que deben despertar a El Protector se adentran en estos pasajes, te extraña 
+        no ver absolutamente ninguna huella, ni polvo o señal alguna en el suelo, que al igual que 
+        las paredes es liso y frío al tacto.^";
+    } else print
+    "Te rodea el silencio más absoluto.^";
+    print
+    "El túnel se extiende un poco más hacia el Norte. Hacia el Sur se puede volver a los alrededores 
+    de las Ruinas, pero eso no tiene objeto: has de cumplir tu misión. Al Este y Oeste, el túnel se 
+    ramifica.";
+    ],
+    al_n TunelBlanco2,
+    al_s RuinasCielo,
+    al_e TumbasHielo,
+    al_o TesorosMalditos;
+
+    ! Decoracion de Tunel Blanco1
+    
+    ObjLocalidad ObjTunelBlanco1 "Tunel" TunelBlanco1
+    with
+        nombre 'tunel',
+    has masculino;
+    
+    DecoradoAmpliado Decorado_TunelBlanco1 TunelBlanco1
+    with
+        describir
+            'pared' DescripcionParedesTunel G_FEMENINO
+            'paredes' DescripcionParedesTunel G_FEMENINO + G_PLURAL
+    ;
+    
+    [DescripcionParedesTunel;
+    return
+    "Las paredes son de color blanco y están perfectamente alisadas y pulidas; la luz que parece 
+    provenir del techo se refleja en éllas. Son frías al tacto.";
+    ];
+    
+Localidad_Ruinas TesorosMalditos "Los Tesoros Malditos"
+with
+    descripcion [; print
+        "Estás en la más hermosa y a la vez más peligrosa de las cámaras de las Ruinas. En este 
+        lugar se hayan reunidos múltiples tesoros que, junto con las ruinas, cayeron del cielo. ";
+    if (self hasnt visitado) { print
+        "Se han tejido muchas leyendas, transmitidas de boca en boca por miembros de otras tribus, 
+        de los portentos y desgracias que acaecen a quienes se han atrevido a sacar un objeto de 
+        este sitio y llevarlo consigo más alla de los bordes del cráter: cuentos de hazañas 
+        increíbles, de héroes poderosos... y de muertes horribles, lentas en llegar, con agonías 
+        espantosas y desastres que afectaban a tribus enteras. De hecho, todos los relatos fueron 
+        narrados por los sobrevientes de las tribus, que apenas vivieron lo suficiente para dejar 
+        la misma advertencia:^
+        No Toquen los Tesoros Malditos.^";
+    } else print
+        "Asombrosas leyendas se han tejido en torno a estos artefactos.^";
+    print 
+        "Leyendas o no, la recámara está llena de ellos, y su brillo expectral ilumina todos los 
+        rincones. Ninguno te recuerda nada que se use en tu aldea... pero todos parecen curiosamente 
+        atractivos.^
+        Hacia el Este se encuentra el túnel principal de las ruinas.";
+    ],
+    al_e TunelBlanco1;
+
+    ! Decoracion de Tesoros Malditos
+
+    
+    DecoradoAmpliado Decorado_TesorosMalditos TesorosMalditos
+    with
+        describir
+            'pared' DescripcionParedesTesoros G_FEMENINO
+            'paredes' DescripcionParedesTesoros G_FEMENINO + G_PLURAL
+    ;
+    
+    [DescripcionParedesTesoros;
+    return
+    "Las paredes son de color blanco y están perfectamente alisadas y pulidas; la luz espectral de 
+    los Tesoros se refleja en éllas. Son frías al tacto.";
+    ];
+    
+    DecoradoAmpliado Decorado_Tesoros TesorosMalditos
+    with
+        antes [;
+            Examinar: rfalse;
+            Sacar, Coger, Tocar, Empujar, BuscarEn, Probar, Comer, Beber: 
+            if (self hasnt general){
+                give self general;
+                "Te acercas un poco con intención de tomar uno, pero de pronto sientes un ligero malestar. 
+                Retrocedes un poco. Pronto te recuperas.^
+                Son, en verdad, peligrososos... Es mejor dejarlos abandonados.";
+            } else "Te da náuseas el solo pensarlo.";
+        ],
+        describir
+            'tesoro' DescripcionTesoros G_MASCULINO
+            'tesoros' DescripcionTesoros G_MASCULINO + G_PLURAL
+    ;
+    
+    [DescripcionTesoros;
+    return
+    "Desparramados por todos sitios, brillan con una luz propia, extraña... difusa. Algunos te recuerdan 
+    remotamente las herramientas que se usan en la Aldea para recolectar  y tejer el pasto Grafeck... 
+    pero otros no logras adivinar para que son.^
+    En medio de ellos, se destaca un montón de barras muy luminosas.^
+    Tu curiosidad se despierta al contemplarlos, pero las leyendas sobre ellos te hacen titubear.";
+    ];
+    
+    ! Objetos de Tesoros Malditos
+    
+    Object Barras "Barras" TesorosMalditos
+    with
+        nombre_fp 'barras',
+        adjetivos 'luminosas' 'cilindricas' 'luminosa' 'cilindrica',
+        descripcion
+        "Son barras cilíndricas, que te recuerdan vagamente a los mangos de algunas de las herramientas 
+        que usan en la aldea. Son opacas, frías al tacto y emanan una luz azulada intensa.",
+        antes [;
+            Coger : "Son demasiadas para llevarlas todas.";
+        ],
+    has femenino nombreplural oculto;
+
+    Object Barra "Barra" TesorosMalditos
+    with
+        nombre 'barra',
+        adjetivos 'luminosa' 'cilíndrica',
+        descripcion [; print
+            "Es una barra cilíndrica, que te recuerda vagamente al mango de algunas de las herramientas 
+            que usan en la aldea. Es opaca, fría al tacto y emana una luz azulada intensa.";
+            if (Agujero has general)
+                "^La forma de la barra encajaría en el agujero que viste en el Monolito.";
+        ],
+        antes [;
+            Meter:
+                if (otro == Agujero) {
+                    ! Fin
+                    ! Parar ambientador universal
+                    PararDaemon(ambientador_universal);
+                    Fin.proyeccion();
+                    banderafin = 2;
+                    rtrue;
+                };
+            Dejar : 
+                if (localizacion ofclass Localidad_Lago){
+                    move self to Limbo;
+                    "La barra se sumerje en el Lago sin dejar rastro.";
+                } else rfalse;
+            Lanzar :
+                if ( ( (localizacion ofclass Localidad_Ribera) || 
+                (localizacion ofclass Localidad_Lago) ||
+                (localizacion == PiesColina) ) && (otro ofclass LagoDecorado) ) {
+                    if (localizacion~=Cienaga) {
+                        move self to Limbo;
+                        "La barra se sumerje en el Lago sin dejar rastro.";
+                    } else <<Dejar self>>;
+                } else <<Dejar self>>;                
+        ],
+        despues [;
+            Coger:
+                give self general;
+                "Al tomarla, sientes un ligero malestar.";
+            Dejar:
+                "Al dejarla, tu malestar persiste.";
+        ],
+        cada_turno [; ArrancarDaemon(self); ],
+         cantidad 15,
+         daemon
+         [;
+                if (self hasnt general) {
+                    self.cantidad=15;
+                    PararDaemon(self);     
+                    rtrue;
+                }
+                if (self.cantidad > 0)
+                    self.cantidad--;
+                switch(self.cantidad) {
+                    10: "^^Sientes un malestar un poco más fuerte y estas ligeramente mareado.";
+                    5: "^^Sientes fuertes dolores en todo el cuerpo y tienes unas fuertes nauseas.";
+                    3: "^^Apenas te tienes en pie y te cuesta respirar.";
+                    0: BarraMata(); rtrue;
+                };
+         ],                    
+    has femenino oculto;
+    
+    ! Muerte por Envenenamiento Radioactivo de la Barra Luminosa
+    [BarraMata;
+    if (Barra in Jugador)
+        MuerteBarra.proyeccion();
+    else
+        MuerteSinBarra.proyeccion();
+    banderafin = 1;
+    rtrue;
+    ];    
+        
+Localidad_Ruinas TumbasHielo "Las Tumbas de Hielo"
+with
+    descripcion [;
+    if (self hasnt visitado) { print
+        "Es la primera vez que llegas a este lugar y la recámara te inspira un temor reverente: 
+        apenas te atreves a respirar.^
+        La luz del túnel ilumina a medias este sitio, casi totalmente en penumbras. Un frío profundo 
+        y penetrante impregna todo el lugar y parece emanar de los gigantescos monumentos que están 
+        alineados a lo largo de las paredes, como gigantescas hojas de pasto, pero muy gruesas, 
+        lisas y con una superficie curva. Se ven aquí y allá pequeños destellos de color, como 
+        insectos iridiscentes... pero estos no vuelan y siempre están en el mismo sitio. No todos 
+        los monumentos están intactos; uno de ellos tiene un hoyo oscuro, en la parte más alta, 
+        varios cuerpos sobre tu cabeza. El oscuro agujero contrasta con la brillante escarcha que 
+        lo cubre todo, del suelo a los techos.^
+        Estás en las Tumbas de Hielo, donde los Ancianos afirman aún reposan los habitantes originales 
+        de las Ruinas. Un lugar, tal vez, sagrado.^";
+    } else print
+        "Una vez más te enfrentas al silencioso y majestuoso espectáculo de estas tumbas heladas.^";
+    print
+        "Tu aliento se condensa al salir en volutas entrecortadas. No te atreves a moverte apenas 
+        o a romper el silencioso reposo de estos monumentos.^
+        Al Oeste se halla el tunel principal de las Ruinas.";
+    ],
+    al_o TunelBlanco1;
+
+    ! Decoracion de Tumbas de Hielo
+    
+    DecoradoAmpliado Decorado_TumbasHielo TumbasHielo 
+    with
+        antes [;
+            Examinar: rfalse;
+            Sacar, Coger, Tocar, Empujar, BuscarEn: 
+            if (self hasnt general){
+                give self general;
+                "Al inentar tocar aquello, te quedas alarmantemente pegado a su superficie. Sientes 
+                un frío profundo, que se extiende lentamente por todo tu cuerpo.^
+                Asustado, tiras con fuerza y logras por fin safarte, y el calor vuelve de a poco a 
+                tu cuerpo aterido.";
+            } else "Con temor reverente, te refrenas y optas por no profanar este lugar.";
+        ],
+        describir
+            'escarcha' "Una finísima capa helada, que cubre todo lo que ves." G_FEMENINO
+            'destello' DescripcionDestellos G_MASCULINO
+            'destellos' DescripcionDestellos G_MASCULINO + G_PLURAL
+            'pared' DescripcionParedesTumbas G_FEMENINO
+            'paredes' DescripcionParedesTumbas G_FEMENINO + G_PLURAL
+    ;
+    
+    [DescripcionDestellos;
+    return
+    "Son pequeñas lucecillas intermitentes, de colores siempre cambiantes, fijas en un mismo punto, 
+    como insectos inmóviles.";
+    ];
+        
+    [DescripcionParedesTumbas;
+    return
+    "Son semejantes a las del pasillo, pero están cubiertas por escarcha.";
+    ];
+
+    DecoradoAmpliado Decorado_TumbasHielo2 TumbasHielo 
+    with
+        antes [;
+            Examinar: rfalse;
+            Sacar, Coger, Tocar, Empujar, BuscarEn: 
+            if (self hasnt general){
+                give self general;
+                "Al inentar tocar las Tumbas, te quedas alarmantemente pegado a su superficie. Sientes 
+                un frío profundo, que se extiende lentamente por todo tu cuerpo.^
+                Asustado, tiras con fuerza y logras por fin safarte, y el calor vuelve de a poco a 
+                tu cuerpo aterido.";
+            } else "Con temor reverente, te refrenas y optas por no profanar este lugar.";
+        ],
+        describir
+            'tumba' DescripcionTumbas G_FEMENINO
+            'tumbas' DescripcionTumbas G_FEMENINO + G_PLURAL
+            'monumento' DescripcionTumbas G_MASCULINO
+            'monumentos' DescripcionTumbas G_MASCULINO + G_PLURAL
+            'forma' DescripcionFormasTumbas G_FEMENINO
+            'formas' DescripcionFormasTumbas G_FEMENINO + G_PLURAL
+    ;
+        
+    [DescripcionTumbas;
+    return
+    "Las tumbas son monumentos gigantescos: altos, macizos, lisos, con una superficie curva. Están 
+    alineados a lo largo de las paredes, en contactos unos con otros. En algunos de ellos se distinguen 
+    aun extrañas formas, algunas de las cuales se repiten.^
+    Aunque los monumentos en general son iguales entre sí, no todos están intactos; uno de ellos 
+    tiene un hoyo oscuro, en la parte más alta, varios cuerpos sobre tu cabeza.";
+    ];
+    
+    [DescripcionFormasTumbas;
+    return
+    "Son sumamente curiosas. Algunas están pegadas a la superficie de los monumentos mientras que 
+    otras sobresalen un poco y emanan luces y destellos intermitentes, como las estrellas en la noche.^
+    Se parecen algo a las decoraciones de vuestras herramientas, pero son muchísimo más finas 
+    y compicadas.";
+    ];
+
+    DecoradoAmpliado Decorado_Hoyo TumbasHielo 
+    with
+        antes [;
+            Examinar: rfalse;
+            Sacar, Coger, Tocar, Empujar, BuscarEn: 
+            "Está muy por encima tuyo y no logras alcanzarlo, por más que tratas.";
+        ],
+        describir
+            'hoyo' DescripcionHoyo G_MASCULINO
+            'agujero' DescripcionHoyo G_MASCULINO
+    ;
+    
+    [DescripcionHoyo;
+    return
+    "El oscuro agujero contrasta con la brillante escarcha que lo cubre todo, del suelo 
+    a los techos. Sus bordes son muy irregulares, como si alguien hubiera roto el monumento 
+    en ese sitio. Por más que te esfuerzas, no logras distinguir nada preciso... aunque 
+    presientes que el monumento no está vacío.";
+    ];
+    
+Localidad_Ruinas TunelBlanco2 "El Túnel Blanco"
+with
+    descripcion [;
+    if (self hasnt visitado){ print
+        "Has llegado al final del túnel blanco y estás en la parte más profunda de las Ruinas. 
+        La quietud total del lugar se acentúa aun más en este extremo. Aquí tampoco se puede 
+        observar huella o rastro de visitas previas en el suelo, cuya palidez, suavidad y frialdad 
+        no han variado.^";
+    } else print
+        "Estás en la parte más profunda de las Ruinas.^
+        Te rodea el silencio más absoluto.^";
+    print
+    "El túnel permite continuar sólo hacia el Este y Oeste. Podrías regresar a los alrededores de 
+    las Ruinas si te encaminaras hacia el Sur, pero presientes que ya queda muy poco que andar 
+    para cumplir con tu cometido.";
+    ],
+    al_s TunelBlanco1,
+    al_e CuevaLucesDanzantes,
+    al_o CavernaArdiente;
+
+    ! Decoracion de Tunel Blanco2
+
+    ObjLocalidad ObjTunelBlanco2 "Tunel" TunelBlanco2
+    with
+        nombre 'tunel',
+    has masculino;
+        
+    DecoradoAmpliado Decorado_TunelBlanco2 TunelBlanco2
+    with
+        describir 
+            'pared' DescripcionParedesTunel G_FEMENINO
+            'paredes' DescripcionParedesTunel G_FEMENINO + G_PLURAL
+    ;
+
+Localidad_Ruinas CuevaLucesDanzantes "La Cueva de Luces Danzantes"
+with
+    descripcion [; 
+    if (self hasnt visitado){ print
+        "Has llegado a una hermosa aunque incomprensible caverna, situada en lo más profundo de las 
+        Ruinas.^
+        La caverna es tan silenciosa como el resto del interior de las Ruinas, y a pesar de no tener 
+        la claridad del túnel, este lugar dista de estar oscuro. Múltiples luces se encienden y 
+        apagan por doquier, algunas pequeñas, apenas unas chispas; otras son como rayos de sol, que 
+        se extienden a lo largo de las paredes, en interminables iridiscencias multicolores. 
+        Hay piscinas de luz, de forma circular, en el suelo algunas y en las paredes otras, y su luz 
+        es constante y de un único color, sin parpadeos o variaciones.^
+        Junto a las luces, hay miriadas de objetos de las más extrañas formas y colores, fijos en 
+        las paredes. Algunas figuras flotan en el aire, rodeadas de su propia cohorte de lucecillas.^";
+    } else print
+        "Estás en una hermosa caverna, llena de piscinas de luz, extraños objetos y figuras rodeadas de 
+        lucecillas, siempre en movimiento.^";
+    print
+    "Al Oeste se halla el tunel principal de las Ruinas";
+    ],
+    al_o TunelBlanco2;
+
+    ! Decoracion de Cueva Luces Danzantes
+
+    ObjLocalidad ObjCuevaLucesDanzantes "Cueva" CuevaLucesDanzantes
+    with
+        nombre 'cueva' 'caverna',
+    has femenino;
+        
+    DecoradoAmpliado Decorado_CuevaLucesDanzantes CuevaLucesDanzantes
+    with
+        describir
+            'luz' DescripcionLuzCuevaLuces G_FEMENINO
+            'luces' DescripcionLuzCuevaLuces G_FEMENINO + G_PLURAL
+            'piscina' DescripcionPiscinaCuevaLuces G_FEMENINO
+            'piscinas' DescripcionPiscinaCuevaLuces G_FEMENINO + G_PLURAL
+            'objeto' DescripcionObjetoCuevaLuces G_MASCULINO
+            'objetos' DescripcionObjetoCuevaLuces G_MASCULINO + G_PLURAL
+    ;
+
+    DecoradoAmpliado Decorado_CuevaLucesDanzantes2 CuevaLucesDanzantes
+    with
+        describir
+            'figura' DescripcionFiguraCuevaLuces G_FEMENINO
+            'figuras' DescripcionFiguraCuevaLuces G_FEMENINO + G_PLURAL 
+            'lucecilla' DescripcionLucecillaCuevaLuces G_FEMENINO 
+            'lucecillas' DescripcionLucecillaCuevaLuces G_FEMENINO + G_PLURAL
+            'pared' DescripcionParedesCuevaLuces G_FEMENINO
+            'paredes' DescripcionParedesCuevaLuces G_FEMENINO + G_PLURAL
+    ;    
+    [DescripcionLuzCuevaLuces;
+    return
+    "Son de varios tamaños y formas: algunas pequeñas, apenas unas chispas; otras son como rayos de sol, 
+    que se extienden a lo largo de las paredes, en interminables iridiscencias multicolores.";
+    ];
+
+    [DescripcionPiscinaCuevaLuces;
+    return
+    "Son de forma circular y su luz es constante y de un único color, sin parpadeos o variaciones. 
+    Algunas están en el suelo, pero al pasar encima no sientes nada. Otras, están fijas a algún punto 
+    en las paredes y tampoco sientes nada al tocarlas.";
+    ];
+
+    [DescripcionObjetoCuevaLuces;
+    return
+    "Hay cientos de ellos, de las más extrañas formas y colores, fijos en las paredes. Son sumamente 
+    curiosos. Algunos están pegados a la superficie de la pared, y parpadean con luz propia, tenue, 
+    apenas visible. Otros sobresalen un poco y emanan luces y destellos intermitentes, como las 
+    estrellas en la noche.^
+    Se parecen algo a las decoraciones de vuestras herramientas, pero son muchísimo más finos 
+    y compicados.";
+    ];
+    
+    [DescripcionFiguraCuevaLuces;
+    return
+    "Son transparentes y flotan en el aire, moviéndose sin cesar. Algunas te recuerdan a burbujas 
+    líquidas, pero tiene bordes y aristas extraños. Otras son delgadas como hojas de pasto y se quedan 
+    fijas en un sitio. Las más extrañas cambian constantemente y algunas, rodeadas de su propia cohorte 
+    de lucecillas, se aproximan a tí, se detienen y luego se retiran.";
+    ];
+    
+    [DescripcionLucecillaCuevaLuces;
+    return
+    "Son pequeños destellos intermitentes, de colores siempre cambiantes, como insectos revoloteando.";
+    ];        
+            
+    [DescripcionParedesCuevaLuces;
+    return
+    "Al igual que el suelo, no parecen estar ahí, pero existen: solidas y muy lisas.";
+    ];
+    
+Localidad_Ruinas CavernaArdiente "La Caverna Ardiente"
+with
+    descripcion [;
+    if (self hasnt visitado)
+        "Tu corazón te dice que has llegado al verdadero corazón de las ruinas.^
+        Esta caverna no es fría, como las otras; se siente un suave calor.^
+        No es oscura ni iluminada; está nimbada de un aura de luz suave y acogedora, 
+        que da una tonalidad     cálida a todo lo que toca.^
+        En el centro de la caverna se alza un grueso monolito, de formas redondeadas y 
+        suaves, del que parece emanar la luz y calor que impregna el lugar.";
+    else
+        "Estás en la Caverna Ardiente... sintiendo que algo no está bien.^
+        Hace menos frío que en el resto de las ruinas, pero el calor que sientes no concuerda con 
+        los relatos de los Ancianos, que afirman que solo El Protector puede estar en este sitio sin 
+        perecer calcinado.^
+        Salvo el monolito en el centro, aquí no hay nada más.";
+    ],
+    al_e TunelBlanco2;
+    
+    ! Decoracion de Caverna Ardiente
+
+    ObjLocalidad ObjCavernaArdiente "Caverna" CavernaArdiente
+    with
+        nombre 'caverna',
+    has femenino;
+    
+    DecoradoAmpliado Decorado_CavernaArdiente CavernaArdiente
+    with
+        describir
+            'pared' DescripcionParedCavernaArdiente G_FEMENINO
+            'paredes' DescripcionParedCavernaArdiente G_FEMENINO + G_PLURAL
+            'forma' DescripcionFormasCavernaArdiente G_FEMENINO
+            'formas' DescripcionFormasCavernaArdiente G_FEMENINO + G_PLURAL
+    ;
+    
+    [DescripcionParedCavernaArdiente;
+    return
+    "Las paredes son de color blanco y están perfectamente alisadas y pulidas; la luz que parece 
+    provenir del monolito se refleja en éllas. Están tibias al tacto.";
+    ];
+    
+    [DescripcionFormasCavernaArdiente;
+    return
+    "Son sumamente extrañas. Algunas están pegadas a la superficie de la protuberancia mientras que 
+    otras sobresalen un poco y emanan luces y destellos intermitentes, como las estrellas en la noche.^
+    Se parecen algo a las decoraciones de vuestras herramientas, pero son muchísimo más finas 
+    y compicadas.";
+    ];
+    
+    ! Objetos de la Caverna Ardiente
+            
+    Object Monolito "Monolito" CavernaArdiente
+    with
+        nombre 'monolito',
+        adjetivos 'gigantesco',
+        descripcion [; print
+            "El monolito es gigantesco, de base ligeramente redonda, elevándose muy por encima de tí hasta 
+            perderse en el techo lejano. Es de formas redondeadas y suaves, y parece emanar la luz y el 
+            suave calor que permean el lugar.^
+            En uno de sus costados hay una extraña protuberancia.";
+            if (Protuberancia in Limbo)
+                move Protuberancia to CavernaArdiente;
+        ],
+    has masculino escenario;
+        
+    Object Protuberancia "Protuberancia" Limbo
+    with
+        nombre 'protuberancia',
+        adjetivos 'extrana',
+        descripcion [; print 
+            "La protuberancia sale de un costado del monolito, y como este sus bordes son redondeados y suaves. 
+            Tiene una superficie lisa. En el centro de la superficie hay un agujero, rodeado de formas curiosas.";
+            if (Agujero in Limbo)
+                move Agujero to CavernaArdiente;
+        ],
+    has femenino escenario;
+
+    Object Agujero "Agujero" Limbo
+    with
+        nombre 'agujero',
+        adjetivos 'redondo',
+        descripcion [; print
+            "El agujero es pequeño, con contorno redondo. Parece ser muy profundo, siguiendo una linea derecha. 
+            Al fondo, te parece distinguir un resplandor, semejante a la luz que emana del monolito, pero más 
+            fuerte.^ 
+            El calor del monolito se siente con mayor fuerza cerca del agujero.";
+            if (self hasnt general)
+                give self general;
+        ],
+        capacidad 1,
+        reaccionar_antes [;
+            Meter:
+                if ((uno ~= Barra) && (otro == self))
+                    "Eso es demasiado grande para que entre por el agujero.";
+        ],
+    has masculino recipiente abierto ~abrible escenario;
+
+! Riberas del Lago Ardiente
+
+Localidad_Ribera Playa "La Playa del Lago Ardiente"
+with
+    descripcion [; 
+    if (self hasnt visitado){ print
+        "Has llegado a la playa que bordea el Lago Ardiente.^
+        Antes de que El Protector cuidara de la Aldea, este era un sitio muy peligroso, ya que los 
+        Cazadores siempre acechaban en la cercanía del Lago, sobre todo en su playa; aquellos que 
+        quisieran contemplar la belleza del Lago Ardiente lo hacían a riesgo de perder la vida.^
+        Sin embargo, apesar de que El Protector aun duerme, se respira aquí la quietud y la 
+        sensación de seguridad que sólo la presencia de El Protector puede traer; no hay huellas 
+        de Cazadores en la hermosa arena verde y sólo se escucha el ruido del viento, resonando 
+        en el Cañaveral de la Ciénaga cercana.^";
+    } else {    print 
+        "Estás a la orilla del Lago Ardiente.^";
+    if (Protector hasnt general) print 
+        "La quietud y el silencio del lugar te tranquilizan... pero sabes que no puedes demorarte 
+        mucho aquí.^";
+    else print 
+        "Con algo de preocupación, notas que hay huellas de Cazadores en la suave arena. No conviene 
+        demorarse en este lugar más que lo estrictamente necesario.^";
+    }
+    if (Protector hasnt general) print
+        "Hacia el Norte se extienden las Llanuras. Hacia el Sur, puedes ver el Lago Ardiente, de 
+        peligrosa belleza. ";
+    else print
+        "Hacia el Norte se extienden las Llanuras: anhelas verlas, aunque sea una última vez. Hacia 
+        el Sur, queda atrás el Lago Ardiente: su recuerdo a quedado grabado a fuego en tu mente. ";
+    print 
+    "Hacia el Este hay unos Roqueríos y al Oeste está la Ciénaga.";
+    ],
+    cada_turno [; ArrancarDaemon(self); ],
+     cantidad 5,
+     daemon
+     [;
+            if ((Protector hasnt general)||(localizacion~=Playa)) {
+                self.cantidad=5;
+                PararDaemon(self);     
+                rtrue;
+            }
+            if (self.cantidad > 0)
+                self.cantidad--;
+            switch(self.cantidad) {
+                3: "^^La brisa te trae un fuerte olor.";
+                2: "^^Te parece oir un ruido en la arena.^
+                Te das vuelta... pero no se ve nada.";
+                1: "^^¡El olor es fortísmo!^
+                ¡¡El sonido que oiste viene^
+                de dos sitios a la vez!!";
+                0: CazadorMata(); rtrue;
+            };
+    ],
+    al_n LlanuraS,
+    al_s [;
+        if (Conchas hasnt puesto)
+            "No te atreves a adentrarte así sin más en el Lago; arderías hasta consumirte en 
+            ese líquido ígneo.";
+        JugadorA(LagoArdiente);
+        rtrue;],
+!    al_s LagoArdiente,
+    al_e Roquerios,
+    al_o Cienaga;
+
+    ! Decoracion de Playa
+
+    ObjLocalidad ObjPlaya "Caverna" Playa
+    with
+        nombre 'playa',
+    has femenino;
+    
+    DecoradoAmpliado Decorado_Playa Playa
+    with
+        antes [;
+            Sacar, Coger, Tocar, Empujar, BuscarEn, Oler, Comer, Meter:
+            "Al intentar cogerla, la arena se te escapa suavemente, como una hermosa lluvia
+            luminosa...";
+        ], 
+        describir
+            'arena' "La arena es de un hermoso color verde, muy fina, suave y brilla un poco a
+            la luz. Cubre todo el lugar. Donde toma contacto con el lago, la arena parece estar 
+            sólida y semitransparente, con un color amarillo encendido." G_FEMENINO
+    ;
+    
+    DecoradoAmpliado Decorado_HuellasP Limbo
+    with
+        antes [;
+            Oler:
+            "Un olor a almizcle, cálido e intenso, surge de las huellas... y te estremece de terror.^
+            Son muy recientes.";
+        ],
+        describir
+            'huella' DescripcionHuellasPlaya G_FEMENINO
+            'huellas' DescripcionHuellasPlaya G_FEMENINO + G_PLURAL
+            'olor' G_MASCULINO
+    ;
+    
+    [DescripcionHuellasPlaya;
+    return
+    "Las huellas son pequeñas depresiones circulares en el suelo, dispuestas en forma vagamente 
+    circular. La marca más grande está justo al centro.";
+    ];
+    
+    LagoDecorado LagoPlaya "Lago Ardiente" Playa;
+    
+Localidad_Ribera Cienaga "La Ciénaga"
+with
+    descripcion [;
+    if (self hasnt visitado) print
+        "Estás en la Ciénaga, donde el Lago Ardiente se ha mezclado largo tiempo ya con la arena de 
+        la Playa; el suelo está caliente, aunque no quema, y está casi totalmente ocupado por un 
+        denso Cañaveral, formado de juncos morados, altos y fuertes.^
+        Se puede descansar aquí, ya que, incluso antes de El Protector, los Cazadores rara vez venían 
+        a este lugar. Aquí, el viento es la única voz, hablando en su eterno lenguaje de paz 
+        susurrante. Sin embargo, la densidad de los juncos es tal que no hay como llegar desde aquí 
+        al Lago, que apenas se divisa entre las plantas.^
+        La única posibilidad para llegar al Lago es volver a la Playa, al Este.";
+    else print 
+        "Estás en la Ciénaga, rodeado de un denso Cañaveral de juncos morados. El suave murmullo del 
+        viento inunda el lugar de paz.^
+        Sólo volviendo a la Playa al Este es posible acceder al Lago Ardiente.";
+    ],
+    al_e Playa;
+
+    ! Decoracion de Cienaga
+
+    ObjLocalidad ObjCienaga "Cienaga" Cienaga
+    with
+        nombre 'cienaga',
+    has femenino;
+        
+    DecoradoAmpliado Decorado_Cienaga Cienaga
+    with
+        antes [;
+            Sacar, Coger, Tocar, Empujar, BuscarEn, Oler, Comer:
+            "Intentas cogerla, pero apenas hay unos granos aquí y allá. Es inútil...";
+        ], 
+        describir
+            'arena' "La arena se ha mezclado y compactado debido a las raices de los juncos. 
+            Su color verde se ha mezclado con el tono morado de los juncos y apenas quedan 
+            granos sueltos." G_FEMENINO
+    ;
+
+    ! Objetos de la Ciénaga
+    
+    Object JuncosCanaveral "cañaveral" Cienaga
+    with
+        nombre_mp 'juncos',
+        nombre_m 'junco' 'canaveral' 'marjal',
+        adjetivos  'morados' 'morado',
+        descripcion 
+        "Los juncos del Cañaveral son de tonos morados, pasando por el rosa y el violeta. 
+        Crecen altos y muy fuertes, firmemente anclados al blando y caliente suelo de la Ciénaga. 
+        Están muy cerca unos de otros, formando un marjal impenetrable. Te parece ver que el 
+        lago moja sus bordes, aunque a los juncos no parece afectarlos.",
+        antes [;
+            Empujar : "Intentas abrirte camino, pero el Cañaveral es demasiado denso.";
+            Comer : "Pruebas darles un mordisco, pero resultan demasiado duros para ti.";
+            Tocar :
+                if (    (otro == FlorFuego) && (FlorFuego in jugador))
+                    <<Quemar self FlorFuego>>;
+                else if ((otro == Antorcha) && (Antorcha has encendido) && (Antorcha in jugador))
+                    <<Quemar self Antorcha>>;
+            Cortar, Tirar :
+                if ( (JuncosLargos in Limbo) && (JuncosLargos hasnt general) ) {
+                    give JuncosLargos general;
+                    move JuncosLargos to Jugador;
+                    "Buscando entre los juncos del Cañaveral, logras encontrar unos juncos sueltos, 
+                    bastante largos, de color violeta.";
+                } else if ( (JuncosCortos in Limbo) && (JuncosCortos hasnt general) ){
+                    give JuncosCortos general;
+                    move JuncosCortos to Jugador;
+                    "Buscando entre los juncos del Cañaveral, logras encontrar unos juncos sueltos, 
+                    más bien cortos, de color rosa.";
+                } else
+                "Tiras con todas tus fuerzas, pero los juncos, aunque se estiran un poco, no salen de 
+                su sitio en el Cañaveral. Ni siquiera logras exponer las raices.";
+            Encender, Quemar, Frotar : 
+                if ( ( (otro == FlorFuego) && (FlorFuego in jugador) ) ||
+                ( (otro == Antorcha) && (Antorcha has encendido) && (Antorcha in jugador) ) ){
+                    "Contemplas con asombro que los juncos son incombustibles. Eso explica cómo 
+                    consiguen crecer a orillas del Lago.";
+                } else 
+                "Necesitas algo que dé chispas o con fuego para encenderlos.";                
+        ],
+        despues [;
+            BuscarEn, Examinar :
+                if ( (JuncosLargos in Limbo) && (JuncosLargos hasnt general) ) {
+                    move JuncosLargos to localizacion;
+                    give JuncosLargos general;
+                    "Buscando entre los juncos del Cañaveral, logras encontrar unos juncos sueltos, 
+                    bastante largos, de color violeta.";
+                } else if ( (JuncosCortos in Limbo) && (JuncosCortos hasnt general) ){
+                    move JuncosCortos to localizacion;
+                    give JuncosCortos general;
+                    "Buscando entre los juncos del Cañaveral, logras encontrar unos juncos sueltos, 
+                    más bien cortos, de color rosa.";
+                } else rtrue;
+        ],
+        
+    has masculino escenario oculto comestible;
+    
+    Object JuncosLargos "juncos largos" Limbo
+    with
+        nombre_mp 'juncos',
+        nombre_m 'junco',
+        adjetivos 'largos' 'largo' 'violeta',
+        inicial "Hay unos juncos largos de color violeta, sueltos entre el Cañaveral.",
+        descripcion [; print
+            "Son juncos del Cañaveral, bastante largos, de un intenso color violeta.";
+            if (self hasnt general)
+                " Los juncos cuelgan del Saliente, sólidamente atados a éste.";
+        ],
+        antes [;
+            Comer : "Pruebas darles un mordisco, pero resultan demasiado duros para ti.";
+            Tocar :
+                if (    (otro == FlorFuego) && (FlorFuego in jugador))
+                    <<Quemar self FlorFuego>>;
+                else if ((otro == Antorcha) && (Antorcha has encendido) && (Antorcha in jugador))
+                    <<Quemar self Antorcha>>;
+                else if (otro ofclass LagoDecorado) {
+                    "Contemplas con asombro que los juncos son incombustibles. Eso explica cómo 
+                    consiguen crecer a orillas del Lago.";
+                }
+            Atar, Entrelazar:
+                if (otro==Saliente) {
+                    give self ~general;
+                    move self to Abismo;
+                    "Al atarlos así, queda una cuelga más bien corta. Mirándolos, dudas que te alcancen para    
+                    descender por el Abismo.";
+                } else if ((otro==self)||(otro==0)) {
+                    move self to Limbo;
+                    move Soga to Jugador;
+                    "Atando los juncos largos entre sí, consigues una soga sumamente larga y 
+                    resistente.";
+                } else "No tiene sentido atar los juncos de esa manera";
+            Cortar:
+                "Tiras con todas tus fuerzas, pero los juncos, aunque se estiran un poco, no se 
+                cortan ni se deshilachan. Son hojas mucho más resistentes que el pasto Grafeck.";
+            Encender, Quemar, Frotar : 
+                if ( ( (otro == FlorFuego) && (FlorFuego in jugador) ) ||
+                ( (otro == Antorcha) && (Antorcha has encendido) && (Antorcha in jugador) ) ||
+                (otro ofclass LagoDecorado) ){
+                    "Contemplas con asombro que los juncos son incombustibles. Eso explica cómo 
+                    consiguen crecer a orillas del Lago.";
+                } else 
+                "Necesitas algo que dé chispas o con fuego para encenderlos.";
+            Dejar : 
+                if (localizacion ofclass Localidad_Lago){
+                    move self to localizacion;
+                    "Los juncos flotan en la superficie del lago; contemplas con asombro que los juncos 
+                    son incombustibles. Eso explica cómo consiguen crecer a orillas del Lago.";
+                } else rfalse;
+            Lanzar :
+                if ( ( (localizacion ofclass Localidad_Ribera) || 
+                (localizacion ofclass Localidad_Lago) ||
+                (localizacion == PiesColina) ) && (otro ofclass LagoDecorado) )    {
+                    if (localizacion~=Cienaga) {
+                        move self to localizacion;
+                        print "Los juncos flotan en la superficie del lago";
+                        if ((localizacion ofclass Localidad_Ribera) || 
+                        (localizacion == PiesColina)) print
+                            " y el oleaje pronto los deja a tus pies, en la orilla";
+                        print 
+                        "; contemplas con asombro que los juncos son incombustibles. Eso explica 
+                        cómo consiguen crecer a orillas del Lago.";
+                        rtrue;
+                    } else <<Dejar self>>;
+                } else <<Dejar self>>;
+        ],
+    has masculino nombreplural comestible;
+
+    Object JuncosCortos "juncos cortos" Limbo
+    with
+        nombre_mp 'juncos',
+        nombre_m 'junco',
+        adjetivos 'cortos' 'corto' 'rosa',
+        inicial "Hay unos juncos cortos de color rosa, sueltos entre el Cañaveral.",
+        descripcion "Son juncos del Cañaveral, más bien cortos, de un intenso color violeta.",
+        antes [;
+            Comer : "Pruebas darles un mordisco, pero resultan demasiado duros para ti.";
+            Tocar :
+                if (    (otro == FlorFuego) && (FlorFuego in jugador))
+                    <<Quemar self FlorFuego>>;
+                else if ((otro == Antorcha) && (Antorcha has encendido) && (Antorcha in jugador))
+                    <<Quemar self Antorcha>>;
+                else if (otro ofclass LagoDecorado) {
+                    "Contemplas con asombro que los juncos son incombustibles. Eso explica cómo 
+                    consiguen crecer a orillas del Lago.";
+                }
+            Atar : "No tiene sentido atar los juncos de esa manera";
+            Cortar :
+                "Tiras con todas tus fuerzas, pero los juncos, aunque se estiran un poco, no se 
+                cortan ni se deshilachan. Son hojas mucho más resistentes que el pasto Grafeck.";
+            Encender, Quemar, Frotar : 
+                if ( ( (otro == FlorFuego) && (FlorFuego in jugador) ) ||
+                ( (otro == Antorcha) && (Antorcha has encendido) && (Antorcha in jugador) ) ||
+                (otro ofclass LagoDecorado) ){
+                    "Contemplas con asombro que los juncos son incombustibles. Eso explica cómo 
+                    consiguen crecer a orillas del Lago.";
+                } else 
+                "Necesitas algo que dé chispas o con fuego para encenderlos.";
+            Lanzar :
+                if ( ( (localizacion ofclass Localidad_Ribera) || 
+                (localizacion == PiesColina) ) && (otro ofclass LagoDecorado) )    {
+                    if (localizacion~=Cienaga) {
+                        move self to localizacion;
+                        "Los juncos flotan en la superficie del lago y el oleaje pronto los deja a tus 
+                        pies, en la orilla; contemplas con asombro que los juncos son incombustibles. 
+                        Eso explica cómo consiguen crecer a orillas del Lago.";
+                    } else <<Dejar self>>;
+                } else <<Dejar self>>;
+        ],
+    has masculino nombreplural comestible;
+    
+    Object Soga "soga de juncos" Limbo
+    with
+        nombre 'soga' 'cuerda',
+        adjetivos 'juncos',
+        descripcion [; print
+            "Es una larga soga de juncos del Cañaveral, de un intenso color violeta.";
+            if (self has general)
+                " La soga cuelga del Saliente, sólidamente atada a éste.";
+        ],
+        antes [;
+            Comer : "Pruebas darle un mordisco, pero resulta tan dura como los juncos de los 
+            que está hecha.";
+            Tocar :
+                if (    (otro == FlorFuego) && (FlorFuego in jugador))
+                    <<Quemar self FlorFuego>>;
+                else if ((otro == Antorcha) && (Antorcha has encendido) && (Antorcha in jugador))
+                    <<Quemar self Antorcha>>;
+            Atar :
+                if (otro==Saliente) {
+                    give self general;
+                    move self to Abismo;
+                    "Al atarla así, queda una cuelga bastante larga; te parece que debiera bastar 
+                    para descender por el Abismo.";
+                } else "No tiene sentido atar la soga de esa manera";
+            Cortar:
+                "Tiras con todas tus fuerzas, pero la soga, aunque se estira un poco, no se 
+                corta ni se deshilacha.";
+            Encender, Quemar, Frotar : 
+                if ( ( (otro == FlorFuego) && (FlorFuego in jugador) ) ||
+                ( (otro == Antorcha) && (Antorcha has encendido) && (Antorcha in jugador) ) ||
+                (otro ofclass LagoDecorado) ){
+                    "Contemplas con asombro que la soga de juncos es incombustible. Eso explica cómo 
+                    los juncos consiguen crecer a orillas del Lago.";
+                } else 
+                "Necesitas algo que dé chispas o con fuego para encenderla.";
+            Dejar : 
+                if (localizacion ofclass Localidad_Lago){
+                    move self to localizacion;
+                    "La soga flota en la superficie del lago; contemplas con asombro que la soga de 
+                    juncos es incombustible. Eso explica cómo consiguen crecer a orillas del Lago.";
+                } else rfalse;
+            Lanzar :
+                if ( ( (localizacion ofclass Localidad_Ribera) ||
+                (localizacion ofclass Localidad_Lago) || 
+                (localizacion == PiesColina) ) && (otro ofclass LagoDecorado) )    {
+                    if (localizacion~=Cienaga) {
+                        move self to localizacion;
+                        print "La soga flota en la superficie del lago";
+                        if ((localizacion ofclass Localidad_Ribera) || 
+                        (localizacion == PiesColina)) print
+                            " y el oleaje pronto la deja a tus pies, en la orilla";
+                        print 
+                        "; contemplas con asombro que la soga de juncos es incombustible. Eso explica 
+                        cómo consiguen crecer a orillas del Lago.";
+                        rtrue;
+                    } else <<Dejar self>>;
+                } else <<Dejar self>>;
+        ],
+    has femenino comestible;
+    
+    LagoDecorado LagoCienaga "Lago Ardiente" Cienaga;
+        
+Localidad_Ribera Roquerios "Los Roquerios"
+with
+    descripcion [;
+    if (self hasnt visitado) print
+        "Estás en los Roqueríos, donde las Rocas son lamidas constantemente por el oleaje del
+        Lago Ardiente. El sonido del oleaje, suave pero constante, te tranquiliza.^
+        Es un lugar seguro, ya que los escasos cangrejos que pululan aquí y allá no son una 
+        presa interesante para los Cazadores.^
+        Las rocas se tornan escarpadas hacia el Este y el Norte. Son demasiado afiladas, por lo 
+        demás, como para tratar de treparlas o entrar al Lago desde aquí.^
+        La única posibilidad para llegar al Lago es volver a la Playa, al Oeste.";
+    else print 
+        "Estás en los Roqueríos, lamidos por un oleaje que no cesa.^
+        Sólo volviendo a la Playa al Oeste es posible acceder al Lago Ardiente.";
+    ],
+    al_o Playa,
+    al_e
+    "Las rocas son demasiado afiladas como para tratar de treparlas. No puedes ir hacia allá.",
+    al_n
+    "Las rocas son demasiado afiladas como para tratar de treparlas. No puedes ir hacia allá.",
+    al_s
+    "El oleaje es demasiado fuerte; si no mueres calcinado, el lago te despedazaría contra 
+    las rocas.";
+
+    ! Decoracion de Roqueríos
+    
+    DecoradoAmpliado Decorado_Roquerios Roquerios
+    with
+        antes [;
+            Sacar, Coger, Tocar, Empujar, BuscarEn, Oler, Comer:
+            "Intentas cogerlos, pero se escabullen rápidamente dando largos saltos.";
+        ], 
+        describir
+            'cangrejo' DescripcionCangrejosRoquerios G_MASCULINO
+            'cangrejos' DescripcionCangrejosRoquerios G_MASCULINO + G_PLURAL
+    ;
+
+    
+    [DescripcionCangrejosRoquerios;
+    return
+    "Son muy pequeños, de forma vagamente triangular. El color de su caparazón es violeta intenso 
+    con vetas azules y anaranjadas. Andan a pequeños saltos, buscando quién sabe que, ya que no 
+    se ve nada salvo rocas, arena... y más cangrejos.";
+    ];
+    
+    DecoradoAmpliado Decorado_ArenaRoquerios Roquerios
+    with
+        antes [;
+            Sacar, Coger, Tocar, Empujar, BuscarEn, Oler, Comer:
+            "Intentas cogerla, pero está demasiado caliente...";
+        ], 
+        describir
+            'arena' "La arena se encuentra aquí dispersa entre las rocas, y su color es más 
+            bien amarillo o verde pálido." G_FEMENINO
+    ;    
+    
+    ! Objetos de los Roqueríos
+    
+    Object Rocas "rocas" Roquerios
+    with
+        nombre_f 'roca',
+        nombre_fp 'rocas',
+        nombre_m 'roquerio',
+        nombre_mp 'roquerios',
+        descripcion 
+        "Las rocas, de un vivo color verde, están esparcidas por todas partes en este lugar, 
+        dificultando mucho el avance. El lago las golpea continuamente, con un ritmo suave y 
+        constante que nunca cesa. Allí donde se retiran las olas, la roca brilla de un color 
+        amarillo intenso por unos instantes, y luego se va enfriando de a poco, mientras la 
+        espuma ardiente escurre de vuelta al lago.",
+        despues [;
+            BuscarEn, Examinar :
+                if (Conchas in Limbo){
+                    move Conchas to Roquerios;
+                    "Buscando entre los roqueríos, logras encontrar unas viejas conchas de algún 
+                    animal del Lago.";
+                } else rtrue;
+        ],
+    has femenino nombreplural escenario oculto;
+
+    Object Conchas "conchas" Limbo
+    with
+        nombre_fp 'conchas',
+        nombre_f 'concha',
+        inicial "Hay un par de conchas entre las rocas.",
+        descripcion [;
+            if (self hasnt puesto)
+                "Son caparazones de algún animal del Lago que, tal vez, quedó varado entre las 
+                rocas. De color escarlata, con bordes curvados hacia adentro, son durísimas al 
+                tacto y ni siquiera están calientes, aunque han estado largo tiempo entre las 
+                rocas: el lago las ha pulido hasta dejarlas muy suaves al tacto.";
+            else
+                "Las conchas se adaptan muy bien a tus pies, que quedan enteramente protegidos. 
+                Los bordes curvos de las conchas incluso te permiten balancearte un poco hacia los 
+                lados, sin caerte ni perder el equilibrio.";
+        ],
+        antes [;
+            Tocar :
+                if (    (otro == FlorFuego) && (FlorFuego in jugador))
+                    <<Quemar self FlorFuego>>;
+                else if ((otro == Antorcha) && (Antorcha has encendido) && (Antorcha in jugador))
+                    <<Quemar self Antorcha>>;
+                else if (otro ofclass LagoDecorado) {
+                    "Las conchas resisten el fuego y el calor sin siquiera entibiarse.";
+                }
+            Dejar : 
+                if (localizacion ofclass Localidad_Lago)
+                    <<Desvestir self>>;
+                else rfalse; 
+            Desvestir :
+                if (self has puesto) { 
+                    if (localizacion ofclass Localidad_Lago){
+                        "No te atreves a sacarte las conchas en medio del Lago; arderías hasta 
+                        consumirte en ese líquido ígneo.";
+                    } else {
+                        give self ~puesto;
+                        move JuncosCortos to Jugador;
+                        "Cuidadosamente desatas los juncos cortos de tus piernas y te quitas las 
+                        Conchas de los pies.";
+                    };
+                } else "¿Cómo? No las llevas puestas...";
+            Vestir, Atar :
+                if (self hasnt puesto) {
+                    if ((otro==JuncosCortos) || ((otro==0)&&(JuncosCortos in Jugador))){
+                        if ((localizacion~=PiesColina)&&
+                            (localizacion~=Playa)){
+                            "No crees que se pueda avanzar en este terreno con las conchas puestas.";
+                        } else {
+                            give JuncosCortos general;
+                            move JuncosCortos to Limbo;
+                            give self puesto;
+                            "Con cuidado, te pones las conchas en los pies y las atas firmemente a tus 
+                            piernas usando los juncos cortos.";
+                        };
+                    } else if ((otro==JuncosLargos) || 
+                    ((otro==0)&&(JuncosCortos notin Jugador)&&(JuncosLargos in Jugador)) ) {
+                        "Los juncos son demasiado largos para atar las conchas a tus piernas. 
+                        Necesitas juncos un poco más cortos.";
+                    } else 
+                    "Las Conchas no se adhieren a tus pies; necesitas algo resistente con que 
+                    atarlas a tus piernas";
+                } else "¿Para qué? Ya las llevas puestas...";
+            Encender, Quemar, Frotar : 
+                if ( ( (otro == FlorFuego) && (FlorFuego in jugador) ) ||
+                ( (otro == Antorcha) && (Antorcha has encendido) && (Antorcha in jugador) ) ||
+                (otro ofclass LagoDecorado) ){
+                    "Las conchas resisten el fuego y el calor sin siquiera entibiarse.";
+                } else 
+                "Necesitas algo que dé chispas o con fuego para encenderlas.";
+            Lanzar :
+                if ( ( (localizacion ofclass Localidad_Ribera) || 
+                (localizacion == PiesColina) ) && (otro ofclass LagoDecorado) )    {
+                    if (localizacion~=Cienaga) {
+                        move self to localizacion;
+                        print "Las conchas flotan en la superficie del lago";
+                        if ((localizacion ofclass Localidad_Ribera) || 
+                        (localizacion == PiesColina)) print
+                            " y el oleaje pronto las deja a tus pies, en la orilla";
+                        print 
+                        "; las conchas resisten el fuego y el calor sin cambiar de aspecto.";
+                        rtrue;
+                    } else <<Dejar self>>;
+                } else if (localizacion ofclass Localidad_Lago)
+                    <<Desvestir self>>;
+                else <<Dejar self>>;
+        ],
+        reaccionar_antes [;
+            Ir: localizacion_anterior = localizacion;
+        ],
+        reaccionar_despues [;
+            Ir : 
+                if (    (localizacion_anterior ~= LagoArdiente) && (localizacion ~= LagoArdiente) &&
+                    (self has puesto)    ){ print 
+                    "No te parece que puedas moverte bien en ese terreno llevando las conchas puestas.";
+                    ! Devolver al jugador al lugar previo
+                    jugadorA(localizacion_anterior,1);
+                    rtrue;
+                } 
+!                else 
+!                if ( (localizacion_anterior ~= LagoArdiente) && (localizacion == LagoArdiente) &&
+!                    ( (self hasnt puesto) || (self in Limbo) ) ) { print
+!                    "No te atreves a adentrarte así sin más en el Lago; arderías hasta consumirte en 
+!                    ese líquido ígneo.";
+!                    ! Devolver al jugador al lugar previo
+!                    jugadorA(localizacion_anterior,1);
+!                    rtrue;
+!                };
+        ],
+    has femenino nombreplural prenda;
+    
+    LagoDecorado LagoRoquerios "Lago Ardiente" Roquerios;
+    
+! El Lago Ardiente
+
+Localidad_Lago LagoArdiente "El Lago Ardiente"
+with
+    descripcion [;
+    if (Protector hasnt general){
+        if (self hasnt visitado) print
+            "Habiéndote protegido, estás en condiciones de cruzar el Lago sin peligro.^
+            Los relatos de los Ancianos de la Aldea cuentan que no siempre existió el Lago, 
+            que alguna vez hubo aquí un profundo valle con llanuras como la que rodea tu aldea.^
+            Qué ocurrió para que el valle se transformara en este oceáno de lava siempre ardiente, 
+            los Ancianos no lo saben. Los relatos, sin embargo, indican que la lava no es el único 
+            peligro en este mar de fuego...^
+            Si enfilas tu pasos al Norte, llegarás a la Playa; si decides ir al Sur, llegarás 
+            a las Colinas.";
+        else 
+            "Estás en medio del Lago Ardiente, rodeado por su ígnea belleza.^
+            Hacia el Norte divisas la Playa, mientras que al Sur están las Colinas.";
+    } else if (self hasnt general) { print
+        "Una vez más te dispones a cruzar el Lago Ardiente, con el ánimo en alto, 
+        ya que estás en camino a cumplir con éxito tu misión. Los reflejos igneos de la superficies 
+        apenas te distraen, ya que tienes prisa y el tiempo es vital: cada momento que demores 
+        aumenta el peligro de que seas atacado por los Cazadores en lo que resta de la ruta.^
+        Debes seguir hacia el Norte; hacia el Sur volverías, sin propósito, a las Colinas.";
+        give self general;
+    } else
+        "Te demoras en el Lago, no sabes bien por qué. Tu destino está al Norte, de regreso a la 
+        Aldea y no en medio del Lago, ni mucho menos en las Colinas al Sur.";
+    ],
+    al_n Playa,
+    al_s PiesColina,
+    al_e "En esa dirección el Lago se pierde en la distancia y no crees que tu protección 
+    resista el viaje.",
+    al_o "En esa dirección el Lago se pierde en la distancia y no crees que tu protección 
+    resista el viaje.";
+
+    ! Objetos del Lago Ardiente
+    
+    LagoDecorado LagoLagoArdiente "Lago Ardiente" LagoArdiente
+    with
+    descripcion
+    "Es un verdadero océano de lava ardiente y fluida.^
+    Los relatos de los Ancianos de la Aldea cuentan que no siempre existió el Lago, 
+    que alguna vez hubo aquí un profundo valle con llanuras como la que rodea tu aldea.^
+    Qué ocurrió para que el valle se transformara en este mar ígneo, los Ancianos no 
+    lo saben. Los relatos, sin embargo, indican que la lava no es el único peligro en 
+    este mar de fuego...^
+    El lago es muy extenso al Este y Oste. El calor que surge de su superficie es apenas 
+    soportable."
+    ;
+
+! La Colina
+
+Localidad_Colina PiesColina "Los Pies de la Colina"
+with
+    descripcion [;
+    if (Protector hasnt general){
+        if (self hasnt visitado) print
+            "Por fin has llegado a los pies de la Colina, en cuya cima está tu meta.^
+            Los Ancianos cuentan que antes de que el Lago llenara el valle, la colina era la parte 
+            superior de una gigantesca montaña. En su relatos se afirma que la montaña está hueca, 
+            y que algunas partes de su interior están bajo la superficie del Lago Ardiente.^
+            Supuestamente, algunas criaturas voladoras hacen su nidos por estos lados, por lo que 
+            hay que estar alerta: algunas de esas criaturas también son Cazadores.
+            Puedes comenzar a trepar la ladera de la Colina. Si deseas volver al Lago, deberás ir 
+            al Norte.";
+        else print 
+            "Estás en los pies de la Colina, con el Lago Ardiente cerca tuyo al Norte.^
+            La ladera de la Colina parece invitarte a treparla.";
+    } else if (self hasnt general) { print 
+        "Has descendido por fin a los pies de la Colina. Vuelves la vista para contemplar la 
+        cima de la Colina, y rindes silencioso tributo a los misterios que alberga. Las leyendas 
+        de los Ancianos eran ciertas...^
+        Frente a tí esta el Lago, que has de cruzar rumbo al Norte para cumplir tu misión. Podrías 
+        subir a la ladera una vez más, pero no tendría objeto: el tiempo apremia.";
+        give self general;
+    } else print "No hay razón para permanecer en los pies de la Colina. Tu destino está allende 
+    la ribera del Lago al Norte. Nada ganarás en este lugar volviendo sobre tus pasos por la 
+    ladera; solo te arriesgas a tí mismo y a El Protector.";
+    ],
+    antes [;
+        Nadar :
+            "Sabes que sería suicidio; la superficie del lago arde con un calor fortísimo, 
+            que se siente apenas acercándose un poco...";
+    ],
+    al_n [;
+        if (Conchas hasnt puesto)
+            "No te atreves a adentrarte así sin más en el Lago; arderías hasta consumirte en 
+            ese líquido ígneo.";
+        JugadorA(LagoArdiente);
+        rtrue;],
+!    al_n LagoArdiente,
+    arriba LaderaColina;
+
+    ! Decoracion de los Pies de la Colina
+
+    ObjLocalidad ObjPiesColina "Colina" PiesColina
+    with
+        nombre 'colina',
+    has femenino;
+    
+    DecoradoAmpliado Decorado_Colina PiesColina
+    with
+        antes [;
+            Examinar: <<Mirar>>;
+        ],
+        describir
+        'colina' G_FEMENINO 
+    ;
+    
+    DecoradoAmpliado Decorado_PiesColina PiesColina
+    with
+    describir
+        'nube' DescripcionNubes G_FEMENINO
+        'nubes' DescripcionNubes G_FEMENINO + G_PLURAL
+        'piedra' DescripcionPiedras G_FEMENINO 
+        'piedras' DescripcionPiedras G_FEMENINO + G_PLURAL
+        'piedrita' DescripcionPiedras G_FEMENINO
+        'piedritas' DescripcionPiedras G_FEMENINO + G_PLURAL
+        'guijarro' DescripcionPiedras G_MASCULINO
+        'guijarros' DescripcionPiedras G_MASCULINO + G_PLURAL
+    ;
+
+    LagoDecorado LagoColina "Lago Ardiente" PiesColina;
+    
+    [DescripcionPiedras;
+    return
+    "Son pequeños guijarros de color marrón claro. Son lisos, desgastados por el viento...
+    completamente secos y sin trazas de vida en ellos.";
+    ];
+        
+Localidad_Colina LaderaColina "La Ladera de la Colina"
+with
+    descripcion [;
+    if (Protector hasnt general ){
+        if (self hasnt visitado) print
+            "Desde lo alto de la ladera de la Colina puedes ver el paisaje a tu alrededor. 
+            Compruebas que el lago es muy extenso al Este y Oste y que se estrecha un poco en la 
+            Playa donde cruzaste.^
+            Un poco más arriba divisas la entrada a una Caverna. Si deciendes, volverás a los pies 
+            de la Colina, a orillas del Lago.";
+        else print 
+            "Estás en la ladera de la Colina, buscando tu camino.^
+            Sobre tí está la entrada a una Caverna. A tus pies, las orillas del Lago.";
+    } else if (self hasnt general){ print 
+        "Comienzas a descender la ladera de la Colina con un paso ligero pero cuidadoso; llevas 
+        contigo a El Protector y no quieres arriesgarte inútilmente a una caída. Solo un poco más 
+        y estarás en condiciones de cruzar el Lago en tu camino de regreso. Podrías volver sobre 
+        tus pasos y ascender a la entrada de la Caverna, pero tu cometido en ese lugar ya está 
+        cumplido.";
+        give self general;
+    } else print
+        "Te demoras en la ladera sin objeto alguno; el camino de regreso es hacia abajo y luego 
+        cruzando el Lago al Norte. Si comienzas a ascender solo volverás a la entrada de la 
+        Caverna, y ahí no hay nada que hacer: ya llevas a El Protector.";
+    ],
+    abajo PiesColina,
+    arriba EntradaCaverna,
+    adentro EntradaCaverna,
+    no_puedes_ir "El terreno es demasiado resbaladizo y escarpado para ir en esa dirección.";
+
+    ! Decoracion de la Ladera de la Colina
+
+    ObjLocalidad ObjLaderaColina "Colina" LaderaColina
+    with
+        nombre 'ladera' 'colina',
+    has femenino;
+    
+    DecoradoAmpliado Decorado_LaderaColina LaderaColina
+    with
+    describir 
+        'piedra' DescripcionPiedras G_FEMENINO 
+        'piedras' DescripcionPiedras G_FEMENINO + G_PLURAL
+        'piedrita' DescripcionPiedras G_FEMENINO
+        'piedritas' DescripcionPiedras G_FEMENINO + G_PLURAL
+        'guijarro' DescripcionPiedras G_MASCULINO
+        'guijarros' DescripcionPiedras G_MASCULINO + G_PLURAL
+    ;
+
+    DecoradoAmpliado Decorado_LaderaColina2 LaderaColina
+    with
+    describir 
+        'nube' DescripcionNubes G_FEMENINO
+        'nubes' DescripcionNubes G_FEMENINO + G_PLURAL
+        'roca' DescripcionRocasLadera G_FEMENINO
+        'rocas' DescripcionRocasLadera G_FEMENINO + G_PLURAL
+        'lago' DescripcionLago G_MASCULINO
+    ;
+        
+    [DescripcionRocasLadera;
+    return
+    "Las rocas son filosas y ásperas, sobresaliendo del suelo aquí y allá. Son del mismo color 
+    desgastado del suelo... y posiblemente del mismo material. Tampoco ves en ellas huellas de 
+    plantas u otra cosa viva.";
+    ];
+    
+    [DescripcionLago;
+    return
+    "Es un verdadero océano de lava ardiente y fluida.^
+    Los relatos de los Ancianos de la Aldea cuentan que no siempre existió el Lago, 
+    que alguna vez hubo aquí un profundo valle con llanuras como la que rodea tu aldea.^
+    Qué ocurrió para que el valle se transformara en este mar ígneo, los Ancianos no 
+    lo saben. Los relatos, sin embargo, indican que la lava no es el único peligro en 
+    este mar de fuego...";
+    ];
+
+Localidad_Colina EntradaCaverna "La Entrada de la Caverna"
+with
+    descripcion [;
+    if (Protector hasnt general){
+        if (self hasnt visitado) print
+        "Has llegado a la entrada a una caverna que penetra en la Colina. Apenas se escucha algún 
+        sonido vago desde su interior. La penumbra del lugar se transforma gradualmente en una 
+        oscuridad absoluta conforme se penetra en el interior de la caverna, siguiendo al Sur.^";
+        else print
+        "Estás en la entrada de la caverna, cada vez más oscura conforme avanzas hacia el Sur.^";
+        print
+        "Se puede volver al Lago descendiendo por la ladera de la Colina.";
+    } else if (self hasnt general){ print 
+    "Estás una vez más en la entrada de la Caverna, y no sabes si lloras de emoción o por la luz 
+    cegadora que te recibe. Estás feliz, pues, habiendo superado las dificultades de los múltiples 
+    recovecos de la Caverna, estás una vez más en la superficie, llevando a El Protector contigo.^
+    Tu destino está allende la otra ribera del Lago, por lo que debes descender primero por la 
+    ladera. Nada hay ya que explorar hacia el Sur: la Caverna no te ofrece ya nada para culminar 
+    con éxito tu misión.";
+    give self general;
+    } else print 
+    "Estás en la entrada de la Caverna, pero no sabes para qué: ya tienes contigo a El Protector y 
+    en los recovecos de la Caverna hacia el Sur sólo perderás el tiempo. Debes continuar con tu 
+    misión, descendiendo primero por la ladera hasta llegar al Lago.";
+    ],
+    abajo LaderaColina,
+    afuera LaderaColina,
+    adentro Tunel1,
+    al_s Tunel1,
+    no_puedes_ir "El terreno es demasiado resbaladizo y escarpado para ir en esa dirección.";
+
+    ! Decoracion de la Entrada de la Caverna
+
+    ObjLocalidad ObjEntradaCaverna "Colina" EntradaCaverna
+    with
+        nombre 'caverna' 'entrada',
+        reaccionar_antes [;
+            Salir, Salirse :
+                JugadorA(LaderaColina);
+                rtrue;
+            Entrar, Meterse :
+                "Ya estás dentro de la Caverna.";
+        ],        
+    has femenino;
+    
+    DecoradoAmpliado Decorado_EntradaCaverna EntradaCaverna
+    with
+    antes [;
+            Sacar, Coger, Tocar, Empujar, BuscarEn:
+            <<Examinar self>>;
+        ],     
+    describir 
+        'roca' DescripcionRocaEntrada G_FEMENINO
+        'lago' DescripcionLago G_MASCULINO
+        'pared' DescripcionRocaEntrada G_FEMENINO
+        'paredes' DescripcionRocaEntrada G_FEMENINO + G_PLURAL
+    ;
+    
+    [DescripcionRocaEntrada;
+    return
+    "La roca desnuda es lisa, color púrpura, con algunas irregularidades menores. 
+    Se puede ver que la exposición al viento de afuera la ha desgastado poco a poco. Al tacto, 
+    es más bien fría y seca.";
+    ];
+    
+! Localidades: La Caverna del Protector
+    
+Localidad_Caverna Tunel1 "Un Túnel de la Caverna"
+with
+    descripcion 
+    "Estás en uno de los múltiples túneles de la Caverna.^
+    Parece haber salidas en todas las direcciones.",
+    al_n EntradaCaverna,
+    al_s Tunel2,
+    al_e Tunel1,
+    al_o Tunel2;
+
+    ! Decoracion del Tunel 1
+
+    ObjLocalidad ObjTunel1 "Tunel" Tunel1
+    with
+        nombre 'tunel',
+    has masculino;
+
+Localidad_Caverna Tunel2 "Un Túnel de la Caverna"
+with
+    descripcion 
+    "Estás en uno de los múltiples túneles de la Caverna.^
+    Parece haber salidas en todas las direcciones.",
+    al_n Tunel3,
+    al_s Tunel2,
+    al_e Abismo,
+    al_o Tunel3;    
+
+    ! Decoracion del Tunel 2
+
+    ObjLocalidad ObjTunel2 "Tunel" Tunel2
+    with
+        nombre 'tunel',
+    has masculino;
+    
+Localidad_Caverna Tunel3 "Un Túnel de la Caverna"
+with
+    descripcion 
+    "Estás en uno de los múltiples túneles de la Caverna.^
+    Parece haber salidas en todas las direcciones.",
+    al_n Tunel3,
+    al_s Tunel1,
+    al_e Tunel1,
+    al_o Tunel3;
+
+    ! Decoracion del Tunel 3
+
+    ObjLocalidad ObjTunel3 "Tunel" Tunel3
+    with
+        nombre 'tunel',
+    has masculino;
+    
+Localidad_Caverna Abismo "El Abismo"
+with
+    descripcion [;
+    if (Protector hasnt general) {
+        if (self hasnt visitado) print
+        "Has llegado al borde de un profundo abismo, que desciende abruptamente a las profundidades. 
+        El calor que impregna toda la caverna parece emanar desde abajo y puedes notar que las 
+        paredes están más húmedas que en otros sitios.^
+        Si bien hay un saliente desgastado en el borde, puedes ver que la pared del abismo 
+        es, hasta donde alcanza la vista en la penumbra, lisa y sin irregularidades.^";
+        else print
+        "Estás en el borde del abismo, cerca de un saliente, contemplando sus insondables y obscuras 
+        profundidades.^";
+        print
+        "Puedes volver por el Oeste al túnel por el que llegaste o intentar descender";
+    } else if (self hasnt general){ print 
+        "Has dejado atrás el abismo, llevando contigo a El Protector. Aunque el ascenso fue agotador, 
+        el saber que estás en camino a cumplir tu misión te da nuevos bríos. Contemplas con profundo 
+        respeto las profundidades, habiendo desvelado los misterios a los que las leyendas de los 
+        Ancianos aludían.^
+        Debes comenzar por salir de la Caverna, volviendo sobre tus pasos por el túnel al Oeste. ";
+        give self general;
+    } else print
+        "Estás frente al abismo... sin razón alguna. Para cumplir con tu misión debes salir de la 
+        Caverna, hacia el Oeste. Intentar una vez más el descenso agotaría tus fuerzas y perderías 
+        un tiempo precioso.";
+    ],
+    al_o Tunel2,
+    abajo [;
+        if ((JuncosLargos in Abismo) && (JuncosLargos hasnt general))
+            "Intentas bajar por la pared del Abismo, pero los juncos son muy cortos y no te 
+            permiten ir muy lejos. Regresas al borde, abatido.";
+        else if ((Soga in Abismo) && (Soga has general)) {
+            PrintAutoPausa("Aferrado a la soga, deciendes lentamente por la pared del Abismo.");
+            JugadorA(TemploProtector);
+            rtrue;
+        } else "No te atreves a descender sin mas por la pared del Abismo; no ves asidero de donde 
+        agarrarte y el descenso se ve peligroso.";
+    ];
+
+    ! Decoracion del Abismo
+
+    ObjLocalidad ObjAbismo "Abismo" Abismo
+    with
+        nombre 'abismo',
+    has masculino;
+        
+    ! Objetos del Abismo
+    
+    Object Saliente "saliente" Abismo
+    with
+        nombre 'saliente',
+        descripcion "Es un trozo de roca liso que está en el borde de la pared del Abismo. Está muy 
+        desgastado, a juzgar por su bordes redondeados, pero se ve sólido: no tiene grietas y soporta 
+        tu peso sin problemas."
+    has masculino escenario oculto;
+
+! Localidades: El Templo de El Protector
+
+Localidad_Templo TemploProtector "El Templo de El Protector"
+with
+    descripcion [;
+    if (Protector hasnt general) {
+        if (self hasnt visitado) {
+            Templo.proyeccion();
+            rtrue;
+        } else print
+        "Estás en el asombroso y extraño Templo de El Protector, buscándolo.^";
+    } else if (self hasnt general){ print 
+        "Despiertas muy descansado, recostado en medio de la elevación, rodeado de las demás Urnas 
+        donde descansará, cuando deba dormir una vez más, El Protector.^
+        No encuentras por ningún sitio la Urna en la que descansaba El Protector que llevas contigo, 
+        y te preguntas qué habrá sido de ella.^
+        Es ahora el momento de iniciar el regreso a la Aldea, y más allá, para poder despertar a El 
+        Protector.^";
+        give self general;
+    } else print
+        "Estás en el Templo de El Protector... perdiendo el tiempo. No es posible abrir las Urnas 
+        restantes, ni sería necesario, ya que llevas a El Protector contigo. Por otra parte, debes 
+        salir de las Cavernas para cumplir tu misión, y quedándote acá nada conseguirás.^";
+    print "La única salida visible es subiendo por la pared por la que viniste";
+    ],
+    arriba Abismo;
+    
+    ! Decoracion del Templo
+
+    ObjLocalidad ObjTemploProtector "templo" TemploProtector
+    with
+        nombre 'templo',
+        descripcion "
+        Estás en una gigantesca Caverna... pero todo lo que puedes ver te hace dudar de que 
+        sigas en el interior de la Colina.... o que estés realmente despierto.^
+        Todo alrededor tuyo tiene una apariencia extraña, completamente distinta a la roca que 
+        existe en las cavernas superiores. Las paredes, el suelo, están cubiertos por formas 
+        extrañas... curvas... rectas... lisas... que te recuerdan algunos relatos infantiles, 
+        contados por los ancianos al amor de las hogueras.^
+        Calor... el calor es fortísimo y la humedad está por todas partes.^
+        Humedad... un líquido muy espeso cae de algun sitio por encima tuyo, y salvo ese goteo 
+        el silencio es absoluto...^
+        Estás, sin duda, en el Templo de El Protector, según te relataron los Ancianos antes de 
+        tu partida.^^
+        Estás en el hogar de El Protector.^",
+        has masculino;
+    
+    Object SogaEnTemplo "Soga" TemploProtector
+    with
+        nombre 'soga' 'cuerda',
+        adjetivos 'colgando' 'violeta' 'juncos',
+        inicial "Colgando junto a una pared, está la soga de juncos por la que bajaste.",
+        descripcion [; print
+            "Es una larga soga de juncos del Cañaveral, de un intenso color violeta. La soga 
+            cuelga junto a una pared.";
+        ],
+        antes [;
+            Tirar, Coger, Cortar :
+                "Tiras con todas tus fuerzas, pero la soga, aunque se estira un poco, no se 
+                corta ni se deshilacha. Está solidamente atada en la saliente al borde del 
+                Abismo, muy lejos por encima tuyo";
+            Tocar :
+                if (    (otro == FlorFuego) && (FlorFuego in jugador))
+                    <<Quemar self FlorFuego>>;
+                else if ((otro == Antorcha) && (Antorcha has encendido) && (Antorcha in jugador))
+                    <<Quemar self Antorcha>>;
+            Encender, Quemar, Frotar : 
+                if ( ( (otro == FlorFuego) && (FlorFuego in jugador) ) ||
+                ( (otro == Antorcha) && (Antorcha has encendido) && (Antorcha in jugador) ) ||
+                (otro ofclass LagoDecorado) ){
+                    "Contemplas con asombro que la soga de juncos es incombustible. Eso explica cómo 
+                    los juncos consiguen crecer a orillas del Lago.";
+                } else 
+                "Necesitas algo que dé chispas o con fuego para encenderla.";
+        ],
+    has femenino estatico comestible;
+    
+    DecoradoAmpliado Decorado_ParedTemploProtector TemploProtector
+    with
+        antes [;
+        BuscarEn, Tocar : 
+            "Las paredes del Templo son inquietantes.^
+            Algunas partes de la pared son casi rocosas y otras partes cerca, en cambio, 
+            elásticas como los juncos.^
+            La humedad está goteando lentamente por todos lados.^
+            La textura de la pared es lisa aquí, rugosa allá... no hay nada uniforme 
+            hasta donde la vista alcanza.^
+            Todo lo que tocas te produce un sensación familiar, algo que no puedes recordar 
+            del todo...";
+        ], 
+        describir
+            'pared' DescripcionParedTemplo G_FEMENINO
+            'paredes' DescripcionParedTemplo G_FEMENINO    + G_PLURAL;
+    
+    [DescripcionParedTemplo;
+    return
+    "La pared está cubierta por extrañas formas curvas, brillantes a la escasa luz. Todo parece estar 
+    cubierto de humedad.";
+    ];
+    
+    DecoradoAmpliado Decorado_ChorrosTemploProtector TemploProtector
+    with
+        antes [;
+        BuscarEn, Tocar : 
+            "Sientes la humedad caliente del aire, saliendo con mucha fuerza. No logras ver 
+            que es lo que genera la humedad, ya que, salvo el lo que cae aqui y allá, no hay 
+            líquido corriendo o en pozas en ningún sitio a la vista.";
+        ], 
+        describir
+            'chorro' DescripcionChorros G_MASCULINO
+            'chorros' DescripcionChorros G_MASCULINO + G_PLURAL;    
+
+    [DescripcionChorros;
+    return
+    "Puedes ver largos chorros de aire húmedo, saliendo a intervalos sumamente regulares en algunos 
+    puntos del suelo.";
+    ];
+    
+    DecoradoAmpliado Decorado_LiquidoTemploProtector TemploProtector
+    with
+        antes [;
+        BuscarEn, Tocar, Coger : 
+            "El líquido es espeso y viscoso, de una fluidez impresionante... y no se evapora.";
+        Oler :
+            "Sorprendente. No huele a nada en lo absoluto.";
+        ], 
+        describir
+            'liquido' "El líquido cae lentamente de algún sitio por encima tuyo. Por más que 
+            te fijas, no ves que se formen pozas en ningún sitio." G_MASCULINO;
+                        
+    ! Objetos del Templo del Protector
+    
+    Object Elevacion "elevación" TemploProtector
+    with
+        inicial [; print
+        "La elevación está al centro del Templo";
+        if (Urnas in Limbo) print
+            ".";
+        else if (Urnas hasnt general) print
+            ", con algunas formas sobre ella.";
+        else print
+            ", con las Urnas de descanso de El Protector sobre ella.";
+        ],
+        nombre 'elevacion' 'meseta',
+        descripcion [; print
+        "La elevación está hecha del mismo extraño material que cubre el resto del 
+        Templo, pero apretado en tal forma que se eleva del nivel del suelo. Sobre la elevación 
+        puedes ver una pequeña meseta, de un material curiosamente liso,";
+        if (Urnas in Limbo)
+            move Urnas to self;
+        if (Urnas hasnt general) print 
+            " sobre la que reposan múltiples formas.";
+        else
+            " sobre la que reposan las Urnas de descanso de El Protector.";
+        ],
+        antes [;
+            BuscarEn: <<Examinar Elevacion>>;
+        ],
+    has femenino soporte estatico;
+    
+    Object Urnas "urnas" Limbo
+    with
+        nombre_fp 'urnas' 'formas',
+        nombre_f 'forma',
+        nombre_mp 'huevos',
+        adjetivos 'extranas',
+        descripcion [; 
+        if (self hasnt general) { print
+            "Las formas sobre la elevación te recuerdan vagamente a un huevo, cada uno casi de tu porte 
+            y de un color más bien opaco. Estas han de ser las Urnas donde, de acuerdo a los relatos de 
+            los Ancianos, descansa El Protector.^
+            Te parece oir un sonido rítmico, que parece emanar de una de las Urnas.";
+            give self general;
+        } else if (Protector hasnt general)
+            "Las Urnas están puestas de un modo ordenado, cubriendo casi toda la meseta. Una de estas 
+            urnas contiene a El Protector, dormido, esperando a que lo despierten de su letargo.^
+            Te parece oir un sonido rítmico, que parece emanar de una de las Urnas.";
+        else
+            "Las Urnas siguen donde estaban, intactas... salvo la que abriste para despertar a 
+            El Protector. Esa Urna no está por sitio alguno y no queda nada sobre la meseta que 
+            indique que alguna vez estuvo ahí.";
+        ],
+        antes [;    
+        Tocar :
+                if (    (otro == FlorFuego) && (FlorFuego in jugador))
+                    <<Quemar self FlorFuego>>;
+                else if ((otro == Antorcha) && (Antorcha has encendido) && (Antorcha in jugador))
+                    <<Quemar self Antorcha>>;
+        Encender, Quemar, Frotar : 
+                if ( ( (otro == FlorFuego) && (FlorFuego in jugador) ) ||
+                ( (otro == Antorcha) && (Antorcha has encendido) && (Antorcha in jugador) ) )
+                "No te atreves a dañarlas. Son los lugares donde descansa El Protector.";
+                 else "Nada tienes para hacer eso.";
+        ],
+        despues[;                
+        BuscarEn, Examinar :
+            if ((UrnaProtector in Limbo) && (Protector hasnt general)){
+                  move UrnaProtector to Elevacion;
+                  "Buscando entre las Urnas de la meseta, logras identificar la fuente del ruido. 
+                  El sonido proviene de una Urna... diferente a todas las demás.";
+              } else if (Protector hasnt general)
+                  "Te sientes curiosamente atraido a la Urna que encontraste.";
+              else "Ya tienes contigo a El Protector. No sigas buscando...";
+          ],
+        
+    has femenino nombreplural escenario oculto;
+    
+    Object UrnaProtector "urna del protector" Limbo
+    with
+        nombre_f 'urna',
+        nombre_m 'huevo',
+        inicial "Entre las urnas de la meseta, se ve la urna cerrada de El Protector",
+        descripcion [; print
+            "La Urna del protector es semejante a las demás en tamaño y forma... ";
+            if (self hasnt transparente) { PrintAutoPausa(
+                "pero su color te desconcierta: se está volviendo cada vez más translúcida. 
+                A la escasa luz de la antorcha te parece que distingues algo en su interior...");
+                print "^¡Es El Protector!";
+                move Protector to self;
+                give self transparente;
+            } else { print
+            "y es completamente transparente. En su interior ves a El Protector. El sonido que hace 
+            mientras duerme es inquietante... como si su sueño fuera agitado.^
+            ¡Tienes que despertarlo!";
+            give self general;
+            }
+        ],
+        antes [;
+            Tocar :
+                if (    (otro == FlorFuego) && (FlorFuego in jugador))
+                    <<Quemar self FlorFuego>>;
+                else if ((otro == Antorcha) && (Antorcha has encendido) && (Antorcha in jugador))
+                    <<Quemar self Antorcha>>;
+                else if ((Protector in self) && (self has general) ){
+                    DespertarProtector.proyeccion();
+                    Sueno.proyeccion();
+                    Despertar.proyeccion();
+                    give Protector general;
+                    move Protector to Jugador;
+                    give Protector ~oculto;
+                    move self to Limbo;
+                    move Decorado_HuellasP to Playa;
+                    move Decorado_HuellasB to BordeParamos;
+                    move Decorado_OlorB to Limbo;
+                    move Decorado_OlorC to CampoFloresFuego;
+                    <<Mirar TemploProtector>>;
+                } else if (self hasnt transparente) 
+                    "Titubeas... ¿es la Urna donde descansa El Protector?";
+                else
+                    "Temes hacerle daño a El Protector... Mejor miras con más cuidado...";
+            BuscarEn : <<Examinar self>>;
+            Encender, Quemar, Frotar : 
+                if ( ( (otro == FlorFuego) && (FlorFuego in jugador) ) ||
+                ( (otro == Antorcha) && (Antorcha has encendido) && (Antorcha in jugador) ) ) {
+                    if (self hasnt transparente)
+                        "No te atreves a dañarla. Puede ser la urna de descansanso de El Protector.";
+                    else
+                        "No te atreves a dañarla. El Protector duerme en ella.";
+                } else "Nada tienes para hacer eso.";
+            Abrir : 
+                if ((Protector in self) && (self has general) ){
+                    DespertarProtector.proyeccion();
+                    Sueno.proyeccion();
+                    Despertar.proyeccion();
+                    give Protector general;
+                    move Protector to Jugador;
+                    give Protector ~oculto;
+                    move self to Limbo;
+                    <<Mirar TemploProtector>>;
+                } else if (self hasnt transparente) 
+                    "Titubeas... ¿es la Urna donde descansa El Protector?";
+                else
+                    "Temes hacerle daño a El Protector... Mejor miras con más cuidado...";
+        ],
+    has femenino recipiente estatico abrible ~abierto oculto;
+
+    Object Protector "Protector" Limbo
+    with
+    articulos "El" "El" "El",
+    nombre 'protector',
+    genero G_MASCULINO,
+    descripcion [;
+        if (self notin Jugador) 
+            "No logras distinguir muchos detalles. Está envuelto en algo...";
+        else
+            "No puedes verle, aunque lo sientes dentro de ti.";
+    ],
+    vida [;
+        Hablar :
+            "Temeroso, pues no quieres despertarlo aun, le hablas con voz queda.^^
+            Le hablas del hermoso templo donde lo encontraste...^
+            Le cuentas del Lago Ardiente, de belleza inenarrable...^
+            Le describes de las anchas llanuras...^
+            Le relatas los detalles de tu periplo...^
+            ...y le pides que te espere un poco más.^
+            Aun no están en un lugar seguro para que despierte.";
+    ],
+    antes [;
+        Tocar, Coger : 
+        if (self in Jugador)
+            "Con añoranza, tocas suavemente tu pecho.^
+            Es lo más cerca que has estado de tocar a El Protector, pues todos lo respetan mucho y 
+            nadie osaría importunarle cuando está despierto.^
+            Pero ahora...^^
+            Suspiras...^
+            Pronto, si tienes mucha suerte, tendrás tu oportunidad...";
+        else
+            "Está fuera de tu alcance, de nada sirve intentar hacer eso.";
+        Escuchar : 
+        if (self in Jugador)
+            "Sientes sus suaves latidos, cada vez más vigorosos.^
+            Pronto despertará...";
+        else
+            "Escuchas el agitado sonido de sus latidos.^
+            Su sueño es intranquilo.";
+        Oler : 
+        if (self in Jugador)
+            "Sientes en tu propia piel su olor característico: agrio y un tanto ácido.^
+            Te reconforta.";
+        else
+            "Sientes su olor, agrio y un tanto ácido. Es... tranquilizador.";
+        Cortar, Quemar, Atacar, Comer, Beber : 
+        if (self in Jugador)
+            "El solo pensar en ello te horroriza y repugna. Eres incapaz de tan horrible acto.";
+        Dejar, Desvestir, Lanzar : 
+        if (self in Jugador)
+            "Irá contigo hasta que despierte... no puedes dejarle.";            
+    ],
+    has oculto animado;
+                            
+! RUTINAS
+
+! Rutina principal y obligatoria de todo juego InformATE!
+[ Inicializar tecla;
+! Esto es para que el juego dé siempre la descripción de la habitación, aunque
+! ya la hayamos visitado
+    modomirar = 2;
+    
+    cambiarJugador(miJugador);
+
+    ! Localización donde comienza el jugador
+    localizacion = Aldea;
+    
+    box "~El Protector~" "Una Fábula Ecológica Breve^" 
+    "Realizado por: Sebastián Armas (Incanus)"
+    "(C) Año 2005"
+    "Release 01.01.03"
+    ""
+    "NO RECOMENDABLE PARA MENORES DE 14 AÑOS"
+    ""
+    "I para Intro"
+    "R para Recuperar una Partida"
+    "Otra para Empezar";
+    
+    @read_char 1 -> tecla;    
+    switch(tecla){
+        'i' :
+            Introduccion1.proyeccion();
+            Introduccion2.proyeccion();
+            Introduccion3.proyeccion();
+            Introduccion4.proyeccion();
+            ! Iniciar ambientador universal
+            ArrancarDaemon(ambientador_universal);
+            rtrue;
+        'r' :
+            ! Iniciar ambientador universal
+            ArrancarDaemon(ambientador_universal);
+            <<Restaurar>>;
+    }
+    
+    ! Iniciar ambientador universal
+    ArrancarDaemon(ambientador_universal);    
+];
+
+! Objeto Ambientador
+! Genera texto aleatorio según clase de localidad
+object ambientador_universal "FX" limbo 
+with 
+daemon [ n;
+    !para dispersar un poco la sucesión de eventos
+    if (random(10)>4) rtrue; 
+
+    if ( (localizacion ofclass Localidad_Aldea) && (localizacion ~= Choza) ){ 
+        n=random(6); 
+        switch (n){ 
+            1: "^Una hermosa mujer pasa caminando frente a tí, ocupada en sus quehaceres diarios.
+                ^La ves marcharse al interior de una choza."; 
+            2: "^Llegan algunos recolectores, cargados de fardos de pasto Grafeck.
+                ^Pronto se dispersan por la aldea.";
+            3: "^Contemplas la aldea a tu alrededor.
+                ^Todo está como siempre."; 
+            4: "^Unos niños pasan corriendo. Envidias brevemente sus juegos y risas sin afán...";
+            5: "^Te llega el suave sonido de un canto de arrullo infantil.";
+            6: "^Algunos recolectores abandonan la aldea, en busca de pasto Grafeck.";
+        } 
+    }
+    
+    if(localizacion ofclass Localidad_Llanura){ 
+        n=random(3); 
+        switch (n){ 
+            1: "^La brisa mueve suavemente los pastos."; 
+            2: "^El viento canta una dulce canción en tus oídos."; 
+            3: "^Contemplas la llanura a tu alrededor.
+                ^Su paz te invade, refrescando tu ánimo."; 
+        } 
+    }
+
+    if(localizacion ofclass Localidad_Flores){ 
+        n=random(3); 
+        switch (n){ 
+            1: "^La brisa mueve suavemente las flores, levantando chispas iridiscentes... suspendidas 
+            un momento en el aire... y que caen, consumidas, nuevamente sobre las flores."; 
+            2: "^Una suave oleada de aire tibio sale de las flores y te acaricia, sensualmente."; 
+            3: "^Contemplas las flores, nimbadas de una suave luz."; 
+        } 
+    }
+    
+    if(localizacion ofclass Localidad_Crater){ 
+        n=random(3); 
+        switch (n){ 
+            1: "^Una ráfaga de aire caliente se levanta del suelo."; 
+            2: "^El viento levanta polvo, obligándote a cubrir tu rostro.
+                ^Sesa, y todo queda en calma"; 
+            3: "^El reflejo del suelo te da en los ojos, cegándote momentáneamente."; 
+        } 
+    }
+
+    if(localizacion ofclass Localidad_Ruinas){ 
+        n=random(3); 
+        switch (n){ 
+            1: "^El eco de un sonido lejano te sobresalta."; 
+            2: "^Sientes tu propia respiración como un ruido estruendoso."; 
+            3: "^Te estremeces, sin motivo aparente."; 
+        } 
+    }
+    
+    if(localizacion ofclass Localidad_Ribera){ 
+        n=random(3); 
+        switch (n){ 
+            1: "^Te llega una suave brisa, entibiada por el Lago cercano."; 
+            2: "^El viento canta una dulce canción, moviendo suavemente los juncos."; 
+            3: "^El rumor de las olas del Lago llega a tus oidos."; 
+        } 
+    }
+    
+    if(localizacion ofclass Localidad_Lago){ 
+        n=random(3); 
+        switch (n){ 
+            1: "^Contemplas la superficie del Lago. Su oleaje es hipnótico..."; 
+            2: "^Una sombra oscura, enorme, cruza bajo tus pies. Desaparece."; 
+            3: "^Una ráfaga de aire caliente se levanta del Lago."; 
+        } 
+    }    
+    
+    if(localizacion ofclass Localidad_Colina){ 
+        n=random(3); 
+        switch (n){ 
+            1: "^Unas pequeñas piedritas caen al mover tus pies."; 
+            2: "^El viento levanta un poco de polvo."; 
+            3: "^Una sombra oscura se cierne sobre ti. Ruido de alas.
+                ^Te quedas inmóvil. Se aleja... y respiras aliviado."; 
+        } 
+    }    
+    
+    if(localizacion ofclass Localidad_Caverna){ 
+        n=random(3); 
+        switch (n){ 
+            1: "^Escuchas ecos lejanos... como un goteo..."; 
+            2: "^La humedad entrecorta tu respiración."; 
+            3: "^El calor sofocante te provoca un ligero mareo. Descansas un poco."; 
+        } 
+    }
+    
+    if(localizacion ofclass Localidad_Templo){ 
+        n=random(3); 
+        switch (n){ 
+            1: "^Escuchas ecos lejanos... como un goteo..."; 
+            2: "^La humedad entrecorta tu respiración."; 
+            3: "^El calor sofocante te provoca un ligero mareo. Descansas un poco."; 
+        } 
+    }
+];
+
+cortometraje Introduccion1
+with
+    descripcion
+    [;
+    style bold;    printAutoPausa(
+    "EL PROTECTOR^^");
+    style roman;
+    
+    printAutoPausa(
+    "Hace ya muchas estaciones que tu aldea es guardada fielmente...^^
+    ...por El Protector.^^");
+    
+    style bold;    printAutoPausa(
+    "~El Protector ahuyenta a los Cazadores.^
+    El Protector siempre está cerca.^
+    El Protector vigila de noche.^
+    El Protector vigila de día.^
+    El Protector los cuida.^^");
+    
+    printAutoPausa(
+    "El Protector es el mejor amigo de la aldea.^
+    La vida era difícil antes de El Protector.~^^");
+    style roman;
+    ]
+;
+
+cortometraje Introduccion2
+with
+    descripcion
+    
+    "Antes de la llegada de El Protector, tu gente vivía atemorizada por 
+    los implacables Cazadores.^^"
+    
+    "Los Cazadores siempre acechaban en los Campos de las Flores de Fuego...^"
+    "y a veces, cuando hacía frío, había que arriesgar la vida.^"
+    "Los Cazadores siempre acechaban cerca del Lago Ardiente...^"
+    "y ver su belleza equivalía a morir.^"
+    "Los Cazadores siempre acechaban en las Llanuras...^"
+    "y era peligroso conseguir alimento.^^"
+    
+    "Pero llegó El Protector.^^"
+    
+    "Y El Protector alejó a los Cazadores más allá de los Páramos.^^^"
+;
+
+cortometraje Introduccion3
+with
+    descripcion
+    [;
+    style bold;    printAutoPausa(    
+    "~El Protector nunca exige nada...^
+    pero, a veces, debe descansar.^^
+    
+    El Protector duerme por poco tiempo...^
+    pero debe ser despertado.~^^");
+    style roman;
+    
+    printAutoPausa(
+    "Porque, si El Protector durmiera demasiado, los Cazadores podrían volver... y la aldea 
+    sería presa fácil para ellos.^^^");
+    
+    printAutoPausa(    
+    "La primera vez que El Protector se echó a dormir     nadie lo supo hasta que casi fue 
+    demasiado tarde, y apenas quedó alguien en la aldea para buscarlo, encontrarlo y despertarlo.^^");
+    
+    printAutoPausa(
+    "La primera vez que El Protector se echó a dormir fue difícil despertarlo... pero la aldea 
+    lo logró, y aprendió como debía hacerlo... y cuándo.^^^");
+    ]
+;
+
+cortometraje Introduccion4
+with
+    descripcion
+        
+    "El Protector no ha sido visto^
+     hace varios días... así que,^
+     una vez más, se ha echado a^
+     dormir.^^"
+     
+     "La aldea te ha elegido^
+     y tendrás el gran Honor^
+     de buscar a El Protector,^
+     y sacarlo de su sueño.^^"
+     
+     "Debes hacerlo^
+     cuanto antes,^
+     pues, pronto,^
+     llegarán los^
+     Cazadores...^^"
+     
+     "Y necesitarán^
+     a El Protecor.^^^^"
+;
+
+cortometraje Templo
+with
+    descripcion
+    "Has llegado a una gigantesca Caverna... pero todo lo que puedes ver te hace dudar de que 
+    sigas en el interior de la Colina.^"
+    "Todo alrededor tuyo tiene una apariencia extraña, completamente distinta a la roca que 
+    hasta hace poco te rodeaba. Las paredes, el suelo, están cubiertos por formas curvas, 
+    sólidas al tacto, pero flexibles en algunos sitios, con extrañas texturas, a veces lisas, 
+    otras rugosas.^"
+    "El calor es fortísimo y la humedad se puede sentir y ver por todas partes. 
+    En algunos sitios, aquí y allá, se pueden ver incluso algunos chorros de aire húmedo, 
+    saliendo a intervalos sumamente regulares.^"
+    "Al centro de la caverna, y en una especie de elevación, puedes ver una pequeña meseta, 
+    sobre la que parece haber algo que no logras distinguir bien.^"
+    "Aparte del irregular goteo de un líquido muy espeso que cae de algun sitio por encima tuyo, 
+    el silencio es absoluto... aunque te parece oir un sonido apagado desde el centro, 
+    en alguna parte de la elevación atiborrada.^"
+    "Estás, sin duda, en el Templo de El Protector, según te relataron los Ancianos antes de 
+    tu partida. Aquí es donde podrás encontrar a El Protector.^"    
+;
+
+cortometraje DespertarProtector
+with
+    descripcion
+    "Apenas te dispones a tocar la Urna, notas un cambio en ella.^"
+    "La parte superior se abre suave y silenciosamente en cuatro... pétalos, como una hermosa flor.^"
+    "Asombrado, te asomas al interior de la Urna. Puedes ver a El Protecor, aun dormido, envuelto 
+    en unas extrañas mantas...^^"
+    
+    "...pero su sueño, agitado, convulso, no cesa.^^"
+    
+    "Necesita que lo despierten.^^"
+    
+    "Lo tocas suavemente.^"
+    "¡Y El Protector se mueve!^"
+    "Y ahora tu empiezas a dormir..."
+;
+
+cortometraje Sueno
+with
+    descripcion
+    "El Protector es el mejor amigo de la aldea.^"
+    "La vida era difícil antes de El Protector.^^"    
+    
+    "Antes de la llegada de El Protector, tu gente vivía atemorizada por 
+    los implacables Cazadores.^^"
+    
+    "La primera vez que El Protector se echó a dormir     nadie lo supo hasta que casi fue 
+    demasiado tarde, y apenas quedó alguien en la aldea para buscarlo, encontrarlo y despertarlo.^^"
+    
+    "La primera vez que El Protector se echó a dormir fue difícil despertarlo... pero la aldea 
+    lo logró, y aprendió como debía hacerlo... y cuándo.^^"
+    
+    "Porque, si El Protector durmiera demasiado, los Cazadores podrían volver... y la aldea 
+    sería presa fácil para ellos.^^"
+        
+    "El Protector nunca exige nada...^
+    pero, a veces, debe descansar.^^"
+    
+    "El Protector duerme por poco tiempo...^
+    pero debe ser despertado.^^"
+;
+
+cortometraje Despertar
+with
+    descripcion
+    "Sientes que el sueño te abandona suavemente...^^"
+    
+    "A medida que despiertas, notas un ligero cambio en tí.^^"
+    
+    "Sientes algo nuevo en tu pecho... e, inspirando con fuerza, sientes un gozo infinito...^^"
+
+    "... pues notas que llevas a El Protector contigo, aun adormilado, pero con un sueño ya 
+    más tranquilo.^^"
+    
+    "Ahora, siguiendo La Tradición, debes encontrar un lugar seguro para despertarlo, donde no 
+    lo acechen los Cazadores en su indefención temprana.^^"
+    
+    "Tu misión aun no termina..."
+;
+
+cortometraje Fin
+with
+    descripcion
+    "La barra se desliza suavemente por el agujero hasta desaparecer de tu vista.^"
+    "Pronto, empiezas a escuchar un suave zumbido. El monolito comienza a brillar con más fuerza, y 
+    la temperatura de la Caverna Ardiente comienza a subir, más y más calor...^"
+    "En la superficie del monolito comienzan a distinguirse unas siluetas opacas. Puedes reconocer 
+    el contorno de otros aldeanos: dibujos hechos en homenaje a aquellos que te antecedieron; los que 
+    enfrentaron múltiples peligros para encontrar a El Protector. Son testimonio de tus antepasados 
+    y antepasadas que se sacrificaron para despertar al Protector y mantener así a la Aldea libre 
+    de amenazas:^"
+    "Segura^"
+    "Libre^"
+    "Feliz^^"
+    "Desde que entraste sabías que ya no había vuelta atrás. Estás cansado y sientes que las fuerzas te 
+    abandonan... pero estás satisfecho: sabes que nadie se atreverá a invadir este lugar y que 
+    El Protector podrá despertar aquí, contigo, y que podrá alzarse nuevamente...^"
+    "Invencible^"
+    "Vigilante^"
+    "Fiel^^"
+    "Te recuestas en un costado del Monolito y mientras te vas adormeciendo, sientes un agudo dolor en el 
+    pecho... cada vez más fuerte. A pesar del dolor y del sueño, intentas mantener los ojos abiertos, para 
+    gozarte en la vista de El Protector, despertando por fin... desearías, talvez, tocarlo...^^"
+    "Pero el sueño cierra finalmente tus ojos...^"
+    "Tus sentidos se van apagando...^"
+    "El dolor va desapareciendo...^^"
+    "Tu respiración se aquieta...^"
+    "Y, mientras te duermes,^"
+    "escuchas, gozoso,^"
+    "¡El chillido!^"
+    "¡El Protector^"
+    "despierta!^"
+;
+
+cortometraje IncendioFlor
+with
+    descripcion
+    "Tus suaves movimientos agitan levemente la Flor de Fuego...^"
+    "y sus pistilos arrojan unas pequeñas chispas luminosas...^"
+    "que caen sobre el pasto, que rápidamente empieza a humear.^^"
+    "Desesperado, intentas pisotear las llamas nacientes, pero tus movimientos no hacen sino esparcir 
+    más polen de la Flor, el que cae suavemente sobre los pastos, encendiéndolo velozmente.^^"
+    "Las llamas de tonos azulados se esparcen rápidamente, rodeándote por completo, propagándose en 
+    oleadas que van cubriendo toda la llanura.^^"
+    "Y mientras pereces en ese oceano de fuego índigo, esperas que los tuyos puedan sobrevivir a este 
+    incendio que parece cubrirte como una manta demasiado cálida..."
+;
+
+cortometraje IncendioAntorcha
+with
+    descripcion
+    "Tus suaves movimientos agitan levemente la Antorcha...^"
+    "y ésta arroja unas pequeñas chispas luminosas...^"
+    "que caen sobre el pasto, que rápidamente empieza a humear.^^"
+    "Desesperado, intentas pisotear las llamas nacientes, pero tus movimientos no hacen sino esparcir 
+    más chispas de la Antorcha, las que caen suavemente sobre los pastos, encendiéndolo velozmente.^^"
+    "Las llamas de tonos azulados se esparcen rápidamente, rodeándote por completo, propagándose en 
+    oleadas que van cubriendo toda la llanura.^^"
+    "Y mientras pereces en ese oceano de fuego índigo, esperas que los tuyos puedan sobrevivir a este 
+    incendio que parece cubrirte como una manta demasiado cálida..."
+;
+
+cortometraje MuerteCazadorBordeParamos
+with
+    descripcion
+    "De pronto, sientes que los Cazadores están aquí...^^"
+    "¡Ahora!^^"
+    "Desde los costados, detrás tuyo, escuchas un ruido de pasos veloces...^"
+    "Te giras para intentar escapar corriendo...^"
+    "...¡Y entonces los ves!^^"
+    "Alcanzas a distinguir tres borrones difusos...^"
+    "Un pelaje gris...^"
+    "¡Picos acerados!...^^"
+    "...y el ruido de tu cuello roto."
+;
+
+cortometraje MuerteCazadorCampoFloresFuego
+with
+    descripcion
+    "De pronto, sientes que los Cazadores están aquí...^^"
+    "¡Ahora!^^"
+    "Delante, escuchas un ruido de pasos veloces...^"
+    "Te giras para intentar escapar corriendo...^"
+    "...¡Y entonces lo ves!^^"
+    "Alcanzas a distinguir un borrón difuso...^"
+    "Unas escamas brillantes...^"
+    "¡Una lengua bifurcada!...^^"
+    "...y el ruido de tu cuello roto."
+;
+
+cortometraje MuerteCazadorPlaya
+with
+    descripcion
+    "De pronto, sientes que los Cazadores están aquí...^^"
+    "¡Ahora!^^"
+    "Desde los costados, detrás tuyo, escuchas un ruido de pasos veloces...^"
+    "Te giras para intentar escapar corriendo...^"
+    "...¡Y entonces los ves!^^"
+    "Alcanzas a distinguir dos borrones difusos...^"
+    "Plumas de colores...^"
+    "¡Fauces abiertas!...^^"
+    "...y el ruido de tu cuello roto."
+;
+
+cortometraje MuerteBarra
+with
+    descripcion
+    "El dolor que sentías hacia rato se te hace ahora insoportable, y caes al suelo.^^"
+    "La Barra Luminosa cae contigo...^"
+    "Y parece demorarse una eternidad...^"
+    "antes de, finalmente,^"
+    "caer al suelo...^^"
+    "Sientes una profunda debilidad y, por más que tratas, no logras reincorporarte.^"
+    "Con espanto, ves que donde tocaste la Barra Luminosa tienes una llaga sangrante... una llaga que 
+    está creciendo ante tus ojos, que apenas logras mantener abiertos.^"
+    "El dolor, agudo, lacerante, se apodera de todo tu cuerpo, como si te estuvieras consumiendo en 
+    el Lago Ardiente.^^"
+    "Mientras pierdes la conciencia,^"
+    "piensas en las advertencias^"
+    "sobre los Tesoros Malditos...^"
+    "...lamentas tu fracaso...^"
+    "...y tienes un último recuerdo^"
+    "aterrorizado,^"
+    "de los rugidos y gritos^"
+    "de los despiadados Cazadores."
+;
+
+cortometraje MuerteSinBarra
+with
+    descripcion
+    "El dolor que sentías hacia rato se te hace ahora insoportable, y caes al suelo.^^"
+    "Sientes una profunda debilidad y, por más que tratas, no logras reincorporarte.^"
+    "Con espanto, ves que donde tocaste la Barra Luminosa tienes una llaga sangrante... una llaga que 
+    está creciendo ante tus ojos, que apenas logras mantener abiertos.^"
+    "El dolor, agudo, lacerante, se apodera de todo tu cuerpo, como si te estuvieras consumiendo en 
+    el Lago Ardiente.^^"
+    "Mientras pierdes la conciencia,^"
+    "piensas en las advertencias^"
+    "sobre los Tesoros Malditos...^"
+    "...lamentas tu fracaso...^"
+    "...y tienes un último recuerdo^"
+    "aterrorizado,^"
+    "de los rugidos y gritos^"
+    "de los despiadados Cazadores."
+;
+
+! LINEAS DE GRAMATICA
+
+! Definiciones para Atar
+Extend 'ata'
+* noun 'con' noun -> Atar;
+
+! Definiciones para Entrelzar
+[entrelazarSub; 
+print "No puedes entrelazar ", (el) uno, ".^"; 
+]; 
+
+Verb 'entrelaza' 
+* held -> entrelazar 
+* held 'entre' 'si'-> entrelazar; 
+
+Extend 'ata' last 
+* held 'entre' 'si' -> entrelazar;  
+
+
+! Definiciones para Encender
+Extend 'enciende'
+* noun 'con' noun -> Encender;
+
+Extend 'toca'
+* noun 'con' noun -> Tocar;
+
+! Definiciones para Vestir
+Extend 'viste'
+* noun 'con' noun -> Vestir;
+
+! Definiciones para Correr
+Verb 'correr'
+* noun -> Empujar;
+Verb 'aparta'
+* noun -> Empujar;
+
+! Definiciones para Descorrer
+!Verb 'descorrer'
+!* noun -> Empujar;
+
+! Definiciones para ayuda
+Verb 'ayuda'
+ * -> ayuda
+ * topic ->ayuda;
+
+! Definiciones para pistas
+Verb 'pistas'
+ * -> pistas
+ * topic ->pistas;
+ 
+! RUTINAS VERBOSUB
+
+[AyudaSub ; 
+
+ ZIPI_RunMenuT(ZIPI_Menu0);
+ @erase_window $ffff;
+ JugadorA(localizacion);
+
+];
+
+![CorrerSub; 
+!"No hay nada para correr por aquí";
+!];
+
+[PistasSub ; 
+
+ ZIPI_RunMenuT(ZIPI_Menu3);
+ @erase_window $ffff;
+ JugadorA(localizacion);
+
+];

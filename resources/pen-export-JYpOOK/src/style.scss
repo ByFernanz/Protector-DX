@@ -1,0 +1,47 @@
+body {
+  height: 100vh;
+  overflow: hidden;
+}
+
+#stage {
+  position: relative;
+  width: 800px;
+  height: 600px;    
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -100%);  
+}
+
+path {
+  fill: none;
+  stroke: green;
+}
+
+button {  
+  border: 1px solid rgba(0,0,0,0.2);
+  font-weight: bold;  
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);  
+  text-transform: uppercase;
+  transition: all 0.5s ease;
+  line-height: 1.6;
+  padding: 8px 18px;
+  background: #FFC107;
+  color: #555;
+  
+  &:focus {
+    outline: none;
+  }
+  
+  &:hover {
+    border: 1px solid rgba(0,0,0,0.5);
+    color: #000;
+  }
+}
+
+.hud {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 15px;
+}
+

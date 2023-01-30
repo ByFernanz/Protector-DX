@@ -1,0 +1,13 @@
+Autor: Incanus
+
+Título: El Protector
+
+Género: Sci-fi
+
+Tipo: Conversacional sin gráficos.
+
+Plataforma: Inform 6.30 for Win32 (27th Feb 2004) con InformATE! 6/10 biplataforma
+
+Resúmen: El Protector cuida a la aldea y la protege. Pero cuando el protector se echa a dormir alguien debe despertarlo ¿A qué estás dispuesto para cumplir tu misión?
+
+Para empezar, abre el archivo "protector.html" con un browser.
